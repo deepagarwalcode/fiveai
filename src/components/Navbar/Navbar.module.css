@@ -1,0 +1,43 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4vh 8vw;
+  width: 100%;
+  /* background-color: ; */
+  backdrop-filter: blur(4px);
+  z-index: 1 !important;
+  position: fixed;
+  top: 0;
+  color: white;
+  font-size: 1rem;
+}
+
+.logo {
+  font-family: Clash Display;
+  font-size: 2rem;
+}
+
+.menu_items {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  font-weight: 600;
+}
+
+.menu_items > div{
+    cursor: pointer;
+}
+
+.menu_items > div:hover{
+    text-decoration: underline;
+}
+
+.join_waitlist {
+  background-color: #ff7f50;
+  padding: 1.2vh 1.2vw;
+  border-radius: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

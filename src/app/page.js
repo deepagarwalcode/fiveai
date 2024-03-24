@@ -1,21 +1,23 @@
-import Image from "next/image";
+
 import styles from "./page.module.css";
-import LogoParticles from "@/components/LogoParticles";
-import ParticleRing from "@/components/Particles";
 import Neurons from "@/components/Neurons";
-import Test from "@/components/Test";
-import WithSphere from "@/components/WithSphere";
 import Morphing from "@/components/Morphing";
+import Title from "@/components/Opening/Title";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default function Home() {
+
+
   return (
-    <div>
-      {/* <LogoParticles /> */}
-      {/* <WithSphere /> */}
-      <Morphing />
-      {/* <Test /> */}
-      {/* <Neurons /> */}
-      {/* <ParticleRing/> */}
-    </div>
+    // <Suspense fallback={null}>
+      <div>
+        <Navbar />
+        <div className={styles.opening}>
+          <Morphing />
+          <Title />
+        </div>
+        <Neurons />
+      </div>
+    // </Suspense>
   );
 }

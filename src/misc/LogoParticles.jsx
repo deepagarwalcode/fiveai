@@ -112,6 +112,22 @@ const LogoParticles = () => {
     );
 };
 
+const CameraPositionLogger = () => {
+  const { camera } = useThree();
+  const cameraRef = useRef();
+
+  useEffect(() => {
+    if (cameraRef.current) {
+      cameraRef.current.addEventListener('change', () => {
+        console.log('Camera Position:', camera.position);
+      });
+    }
+  }, [camera]);
+
+  return <OrbitControls ref={cameraRef} />;
+};
+
+
 const CameraController = () => {
   const { camera, gl } = useThree();
   const cameraRef = useRef();

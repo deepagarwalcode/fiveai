@@ -1,110 +1,103 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
-import styles from "./LogoParticles.module.css";
+import React, { useEffect, useMemo, useRef, useState, Suspense } from "react";
+import styles from "./Neurons.module.css";
 import {
   OrbitControls,
   PointMaterial,
   shaderMaterial,
   Sphere,
   useGLTF,
+  useScroll,
+  ScrollControls,
 } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { extend } from "@react-three/fiber";
-import particleVertex from "../shaders/particles/vertex.glsl";
-import particleFragment from "../shaders/particles/fragment.glsl";
+import particleVertex from "../shaders/neuron_particles/vertex.glsl?raw";
+import particleFragment from "../shaders/neuron_particles/fragment.glsl?raw";
+import gsap from "gsap";
+import { getProject, val } from "@theatre/core";
+
+import {
+  SheetProvider,
+  PerspectiveCamera,
+  useCurrentSheet,
+} from "@theatre/r3f";
+import flyThroughState from "../lib/fly-through.json"
 
 const Neurons = () => {
-  // const model = useLoader(GLTFLoader, '/models/five-3d-logo.glb');
-  // console.log(model)
+
+  const sheet = getProject("Fly Through", {state: flyThroughState}).sheet("Scene");
+
   let particles = {};
 
-  // const ParticleShaderMaterial = shaderMaterial(
-  //   {
-  //     uSize: new THREE.Uniform(1),
-  //     uResolution: new THREE.Uniform(
-  //       new THREE.Vector2(window.innerWidth, window.innerHeight)
-  //     ),
-  //     uProgress: new THREE.Uniform(0), // Update for animation (see useFrame)
-  //     uColorA: new THREE.Uniform(new THREE.Color("#ffffff")),
-  //     uColorB: new THREE.Uniform(new THREE.Color("#ffffff")),
-  //   },
-  //   particleVertex,
-  //   particleFragment
-  // );
+  const neuronGeometry = useGLTF("/models/system.glb");
 
-  // declaratively
-  // extend({ ParticleShaderMaterial });
+  // console.log(neuronGeometry);
 
-  const model = useGLTF("/models/system.glb");
-  // const model = useGLTF("/models/mid_poly.glb");
-  // const model = useGLTF("/models/five-3d-logo.glb");
-  // const model = useGLTF('/models/neuron_final_copy.glb')
-  // console.log(model.scene);
-  // const scale = 1;
-  // model.scene.rotation.x = Math.PI / 2;
-  // model.scene.position.y = -1 * scale;
+  const factor = 1;
 
-  console.log(model.scene);
-
-  const factor = 5
+  const cameraPosition = [
+    -0.3277834258804101, 2.3106249609219893, 1.0880734148165658,
+  ];
 
   particles.maxCount =
-    model.scene.children[1].geometry.attributes.position.count/factor;
-
-  // console.log(particles.maxCount)
-
-  const position = model.scene.children[1].geometry.attributes.position;
-
-  const sizesArray = new Float32Array(particles.maxCount);
-
-  for (let i = 0; i < particles.maxCount; i++) {
-    sizesArray[i] = Math.random();
-  }
+    neuronGeometry.scene.children[0].geometry.attributes.position.count /
+    factor;
 
   particles.positions = [];
 
-  const originalArray = position.array;
-  const newArray = new Float32Array(particles.maxCount * 3);
+  const randomsArray = new Float32Array(particles.maxCount);
+
+  for (let i = 0; i < particles.maxCount; i++) {
+    randomsArray[i] = Math.random();
+  }
+
+  // NEURON START
+
+  const neuronModel = neuronGeometry;
+
+  const neuronPosition =
+    neuronModel.scene.children[0].geometry.attributes.position;
+
+  const neuronOriginalArray = neuronPosition.array;
+  const neuronNewArray = new Float32Array(particles.maxCount * 3);
 
   for (let i = 0; i < particles.maxCount; i++) {
     const i3 = i * 3;
-    if (i3*factor < originalArray.length) {
-      newArray[i3 + 0] = originalArray[i3*factor + 0] / 10;
-      newArray[i3 + 1] = originalArray[i3*factor + 1] / 10;
-      newArray[i3 + 2] = originalArray[i3*factor + 2] / 10;
+    if (i3 * factor < neuronOriginalArray.length) {
+      neuronNewArray[i3 + 0] =
+        neuronOriginalArray[i3 * factor + 0] / 10 + randomsArray[i + 0] * 0.1;
+      neuronNewArray[i3 + 1] =
+        neuronOriginalArray[i3 * factor + 1] / 10 + randomsArray[i + 1] * 0.1;
+      neuronNewArray[i3 + 2] =
+        neuronOriginalArray[i3 * factor + 2] / 10 + randomsArray[i + 2] * 0.1;
     } else {
-      const randomIndex = Math.floor(position.count * Math.random()) * 3;
-      newArray[i3 + 0] = originalArray[randomIndex + 0] / 10;
-      newArray[i3 + 1] = originalArray[randomIndex + 1] / 10;
-      newArray[i3 + 2] = originalArray[randomIndex + 2] / 10;
+      const randomIndex = Math.floor(neuronPosition.count * Math.random()) * 3;
+      neuronNewArray[i3 + 0] =
+        neuronOriginalArray[randomIndex + 0] / 10 +
+        randomsArray[randomIndex + 0] * 0.1;
+      neuronNewArray[i3 + 1] =
+        neuronOriginalArray[randomIndex + 1] / 10 +
+        randomsArray[randomIndex + 1] * 0.1;
+      neuronNewArray[i3 + 2] =
+        neuronOriginalArray[randomIndex + 2] / 10 +
+        randomsArray[randomIndex + 2] * 0.1;
     }
   }
 
-  particles.positions.push(new THREE.Float32BufferAttribute(newArray, 3));
-  const positionsArray = particles.positions[0].array;
+  particles.positions.push(new THREE.Float32BufferAttribute(neuronNewArray, 3));
+  const neuronPositionsArray = particles.positions[0].array;
 
-  particles.geometry = new THREE.BufferGeometry();
-  particles.geometry.setAttribute("position", particles.positions);
-
-  // particles.material = new THREE.ShaderMaterial({
-  //   blending: THREE.AdditiveBlending,
-  //   depthWrite: false,
-  // });
-
-  particles.points = new THREE.Points(particles.geometry, particles.material);
-
-  // console.log(positionsArray);
-
-  const finalArray = Array.from(
-    { length: positionsArray.length / 3 },
+  const neuronFinalArray = Array.from(
+    { length: neuronPositionsArray.length / 3 },
     (v, k) => k + 1
   ).map((num) => {
-    const randomOffset = sizesArray[num] * 0;
-    const x = positionsArray[num * 3 + 0] + randomOffset;
-    const y = positionsArray[num * 3 + 1] + randomOffset;
-    const z = positionsArray[num * 3 + 2] + randomOffset;
+    const randomOffset = randomsArray[num] * 1;
+    const x = neuronPositionsArray[num * 3 + 0] + randomOffset;
+    const y = neuronPositionsArray[num * 3 + 1] + randomOffset;
+    const z = neuronPositionsArray[num * 3 + 2] + randomOffset;
 
     return {
       idx: num,
@@ -112,103 +105,214 @@ const Neurons = () => {
     };
   });
 
-  // console.log(finalArray);
+  // NEURON END
 
-  // console.log(particles.points);
+  // CONSTANT SPHERE START
+  let constSphereParticles = {};
 
-  // console.log(particles.positions)
-  if (model?.scene)
-    return (
+  constSphereParticles.positions = [];
+
+  const constSphereGeometry = new THREE.SphereGeometry(36, 32, 32);
+
+  const constSphereModel = constSphereGeometry;
+
+  constSphereGeometry.rotateX(Math.PI / 2);
+
+  const constSpherePosition = constSphereModel.attributes.position;
+
+  const constSphereOriginalArray = constSpherePosition.array;
+  const constSphereNewArray = new Float32Array(particles.maxCount * 3);
+  const constSphereFinalArray = new Float32Array(particles.maxCount * 3);
+
+  for (let i = 0; i < particles.maxCount; i++) {
+    const i3 = i * 3;
+    if (i3 * factor < constSphereOriginalArray.length) {
+      constSphereNewArray[i3 + 0] =
+        constSphereOriginalArray[i3 * factor + 0] + randomsArray[i + 0] * 2;
+      constSphereNewArray[i3 + 1] =
+        constSphereOriginalArray[i3 * factor + 1] + randomsArray[i + 1] * 2;
+      constSphereNewArray[i3 + 2] =
+        constSphereOriginalArray[i3 * factor + 2] + randomsArray[i + 2] * 2;
+
+      constSphereFinalArray[i3 + 0] =
+        constSphereOriginalArray[i3 * factor + 0] + randomsArray[i + 0] * 20;
+      constSphereFinalArray[i3 + 1] =
+        constSphereOriginalArray[i3 * factor + 1] + randomsArray[i + 1] * 20;
+      constSphereFinalArray[i3 + 2] =
+        constSphereOriginalArray[i3 * factor + 2] + randomsArray[i + 2] * 20;
+    } else {
+      const randomIndex =
+        Math.floor(constSpherePosition.count * Math.random()) * 3;
+      constSphereNewArray[i3 + 0] =
+        constSphereOriginalArray[randomIndex + 0] +
+        randomsArray[randomIndex + 0] * 2;
+      constSphereNewArray[i3 + 1] =
+        constSphereOriginalArray[randomIndex + 1] +
+        randomsArray[randomIndex + 1] * 2;
+      constSphereNewArray[i3 + 2] =
+        constSphereOriginalArray[randomIndex + 2] +
+        randomsArray[randomIndex + 2] * 2;
+
+      constSphereFinalArray[i3 + 0] =
+        constSphereOriginalArray[randomIndex + 0] +
+        randomsArray[randomIndex + 0] * 20;
+      constSphereFinalArray[i3 + 1] =
+        constSphereOriginalArray[randomIndex + 1] +
+        randomsArray[randomIndex + 1] * 20;
+      constSphereFinalArray[i3 + 2] =
+        constSphereOriginalArray[randomIndex + 2] +
+        randomsArray[randomIndex + 2] * 20;
+    }
+  }
+
+  constSphereParticles.positions.push(
+    new THREE.Float32BufferAttribute(constSphereNewArray, 3)
+  );
+  const constSpherePositionsArray = constSphereParticles.positions[0].array;
+
+  // const constSphereFinalArray = Array.from(
+  //   { length: spherePositionsArray.length / 3 },
+  //   (v, k) => k + 1
+  // ).map((num) => {
+  //   const randomOffset = randomsArray[num] * 3;
+  //   const x = constSpherePositionsArray[num * 3 + 0] + randomOffset;
+  //   const y = constSpherePositionsArray[num * 3 + 1] + randomOffset;
+  //   const z = constSpherePositionsArray[num * 3 + 2] + randomOffset;
+
+  //   return {
+  //     idx: num,
+  //     position: [x, y, z],
+  //   };
+  // });
+
+  constSphereParticles.positions.push(
+    new THREE.Float32BufferAttribute(constSphereFinalArray, 3)
+  );
+
+  constSphereParticles.geometry = new THREE.BufferGeometry();
+  constSphereParticles.geometry.setAttribute(
+    "position",
+    constSphereParticles.positions[1]
+  );
+  constSphereParticles.geometry.setAttribute(
+    "aPositionTarget",
+    constSphereParticles.positions[1]
+  );
+  constSphereParticles.geometry.setAttribute(
+    "aSize",
+    new THREE.BufferAttribute(randomsArray, 1)
+  );
+
+  // Material
+  constSphereParticles.colorA = "#ffffff";
+  constSphereParticles.colorB = "#ffffff";
+  constSphereParticles.material = new THREE.ShaderMaterial({
+    vertexShader: particleVertex,
+    fragmentShader: particleFragment,
+    uniforms: {
+      uSize: { value: 1 },
+      uResolution: {
+        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+      },
+      uProgress: { value: 0 }, // Updated initialization
+      uColorA: { value: new THREE.Color(constSphereParticles.colorA) },
+      uColorB: { value: new THREE.Color(constSphereParticles.colorB) },
+    },
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+
+  // Points
+  constSphereParticles.points = new THREE.Points(
+    constSphereParticles.geometry,
+    constSphereParticles.material
+  );
+
+  // console.log(constSphereParticles);
+
+  // CONSTANT SPHERE END
+
+  // Geometry
+  particles.geometry = new THREE.BufferGeometry();
+  particles.geometry.setAttribute("position", particles.positions[0]);
+  particles.geometry.setAttribute("aPositionTarget", particles.positions[0]);
+  particles.geometry.setAttribute(
+    "aSize",
+    new THREE.BufferAttribute(randomsArray, 1)
+  );
+
+  // Material
+  particles.colorA = "#FF7F50";
+  particles.colorB = "#ffffff";
+  particles.material = new THREE.ShaderMaterial({
+    vertexShader: particleVertex,
+    fragmentShader: particleFragment,
+    uniforms: {
+      uSize: { value: 1 },
+      uResolution: {
+        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+      },
+      uProgress: { value: 0 }, // Updated initialization
+      uColorA: { value: new THREE.Color(particles.colorA) },
+      uColorB: { value: new THREE.Color(particles.colorB) },
+    },
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+  });
+
+  // Points
+  particles.points = new THREE.Points(particles.geometry, particles.material);
+
+  return (
+    <Suspense fallback={null}>
+
       <div className={styles.container}>
         <Canvas
           className={styles.canvas}
           style={{ height: "100vh" }}
+          gl={{ preserveDrawingBuffer: true }}
         >
-          <directionalLight />
-          {/* <pointLight position={[-30, 0, -30]} power={10.0} /> */}
-          <OrbitControls />
 
-          <PointLogo finalArray={finalArray} sizesArray={sizesArray} />
+          <ScrollControls damping={1} maxSpeed={1} pages={10}>
+            <SheetProvider sheet={sheet}>
+              <Scene
+                neuronParticles={particles.points}
+                bgParticles={constSphereParticles.points}
+              />
+            </SheetProvider>
+          </ScrollControls>
         </Canvas>
       </div>
-    );
-};
+    </Suspense>
 
-const PointLogo = ({ finalArray, sizesArray  }) => {
-  // console.log(pointsInner);
-
-  return (
-    <group>
-      {finalArray.map((point, index) => (
-        <Point key={point.idx} position={point.position} size={sizesArray[index]} />
-      ))}
-    </group>
-  );
-};
-
-const Point = ({ position, size }) => {
-  const ParticleMaterial = shaderMaterial({
-    uSize: 1,
-    uResolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
-    uProgress: 0, // Update for animation (see useFrame)
-    uColorA: new THREE.Color("#ff2876"),
-    uColorB: new THREE.Color("#ffffff"),
-  },
-  particleVertex,
-  particleFragment
-  );
-
-  extend({ParticleMaterial})
-
-  const segments = 12; // Adjust for smoothness
-  const radius = 0.02; // Adjust size as needed
-
-  const geometry = new THREE.BufferGeometry();
-  const vertices = [];
-
-  for (let i = 0; i <= segments; i++) {
-    const theta = Math.PI * 2 * (i / segments);
-    const x = radius * Math.cos(theta);
-    const y = radius * Math.sin(theta);
-    vertices.push(x, y, 0); // Assuming flat circle (z = 0)
-  }
-
-  geometry.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(vertices, 3)
-  );
-
-  return (
-    <Sphere position={position} args={[0.2*size, 10, 10]}>
-    {/* <mesh position={position} geometry={geometry}> */}
-      {/* <meshStandardMaterial
-        emissive={"white"}
-        emissiveIntensity={0.5}
-        roughness={1}
-        color={"white"}
-      >
-      </meshStandardMaterial> */}
-      {/* <PointMaterial /> */}
-      <meshBasicMaterial color={"#ff2876"}/>
-
-      {/* <shaderMaterial
-        vertexShader={particleVertex}
-        fragmentShader={particleFragment}
-        uniforms={{
-          uSize: new THREE.Uniform(1),
-          uResolution: new THREE.Uniform(
-            new THREE.Vector2(window.innerWidth, window.innerHeight)
-          ),
-          uProgress: new THREE.Uniform(0), // Update for animation (see useFrame)
-          uColorA: new THREE.Uniform(new THREE.Color("#ff1045")),
-          uColorB: new THREE.Uniform(new THREE.Color("#ffffff")),
-        }}
-      /> */}
-      {/* <particleMaterial /> */}
-    {/* </mesh> */}
-
-     </Sphere>
   );
 };
 
 export default Neurons;
+
+//
+
+const Scene = ({ neuronParticles, bgParticles }) => {
+  const sheet = useCurrentSheet();
+  const scroll = useScroll();
+
+  useFrame(() => {
+    const sequenceLength = val(sheet.sequence.pointer.length);
+    sheet.sequence.position = scroll.offset * sequenceLength;
+  });
+
+  return (
+    <>
+      <primitive object={neuronParticles} />
+      <primitive object={bgParticles} />
+      <PerspectiveCamera
+        theatreKey="Camera"
+        makeDefault
+        position={[0, 0, 0]}
+        fov={75}
+        near={0.1}
+        far={100}
+      />
+    </>
+  );
+};
