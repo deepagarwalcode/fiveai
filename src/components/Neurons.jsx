@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState, Suspense } from "react";
+import React, { useEffect, useMemo, useRef, useState, Suspense, useLayoutEffect } from "react";
 import styles from "./Neurons.module.css";
 import {
   OrbitControls,
@@ -25,6 +25,7 @@ import {
   useCurrentSheet,
 } from "@theatre/r3f";
 import flyThroughState from "../lib/fly-through.json"
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Neurons = () => {
 
@@ -263,10 +264,45 @@ const Neurons = () => {
   // Points
   particles.points = new THREE.Points(particles.geometry, particles.material);
 
+  const containerRef = useRef(null)
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const scrollDisperse2 = () => {
+      gsap.to(containerRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: `${window.innerHeight * 3} bottom`,
+          markers: true,
+          onEnter: () => {
+            gsap.fromTo(containerRef.current,{
+              opacity: 0,
+            }, {
+              opacity: 1,
+              duration: 2,
+              delay: 2
+            })
+
+          },
+          onLeaveBack: () => {
+            gsap.to(containerRef.current, {
+              opacity: 0,
+              duration: 2
+            })
+          }
+        },
+        // value: 0,
+      });
+    };
+
+    scrollDisperse2();
+  }, []);
+
   return (
     <Suspense fallback={null}>
 
-      <div className={styles.container}>
+      <div className={styles.container} ref={containerRef}>
         <Canvas
           className={styles.canvas}
           style={{ height: "100vh" }}

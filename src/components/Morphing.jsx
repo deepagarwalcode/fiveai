@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styles from "./Morphing.module.css";
 import {
   OrbitControls,
@@ -16,6 +22,7 @@ import { extend } from "@react-three/fiber";
 import particleVertex from "../shaders/particles/vertex.glsl?raw";
 import particleFragment from "../shaders/particles/fragment.glsl?raw";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Morphing = () => {
   let particles = {};
@@ -268,7 +275,6 @@ const Morphing = () => {
     constSphereParticles.material
   );
 
-
   // CONSTANT SPHERE END
 
   // State to keep track of the current shape
@@ -306,12 +312,21 @@ const Morphing = () => {
   // Points
   particles.points = new THREE.Points(particles.geometry, particles.material);
 
+  const containerRef = useRef(null);
+
   const morphShape = () => {
     if (particles.material.uniforms.uProgress.value === 0) {
       gsap.to(particles.material.uniforms.uProgress, {
         value: 1,
         duration: 5,
         delay: 1,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(particles.material.uniforms.uProgress, {
+        value: 0,
+        duration: 5,
+        delay: 0,
         ease: "power3.out",
       });
     }
@@ -321,7 +336,13 @@ const Morphing = () => {
         value: 1,
         duration: 5,
         delay: 1,
-
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(constSphereParticles.material.uniforms.uProgress, {
+        value: 1,
+        duration: 5,
+        delay: 1,
         ease: "power3.out",
       });
     }
@@ -333,8 +354,92 @@ const Morphing = () => {
     }
   }, []);
 
+  const scene1Ref = useRef(null);
+  // const scene2Ref = useRef(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const scrollDisperse1 = () => {
+      gsap.to(particles.material.uniforms.uProgress, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top+=400 top",
+          // end: "top+=1500 top",
+          // scrub: true,
+          // markers: true,
+          // toggleActions: "restart none none reverse",
+          onEnter: () => {
+            gsap.to(particles.material.uniforms.uProgress, {
+              value: 0.6,
+              duration: 8,
+              delay: 0,
+              ease: "power3.out",
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(particles.material.uniforms.uProgress, {
+              value: 1,
+              duration: 3,
+              delay: 0,
+              ease: "power3.out",
+            });
+          }
+        },
+        // value: 0,
+      });
+    };
+
+    const scrollDisperse2 = () => {
+      gsap.to(particles.material.uniforms.uProgress, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: `${window.innerHeight * 3} bottom`,
+          // markers: true,
+          onEnter: () => {
+            gsap.to(constSphereParticles.material.uniforms.uProgress, {
+              value: 0,
+              duration: 8,
+              delay: 0,
+              ease: "power3.out",
+            });
+            gsap.to(containerRef.current, {
+              opacity: 0,
+              duration: 2
+            })
+            gsap.to(containerRef.current, {
+              display: "none",
+              delay: 2
+            })
+          },
+          onLeaveBack: () => {
+            gsap.to(containerRef.current, {
+              display: "block",
+              // delay: 2
+            })
+            gsap.to(constSphereParticles.material.uniforms.uProgress, {
+              value: 1,
+              duration: 8,
+              delay: 0,
+              ease: "power3.out",
+            });
+
+            gsap.to(containerRef.current, {
+              opacity: 1,
+              duration: 2
+            })
+          }
+        },
+        // value: 0,
+      });
+    };
+
+    scrollDisperse1();
+    scrollDisperse2();
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={containerRef}>
       <Canvas className={styles.canvas} style={{ height: "100vh" }}>
         <CameraController />
         {/* <OrbitControls /> */}
