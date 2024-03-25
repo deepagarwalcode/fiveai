@@ -1,13 +1,14 @@
 .container{
-    position: absolute;
-    top: 202vh;
+    position: sticky;
+    top: 0;
     left: 0;
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
+    transform: translateY(-100vh);
+
 }
 
 .canvas{
     background-color: #101010;
-    /* transform: translateY(-100vh); */
     /* height: 50vh; */
 }

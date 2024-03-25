@@ -407,16 +407,8 @@ const Morphing = () => {
               opacity: 0,
               duration: 2
             })
-            gsap.to(containerRef.current, {
-              display: "none",
-              delay: 2
-            })
           },
           onLeaveBack: () => {
-            gsap.to(containerRef.current, {
-              display: "block",
-              // delay: 2
-            })
             gsap.to(constSphereParticles.material.uniforms.uProgress, {
               value: 1,
               duration: 8,
@@ -426,7 +418,8 @@ const Morphing = () => {
 
             gsap.to(containerRef.current, {
               opacity: 1,
-              duration: 2
+              duration: 2,
+              delay: 0.4
             })
           }
         },

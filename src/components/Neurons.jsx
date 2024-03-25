@@ -269,26 +269,32 @@ const Neurons = () => {
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    gsap.to(containerRef.current, {
+      opacity: 0,
+    })
+
     const scrollDisperse2 = () => {
       gsap.to(containerRef.current, {
         scrollTrigger: {
           trigger: containerRef.current,
-          start: `${window.innerHeight * 3} bottom`,
-          markers: true,
+          start: `${window.innerHeight * 1 - 10} bottom`,
+          // markers: true,
           onEnter: () => {
-            gsap.fromTo(containerRef.current,{
-              opacity: 0,
-            }, {
+            gsap.to(containerRef.current,{
+              zIndex: 2
+            })
+            gsap.to(containerRef.current,{
               opacity: 1,
               duration: 2,
-              delay: 2
+              delay: 0.8,
             })
 
           },
           onLeaveBack: () => {
             gsap.to(containerRef.current, {
               opacity: 0,
-              duration: 2
+              duration: 2,
+              zIndex: 0
             })
           }
         },
