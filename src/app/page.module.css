@@ -1,10 +1,14 @@
-.opening{
-    height: 300vh;
-    width: 100%;
-    background-color: #101010;
+.opening {
+  height: 300vh;
+  width: 100%;
+  background-color: #101010;
 }
 
-.neuron{
-    height: 0;
-    background-color: #101010;
+.neuron {
+  /* height: 100vh; */
+  background-color: #101010;
+  /* transform: translateY(-100vh); */
+  /* margin-bottom: -100vh; */
+
+  /* transform: translateY(-100vh); */
 }

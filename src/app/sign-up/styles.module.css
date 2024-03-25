@@ -1,0 +1,61 @@
+.waitlist{
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background-color: #101010;
+    background: url('/image.png');
+    height: 100vh;
+    width: 100%;
+    color: white;
+    padding: 0 8vw;
+    gap: 8vw;
+}
+
+.logo_img{
+    flex: 3;
+    /* border: 1px solid white; */
+}
+
+.logo_img > img{
+    width: 100%;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 4vh;
+    flex: 3;
+}
+
+.title{
+    font-family: Clash Display;
+    font-size: 8vh;
+}
+
+.label{
+    font-weight: 600;
+    font-size: 2.2vh;
+}
+
+.input{
+    border: none;
+    /* outline: none; */
+    padding: 1.2vh 1vw;
+    border-radius: 0.8vh;
+    /* border: 0.1px solid gray; */
+    /* box-shadow: 0 0 0 0.1px white; */
+    margin-top: 2vh;
+    width: 100%;
+    font-size: 2.2vh;
+    font-weight: 500;
+
+    /* outline: 1px solid white; */
+    background-color: #20202080;
+    /* background-color: gray; */
+    color: white;
+}
+
+.input::placeholder{
+    color: lightgray;
+    font-weight: 400;
+}

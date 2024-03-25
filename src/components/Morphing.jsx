@@ -28,6 +28,7 @@ const Morphing = () => {
   let particles = {};
 
   const logoGeometry = useGLTF("/models/mid_poly.glb");
+  
 
   // console.log(logoGeometry);
 
@@ -384,7 +385,7 @@ const Morphing = () => {
               delay: 0,
               ease: "power3.out",
             });
-          }
+          },
         },
         // value: 0,
       });
@@ -405,8 +406,8 @@ const Morphing = () => {
             });
             gsap.to(containerRef.current, {
               opacity: 0,
-              duration: 2
-            })
+              duration: 2,
+            });
           },
           onLeaveBack: () => {
             gsap.to(constSphereParticles.material.uniforms.uProgress, {
@@ -419,9 +420,9 @@ const Morphing = () => {
             gsap.to(containerRef.current, {
               opacity: 1,
               duration: 2,
-              delay: 0.4
-            })
-          }
+              delay: 0.4,
+            });
+          },
         },
         // value: 0,
       });

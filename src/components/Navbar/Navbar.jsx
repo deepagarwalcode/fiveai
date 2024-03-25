@@ -1,9 +1,24 @@
-import React from 'react'
+"use client"
+
+import React, { useEffect, useRef } from 'react'
 import styles from "./Navbar.module.css"
+import gsap from "gsap";
 
 const Navbar = () => {
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    if (navRef) {
+      gsap.to(navRef.current, {
+        y: 0,
+        duration: 1.6,
+        ease: "power3.inOut",
+        delay: 0,
+      });
+    }
+  }, [navRef]);
   return (
-    <div className={styles.navbar}>
+    <div className={styles.navbar} ref={navRef}>
         <div className={styles.logo}>Five.ai</div>
         <div className={styles.menu_items}>
             <div>Our Values</div>

@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState, Suspense, useLayoutEffect } from "react";
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  Suspense,
+  useLayoutEffect,
+} from "react";
 import styles from "./Neurons.module.css";
 import {
   OrbitControls,
@@ -10,6 +17,7 @@ import {
   useGLTF,
   useScroll,
   ScrollControls,
+  Scroll,
 } from "@react-three/drei";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
@@ -24,12 +32,13 @@ import {
   PerspectiveCamera,
   useCurrentSheet,
 } from "@theatre/r3f";
-import flyThroughState from "../lib/fly-through.json"
+import flyThroughState from "../lib/fly-through.json";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 const Neurons = () => {
-
-  const sheet = getProject("Fly Through", {state: flyThroughState}).sheet("Scene");
+  const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
+    "Scene"
+  );
 
   let particles = {};
 
@@ -264,39 +273,41 @@ const Neurons = () => {
   // Points
   particles.points = new THREE.Points(particles.geometry, particles.material);
 
-  const containerRef = useRef(null)
+  const containerRef = useRef(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.to(containerRef.current, {
       opacity: 0,
-    })
+      zIndex: -1,
+    });
 
     const scrollDisperse2 = () => {
       gsap.to(containerRef.current, {
         scrollTrigger: {
           trigger: containerRef.current,
-          start: `${window.innerHeight * 1 - 10} bottom`,
+          start: `${
+            window.innerHeight * 1.2 - window.innerHeight * 0.1
+          } bottom`,
           // markers: true,
           onEnter: () => {
-            gsap.to(containerRef.current,{
-              zIndex: 2
-            })
-            gsap.to(containerRef.current,{
+            // gsap.to(containerRef.current, {
+            // });
+            gsap.to(containerRef.current, {
               opacity: 1,
               duration: 2,
-              delay: 0.8,
-            })
-
+              delay: 0,
+              zIndex: 3,
+            });
           },
           onLeaveBack: () => {
             gsap.to(containerRef.current, {
               opacity: 0,
-              duration: 2,
-              zIndex: 0
-            })
-          }
+              duration: 1,
+              zIndex: -1,
+            });
+          },
         },
         // value: 0,
       });
@@ -307,26 +318,102 @@ const Neurons = () => {
 
   return (
     <Suspense fallback={null}>
-
       <div className={styles.container} ref={containerRef}>
         <Canvas
           className={styles.canvas}
-          style={{ height: "100vh" }}
+          style={{ height: "120vh", width: "100%" }}
           gl={{ preserveDrawingBuffer: true }}
         >
-
-          <ScrollControls damping={1} maxSpeed={1} pages={10}>
-            <SheetProvider sheet={sheet}>
-              <Scene
-                neuronParticles={particles.points}
-                bgParticles={constSphereParticles.points}
-              />
-            </SheetProvider>
+          <ScrollControls
+            damping={1}
+            maxSpeed={1}
+            pages={10}
+            style={{
+              width: "100%",
+              scrollbarWidth: "none", 
+              msOverflowStyle: "none",
+            }}
+          >
+            <Scroll>
+              <SheetProvider sheet={sheet}>
+                <Scene
+                  neuronParticles={particles.points}
+                  bgParticles={constSphereParticles.points}
+                />
+              </SheetProvider>
+            </Scroll>
+            <Scroll html style={{ width: "100%" }}>
+              {/* DOM contents in here will scroll along */}
+              {/* <h1>html in here (optional)</h1> */}
+              <div className={styles.scroll_div}></div>
+              <div className={styles.scroll_div}>
+                <h1 className={styles.scroll_h1}>Hyper Personalized</h1>
+                <p className={styles.scroll_p}>
+                  Our edtech platform's unique selling proposition (USP) is
+                  Hyper personalized learning at its finest. We're not just
+                  adapting to your needs; Our AI tailor's every aspect of your
+                  learning experience. From choosing your preferred learning
+                  style and difficulty level to deciding how you want to be
+                  motivated, it's all about your individual journey.
+                </p>
+              </div>
+              <div className={styles.scroll_div}>
+                <h1 className={styles.scroll_h1}>Unique Content</h1>
+                <p className={styles.scroll_p}>
+                  Unlike other platforms, we're not about generic content. We're
+                  about understanding you - your interests, cultural background,
+                  and even your future goals. It's education designed
+                  exclusively for you, ensuring you learn in a way that suits
+                  you best. Also we dont have a pre recorded library like others
+                  our content is generated in runtime only for you.
+                </p>
+              </div>
+              <div className={styles.scroll_div}>
+                <h1 className={styles.scroll_h1}>Focus Mapping</h1>
+                <p className={styles.scroll_p}>
+                  Our edtech platform isn't just about learning; it's about
+                  maximizing your potential in every way. With real-time focus
+                  mapping, we track your engagement and adapt the content to
+                  keep you in the zone. Imagine a learning experience that's not
+                  only personalized but also dynamically responds to your focus
+                  levels.
+                </p>
+              </div>
+              <div className={styles.scroll_div}>
+                <h1 className={styles.scroll_h1}>All Round Growth</h1>
+                <p className={styles.scroll_p}>
+                  And we go beyond academics. Our platform includes modules for
+                  personality development and other extra curricular activities,
+                  because education is not just about what you know; it's about
+                  who you are becoming. Whether it's honing your communication
+                  skills, building confidence, or discovering your strengths,
+                  we're here for your holistic growth.
+                </p>
+              </div>
+              <div className={styles.scroll_div}>
+                <h1 className={styles.scroll_h1}>24*7 Personal Tutor</h1>
+                <p className={styles.scroll_p}>
+                  Need help at 2 AM before a big test? No problem. Our AI
+                  teacher is available 24/7, ready to assist and guide you
+                  whenever you need support. It's like having a personal tutor
+                  on demand, ensuring that your learning never stops.
+                </p>
+              </div>
+              <div className={styles.scroll_div}>
+                <h1 className={styles.scroll_h1}>Metalabs</h1>
+                <p className={styles.scroll_p}>
+                  Picture a space where you can apply your knowledge, conduct
+                  experiments, and deepen your understanding in a risk-free
+                  setting. MetaLab is where theory meets practice, making your
+                  learning experience not just informative but truly
+                  experiential.
+                </p>
+              </div>
+            </Scroll>
           </ScrollControls>
         </Canvas>
       </div>
     </Suspense>
-
   );
 };
 
@@ -342,6 +429,10 @@ const Scene = ({ neuronParticles, bgParticles }) => {
     const sequenceLength = val(sheet.sequence.pointer.length);
     sheet.sequence.position = scroll.offset * sequenceLength;
   });
+
+  useEffect(() => {
+    console.log(scroll.scroll.current);
+  }, [scroll.scroll.current]);
 
   return (
     <>
