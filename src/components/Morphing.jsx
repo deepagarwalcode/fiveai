@@ -32,7 +32,7 @@ const Morphing = () => {
   // const logoGeometry = useGLTF("/models/mid_poly.glb");
 
   // console.log(logoGeometry);
-  console.log(logoPositionJson.meshes[0].vertices.length);
+  // console.log(logoPositionJson.meshes[0].vertices.length);
 
   const factor = 2;
 
@@ -40,7 +40,7 @@ const Morphing = () => {
     -0.3277834258804101, 2.3106249609219893, 1.0880734148165658,
   ];
 
-  particles.maxCount = (logoPositionJson.meshes[0].vertices.length / 3) / factor;
+  particles.maxCount = logoPositionJson.meshes[0].vertices.length / 3 / factor;
   // particles.maxCount = logoGeometry.scene.children[0].geometry.attributes.position.count / factor;
 
   particles.positions = [];
@@ -254,6 +254,11 @@ const Morphing = () => {
     new THREE.BufferAttribute(randomsArray, 1)
   );
 
+  const windowSize =
+    typeof window !== "undefined"
+      ? new THREE.Vector2(window.innerWidth, window.innerHeight)
+      : new THREE.Vector2(0, 0);
+
   // Material
   constSphereParticles.colorA = "#ffffff";
   constSphereParticles.colorB = "#ffffff";
@@ -263,7 +268,8 @@ const Morphing = () => {
     uniforms: {
       uSize: { value: 1 },
       uResolution: {
-        value: new THREE.Vector2(window?.innerWidth, window?.innerHeight),
+        // value: new THREE.Vector2(window?.innerWidth, window?.innerHeight),
+        value: windowSize,
       },
       uProgress: { value: 0 }, // Updated initialization
       uColorA: { value: new THREE.Color(constSphereParticles.colorA) },
@@ -303,7 +309,8 @@ const Morphing = () => {
     uniforms: {
       uSize: { value: 1 },
       uResolution: {
-        value: new THREE.Vector2(window?.innerWidth, window?.innerHeight),
+        value: windowSize,
+        // value: new THREE.Vector2(window?.innerWidth, window?.innerHeight),
       },
       uProgress: { value: 0 }, // Updated initialization
       uColorA: { value: new THREE.Color(particles.colorA) },
@@ -354,7 +361,8 @@ const Morphing = () => {
 
   useEffect(() => {
     // if (logoModel) {
-      morphShape();
+
+    morphShape();
     // }
   }, []);
 

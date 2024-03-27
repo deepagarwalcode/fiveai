@@ -45,7 +45,7 @@ const Neurons = () => {
 
   // const neuronGeometry = useGLTF("/models/system.glb");
 
-  console.log(neuronJson.meshes[0].vertices);
+  // console.log(neuronJson.meshes[0].vertices);
   // console.log(neuronGeometry);
 
   const factor = 1;
@@ -213,6 +213,11 @@ const Neurons = () => {
     new THREE.BufferAttribute(randomsArray, 1)
   );
 
+  const windowSize =
+    typeof window !== "undefined"
+      ? new THREE.Vector2(window.innerWidth, window.innerHeight)
+      : new THREE.Vector2(0, 0);
+
   // Material
   constSphereParticles.colorA = "#ffffff";
   constSphereParticles.colorB = "#ffffff";
@@ -222,7 +227,8 @@ const Neurons = () => {
     uniforms: {
       uSize: { value: 1 },
       uResolution: {
-        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+        value: windowSize,
+        // value: new THREE.Vector2(window.innerWidth, window.innerHeight),
       },
       uProgress: { value: 0 }, // Updated initialization
       uColorA: { value: new THREE.Color(constSphereParticles.colorA) },
@@ -260,7 +266,8 @@ const Neurons = () => {
     uniforms: {
       uSize: { value: 1 },
       uResolution: {
-        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+        value: windowSize,
+        // value: new THREE.Vector2(window.innerWidth, window.innerHeight),
       },
       uProgress: { value: 0 }, // Updated initialization
       uColorA: { value: new THREE.Color(particles.colorA) },
