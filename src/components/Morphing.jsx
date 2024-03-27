@@ -24,13 +24,15 @@ import particleFragment from "../shaders/particles/fragment.glsl?raw";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import logoPositionJson from "../lib/mid_poly.json";
+
 const Morphing = () => {
   let particles = {};
 
-  const logoGeometry = useGLTF("/models/mid_poly.glb");
-  
+  // const logoGeometry = useGLTF("/models/mid_poly.glb");
 
   // console.log(logoGeometry);
+  console.log(logoPositionJson.meshes[0].vertices.length);
 
   const factor = 2;
 
@@ -38,8 +40,8 @@ const Morphing = () => {
     -0.3277834258804101, 2.3106249609219893, 1.0880734148165658,
   ];
 
-  particles.maxCount =
-    logoGeometry.scene.children[0].geometry.attributes.position.count / factor;
+  particles.maxCount = (logoPositionJson.meshes[0].vertices.length / 3) / factor;
+  // particles.maxCount = logoGeometry.scene.children[0].geometry.attributes.position.count / factor;
 
   particles.positions = [];
 
@@ -106,11 +108,12 @@ const Morphing = () => {
 
   // LOGO START
 
-  const logoModel = logoGeometry;
+  // const logoModel = logoGeometry;
 
-  const logoPosition = logoModel.scene.children[0].geometry.attributes.position;
+  const logoPosition = logoPositionJson.meshes[0].vertices;
+  // const logoPosition = logoModel.scene.children[0].geometry.attributes.position;
 
-  const logoOriginalArray = logoPosition.array;
+  const logoOriginalArray = logoPosition;
   const logoNewArray = new Float32Array(particles.maxCount * 3);
 
   for (let i = 0; i < particles.maxCount; i++) {
@@ -260,7 +263,7 @@ const Morphing = () => {
     uniforms: {
       uSize: { value: 1 },
       uResolution: {
-        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+        value: new THREE.Vector2(window?.innerWidth, window?.innerHeight),
       },
       uProgress: { value: 0 }, // Updated initialization
       uColorA: { value: new THREE.Color(constSphereParticles.colorA) },
@@ -300,7 +303,7 @@ const Morphing = () => {
     uniforms: {
       uSize: { value: 1 },
       uResolution: {
-        value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+        value: new THREE.Vector2(window?.innerWidth, window?.innerHeight),
       },
       uProgress: { value: 0 }, // Updated initialization
       uColorA: { value: new THREE.Color(particles.colorA) },
@@ -350,9 +353,9 @@ const Morphing = () => {
   };
 
   useEffect(() => {
-    if (logoModel) {
+    // if (logoModel) {
       morphShape();
-    }
+    // }
   }, []);
 
   const scene1Ref = useRef(null);
@@ -395,7 +398,7 @@ const Morphing = () => {
       gsap.to(particles.material.uniforms.uProgress, {
         scrollTrigger: {
           trigger: containerRef.current,
-          start: `${window.innerHeight * 3} bottom`,
+          start: `${window?.innerHeight * 3} bottom`,
           // markers: true,
           onEnter: () => {
             gsap.to(constSphereParticles.material.uniforms.uProgress, {
@@ -482,8 +485,8 @@ const CameraController = () => {
         -(event.clientY / gl.domElement.clientHeight) * 2 + 1;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window?.addEventListener("mousemove", handleMouseMove);
+    return () => window?.removeEventListener("mousemove", handleMouseMove);
   }, [gl.domElement]);
 
   useFrame(() => {
@@ -538,7 +541,7 @@ const Point = ({ position, size }) => {
   const ParticleMaterial = shaderMaterial(
     {
       uSize: 1,
-      uResolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
+      uResolution: new THREE.Vector2(window?.innerWidth, window?.innerHeight),
       uProgress: 0, // Update for animation (see useFrame)
       uColorA: new THREE.Color("#ff2876"),
       uColorB: new THREE.Color("#ffffff"),

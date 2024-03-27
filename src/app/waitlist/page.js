@@ -3,6 +3,8 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./styles.module.css";
 import Navbar from "@/components/Navbar/Navbar";
+import axios from "axios";
+import toast from "react-hot-toast"
 
 const Waitlist = () => {
   const parentName = useRef(null);
@@ -11,19 +13,30 @@ const Waitlist = () => {
   const studentName = useRef(null);
   const studentAge = useRef(null);
 
-  const handleSubmit = () => {
-    const parentNameValue = parentName.current.value;
-    const parentEmailValue = parentEmail.current.value;
-    const parentMobileValue = parentMobile.current.value;
-    const studentNameValue = studentName.current.value;
-    const studentAgeValue = studentAge.current.value;
+  const handleSubmit = async () => {
+    const data = {};
+    data.parentName = parentName.current.value;
+    data.parentEmail = parentEmail.current.value;
+    data.parentPhoneNo = parentMobile.current.value;
+    data.studentName = studentName.current.value;
+    data.studentAge = studentAge.current.value;
 
     // Do something with the input values, e.g., send them to a server
-    console.log("Parent Name:", parentNameValue);
-    console.log("Parent Email:", parentEmailValue);
-    console.log("Parent Mobile:", parentMobileValue);
-    console.log("Student Name:", studentNameValue);
-    console.log("Student Age:", studentAgeValue);
+    // console.log("Parent Name:", parentNameValue);
+    // console.log("Parent Email:", parentEmailValue);
+    // console.log("Parent Mobile:", parentMobileValue);
+    // console.log("Student Name:", studentNameValue);
+    // console.log("Student Age:", studentAgeValue);
+    try {
+      await axios.post(
+        "https://auth-system-admin.vercel.app/api/wishlist",
+        data
+      );
+      toast.success("Submitted Successfully!")
+    } catch (e) {
+      toast.error("Error!!!")
+      console.error(e);
+    }
   };
 
   return (
@@ -76,7 +89,9 @@ const Waitlist = () => {
               ref={studentAge}
             />
           </div>
-          <button onClick={handleSubmit} className={styles.submit_button}>Submit</button>
+          <button onClick={handleSubmit} className={styles.submit_button}>
+            Submit
+          </button>
         </div>
         <div className={styles.logo_img}>
           <img src="/imageSmall.png" alt="" />

@@ -34,6 +34,7 @@ import {
 } from "@theatre/r3f";
 import flyThroughState from "../lib/fly-through.json";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import neuronJson from "../lib/system.json";
 
 const Neurons = () => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
@@ -42,8 +43,9 @@ const Neurons = () => {
 
   let particles = {};
 
-  const neuronGeometry = useGLTF("/models/system.glb");
+  // const neuronGeometry = useGLTF("/models/system.glb");
 
+  console.log(neuronJson.meshes[0].vertices);
   // console.log(neuronGeometry);
 
   const factor = 1;
@@ -52,9 +54,8 @@ const Neurons = () => {
     -0.3277834258804101, 2.3106249609219893, 1.0880734148165658,
   ];
 
-  particles.maxCount =
-    neuronGeometry.scene.children[0].geometry.attributes.position.count /
-    factor;
+  // particles.maxCount = neuronGeometry.scene.children[0].geometry.attributes.position.count / factor;
+  particles.maxCount = neuronJson.meshes[0].vertices.length / 3 / factor;
 
   particles.positions = [];
 
@@ -66,12 +67,11 @@ const Neurons = () => {
 
   // NEURON START
 
-  const neuronModel = neuronGeometry;
+  // const neuronModel = neuronGeometry;
 
-  const neuronPosition =
-    neuronModel.scene.children[0].geometry.attributes.position;
+  const neuronPosition = neuronJson.meshes[0].vertices;
 
-  const neuronOriginalArray = neuronPosition.array;
+  const neuronOriginalArray = neuronPosition;
   const neuronNewArray = new Float32Array(particles.maxCount * 3);
 
   for (let i = 0; i < particles.maxCount; i++) {
@@ -330,7 +330,7 @@ const Neurons = () => {
             pages={10}
             style={{
               width: "100%",
-              scrollbarWidth: "none", 
+              scrollbarWidth: "none",
               msOverflowStyle: "none",
             }}
           >
@@ -342,73 +342,10 @@ const Neurons = () => {
                 />
               </SheetProvider>
             </Scroll>
-            <Scroll html style={{ width: "100%" }}>
+            <Scroll html style={{ width: "100%", height: "100vh" }}>
               {/* DOM contents in here will scroll along */}
               {/* <h1>html in here (optional)</h1> */}
-              <div className={styles.scroll_div}></div>
-              <div className={styles.scroll_div}>
-                <h1 className={styles.scroll_h1}>Hyper Personalized</h1>
-                <p className={styles.scroll_p}>
-                  Our edtech platform's unique selling proposition (USP) is
-                  Hyper personalized learning at its finest. We're not just
-                  adapting to your needs; Our AI tailor's every aspect of your
-                  learning experience. From choosing your preferred learning
-                  style and difficulty level to deciding how you want to be
-                  motivated, it's all about your individual journey.
-                </p>
-              </div>
-              <div className={styles.scroll_div}>
-                <h1 className={styles.scroll_h1}>Unique Content</h1>
-                <p className={styles.scroll_p}>
-                  Unlike other platforms, we're not about generic content. We're
-                  about understanding you - your interests, cultural background,
-                  and even your future goals. It's education designed
-                  exclusively for you, ensuring you learn in a way that suits
-                  you best. Also we dont have a pre recorded library like others
-                  our content is generated in runtime only for you.
-                </p>
-              </div>
-              <div className={styles.scroll_div}>
-                <h1 className={styles.scroll_h1}>Focus Mapping</h1>
-                <p className={styles.scroll_p}>
-                  Our edtech platform isn't just about learning; it's about
-                  maximizing your potential in every way. With real-time focus
-                  mapping, we track your engagement and adapt the content to
-                  keep you in the zone. Imagine a learning experience that's not
-                  only personalized but also dynamically responds to your focus
-                  levels.
-                </p>
-              </div>
-              <div className={styles.scroll_div}>
-                <h1 className={styles.scroll_h1}>All Round Growth</h1>
-                <p className={styles.scroll_p}>
-                  And we go beyond academics. Our platform includes modules for
-                  personality development and other extra curricular activities,
-                  because education is not just about what you know; it's about
-                  who you are becoming. Whether it's honing your communication
-                  skills, building confidence, or discovering your strengths,
-                  we're here for your holistic growth.
-                </p>
-              </div>
-              <div className={styles.scroll_div}>
-                <h1 className={styles.scroll_h1}>24*7 Personal Tutor</h1>
-                <p className={styles.scroll_p}>
-                  Need help at 2 AM before a big test? No problem. Our AI
-                  teacher is available 24/7, ready to assist and guide you
-                  whenever you need support. It's like having a personal tutor
-                  on demand, ensuring that your learning never stops.
-                </p>
-              </div>
-              <div className={styles.scroll_div}>
-                <h1 className={styles.scroll_h1}>Metalabs</h1>
-                <p className={styles.scroll_p}>
-                  Picture a space where you can apply your knowledge, conduct
-                  experiments, and deepen your understanding in a risk-free
-                  setting. MetaLab is where theory meets practice, making your
-                  learning experience not just informative but truly
-                  experiential.
-                </p>
-              </div>
+              <FixedContent />
             </Scroll>
           </ScrollControls>
         </Canvas>
@@ -447,5 +384,267 @@ const Scene = ({ neuronParticles, bgParticles }) => {
         far={100}
       />
     </>
+  );
+};
+
+const Content = () => {
+  return (
+    <>
+      <div className={styles.scroll_div}></div>
+      <div className={styles.scroll_div}>
+        <h1 className={styles.scroll_h1}>Hyper Personalized</h1>
+        <p className={styles.scroll_p}>
+          Our edtech platform's unique selling proposition (USP) is Hyper
+          personalized learning at its finest. We're not just adapting to your
+          needs; Our AI tailor's every aspect of your learning experience. From
+          choosing your preferred learning style and difficulty level to
+          deciding how you want to be motivated, it's all about your individual
+          journey.
+        </p>
+      </div>
+      <div className={styles.scroll_div}>
+        <h1 className={styles.scroll_h1}>Unique Content</h1>
+        <p className={styles.scroll_p}>
+          Unlike other platforms, we're not about generic content. We're about
+          understanding you - your interests, cultural background, and even your
+          future goals. It's education designed exclusively for you, ensuring
+          you learn in a way that suits you best. Also we dont have a pre
+          recorded library like others our content is generated in runtime only
+          for you.
+        </p>
+      </div>
+      <div className={styles.scroll_div}>
+        <h1 className={styles.scroll_h1}>Focus Mapping</h1>
+        <p className={styles.scroll_p}>
+          Our edtech platform isn't just about learning; it's about maximizing
+          your potential in every way. With real-time focus mapping, we track
+          your engagement and adapt the content to keep you in the zone. Imagine
+          a learning experience that's not only personalized but also
+          dynamically responds to your focus levels.
+        </p>
+      </div>
+      <div className={styles.scroll_div}>
+        <h1 className={styles.scroll_h1}>All Round Growth</h1>
+        <p className={styles.scroll_p}>
+          And we go beyond academics. Our platform includes modules for
+          personality development and other extra curricular activities, because
+          education is not just about what you know; it's about who you are
+          becoming. Whether it's honing your communication skills, building
+          confidence, or discovering your strengths, we're here for your
+          holistic growth.
+        </p>
+      </div>
+      <div className={styles.scroll_div}>
+        <h1 className={styles.scroll_h1}>24*7 Personal Tutor</h1>
+        <p className={styles.scroll_p}>
+          Need help at 2 AM before a big test? No problem. Our AI teacher is
+          available 24/7, ready to assist and guide you whenever you need
+          support. It's like having a personal tutor on demand, ensuring that
+          your learning never stops.
+        </p>
+      </div>
+      <div className={styles.scroll_div}>
+        <h1 className={styles.scroll_h1}>Metalabs</h1>
+        <p className={styles.scroll_p}>
+          Picture a space where you can apply your knowledge, conduct
+          experiments, and deepen your understanding in a risk-free setting.
+          MetaLab is where theory meets practice, making your learning
+          experience not just informative but truly experiential.
+        </p>
+      </div>
+    </>
+  );
+};
+
+const FixedContent = () => {
+  const contentRef = useRef(null);
+  const div1Ref = useRef(null);
+  const div2Ref = useRef(null);
+  const div3Ref = useRef(null);
+  const div4Ref = useRef(null);
+  const div5Ref = useRef(null);
+  const div6Ref = useRef(null);
+  const scroll = useScroll();
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [executed1, setExecuted1] = useState(false);
+  const [executed2, setExecuted2] = useState(false);
+  const [executed3, setExecuted3] = useState(false);
+  const [executed4, setExecuted4] = useState(false);
+  const [executed5, setExecuted5] = useState(false);
+  const [executed6, setExecuted6] = useState(false);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    let timeoutId = null;
+
+    const handleScrollStart = () => {
+      setIsScrolling(true);
+    };
+
+    const handleScrollEnd = () => {
+      timeoutId = setTimeout(() => {
+        setIsScrolling(false);
+      }, 100);
+    };
+
+    window.addEventListener("wheel", handleScrollStart);
+    window.addEventListener("wheel", handleScrollEnd);
+
+    return () => {
+      window.removeEventListener("wheel", handleScrollStart);
+      window.removeEventListener("wheel", handleScrollEnd);
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
+  useFrame(() => {
+    if (isScrolling || scroll.offset !== offset) {
+      // console.log("Scroll progress:", scroll.offset);
+      // console.log("Scroll Delta:", scroll.delta);
+      setOffset(scroll.offset);
+      // Update your logic based on the scroll progress here
+    }
+  });
+
+  useEffect(() => {
+    if (scroll.offset < 0.12 && executed1) {
+      disAppear(div1Ref);
+      setExecuted1(false);
+    }
+    if (scroll.offset > 0.12 && !executed1) {
+      appear(div1Ref);
+      setExecuted1(true);
+    }
+    if (scroll.offset < 0.25 && executed2) {
+      disAppear(div2Ref);
+      setExecuted2(false);
+    }
+    if (scroll.offset > 0.25 && !executed2) {
+      appear(div2Ref);
+      setExecuted2(true);
+    }
+    if (scroll.offset < 0.39 && executed3) {
+      disAppear(div3Ref);
+      setExecuted3(false);
+    }
+    if (scroll.offset > 0.39 && !executed3) {
+      appear(div3Ref);
+      setExecuted3(true);
+    }
+    if (scroll.offset < 0.52 && executed4) {
+      disAppear(div4Ref);
+      setExecuted4(false);
+    }
+    if (scroll.offset > 0.52 && !executed4) {
+      appear(div4Ref);
+      setExecuted4(true);
+    }
+    if (scroll.offset < 0.675 && executed5) {
+      disAppear(div5Ref);
+      setExecuted5(false);
+    }
+    if (scroll.offset > 0.675 && !executed5) {
+      appear(div5Ref);
+      setExecuted5(true);
+    }
+    if (scroll.offset < 0.81 && executed6) {
+      disAppear(div6Ref);
+      setExecuted6(false);
+    }
+    if (scroll.offset > 0.81 && !executed6) {
+      appear(div6Ref);
+      setExecuted6(true);
+    }
+  }, [offset]);
+
+  const appear = (ref) => {
+    gsap.to(ref.current, {
+      opacity: 1,
+      filter: "blur(0)",
+      duration: 0.5,
+    });
+
+    // filter: "blur(0)"
+  };
+
+  const disAppear = (ref) => {
+    gsap.to(ref.current, {
+      opacity: 0,
+      filter: "blur(4px)",
+      duration: 0.5,
+    });
+
+    // filter: "blur(0)"
+  };
+
+  return (
+    <div className={styles.content} ref={contentRef}>
+      <div className={styles.scroll_div}></div>
+
+      <div className={styles.fixed_scroll_div} ref={div1Ref}>
+        {/* <div className={styles.h1_div}> */}
+        <h1 className={styles.fixed_scroll_h1}>Hyper Personalized</h1>
+        {/* </div> */}
+        <div></div>
+        <p className={styles.fixed_scroll_p}>
+          Our edtech platform's unique selling proposition (USP) is Hyper
+          personalized learning at its finest. We're not just adapting to your
+          needs; Our AI tailor's every aspect of your learning experience. From
+          choosing your preferred learning style and difficulty level to
+          deciding how you want to be motivated, it's all about your individual
+          journey.
+        </p>
+      </div>
+      <div className={styles.fixed_scroll_div} ref={div2Ref}>
+        <h1 className={styles.scroll_h1}>Unique Content</h1>
+        <p className={styles.scroll_p}>
+          Unlike other platforms, we're not about generic content. We're about
+          understanding you - your interests, cultural background, and even your
+          future goals. It's education designed exclusively for you, ensuring
+          you learn in a way that suits you best. Also we dont have a pre
+          recorded library like others our content is generated in runtime only
+          for you.
+        </p>
+      </div>
+      <div className={styles.fixed_scroll_div} ref={div3Ref}>
+        <h1 className={styles.scroll_h1}>Focus Mapping</h1>
+        <p className={styles.scroll_p}>
+          Our edtech platform isn't just about learning; it's about maximizing
+          your potential in every way. With real-time focus mapping, we track
+          your engagement and adapt the content to keep you in the zone. Imagine
+          a learning experience that's not only personalized but also
+          dynamically responds to your focus levels.
+        </p>
+      </div>
+      <div className={styles.fixed_scroll_div} ref={div4Ref}>
+        <h1 className={styles.scroll_h1}>All Round Growth</h1>
+        <p className={styles.scroll_p}>
+          And we go beyond academics. Our platform includes modules for
+          personality development and other extra curricular activities, because
+          education is not just about what you know; it's about who you are
+          becoming. Whether it's honing your communication skills, building
+          confidence, or discovering your strengths, we're here for your
+          holistic growth.
+        </p>
+      </div>
+      <div className={styles.fixed_scroll_div} ref={div5Ref}>
+        <h1 className={styles.scroll_h1}>24*7 Personal Tutor</h1>
+        <p className={styles.scroll_p}>
+          Need help at 2 AM before a big test? No problem. Our AI teacher is
+          available 24/7, ready to assist and guide you whenever you need
+          support. It's like having a personal tutor on demand, ensuring that
+          your learning never stops.
+        </p>
+      </div>
+      <div className={styles.fixed_scroll_div} ref={div6Ref}>
+        <h1 className={styles.scroll_h1}>Metalabs</h1>
+        <p className={styles.scroll_p}>
+          Picture a space where you can apply your knowledge, conduct
+          experiments, and deepen your understanding in a risk-free setting.
+          MetaLab is where theory meets practice, making your learning
+          experience not just informative but truly experiential.
+        </p>
+      </div>
+    </div>
   );
 };

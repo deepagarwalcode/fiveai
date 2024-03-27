@@ -1,7 +1,7 @@
 .container {
-  position: sticky;
-  top: 0;
-  left: 0;
+  position: relative;
+  /* top: 0;
+  left: 0; */
   width: 100%;
   height: 100%;
 
@@ -10,6 +10,61 @@
 .canvas {
   background-color: #101010;
   /* height: 50vh; */
+}
+
+.content{
+  height: 1000vh;
+  /* background-color: #ffffff6e; */
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+
+
+.fixed_scroll_div {
+  height: 150vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* background-color: red; */
+  color: white;
+  /* backdrop-filter: blur(4px); */
+  gap: 2vh;
+  filter: blur(4px);
+  opacity: 0;
+
+}
+
+.h1_div{
+  height: 14vh;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.fixed_scroll_h1 {
+  text-align: center;
+  font-size: 12vh;
+  font-family: Clash Display;
+  font-weight: 400;
+
+  /* transform: translateY(13vh); */
+}
+
+.p_div{
+  height: 3vh;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.fixed_scroll_p {
+  text-align: justify;
+  font-size: 2.4vh;
+  max-width: 72vw;
+  text-align-last: center;
+
 }
 
 .scroll_div {
