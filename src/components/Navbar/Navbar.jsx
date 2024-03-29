@@ -4,8 +4,16 @@ import React, { useEffect, useRef } from 'react'
 import styles from "./Navbar.module.css"
 import gsap from "gsap";
 
-const Navbar = () => {
+const Navbar = ({waitlistRef}) => {
   const navRef = useRef(null);
+
+  const showWaitlist = () => {
+    gsap.to(waitlistRef.current, {
+      x: 0,
+      duration: 0.6,
+      ease: "power3.out"
+    })
+  }
 
   useEffect(() => {
     if (navRef) {
@@ -24,7 +32,7 @@ const Navbar = () => {
             <div>Our Values</div>
             <div>Team</div>
             <div>Vision</div>
-            <div className={styles.join_waitlist}>Join Waitlist</div>
+            <div className={styles.join_waitlist} onClick={showWaitlist}>Join Waitlist</div>
         </div>
     </div>
   )

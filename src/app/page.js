@@ -9,9 +9,12 @@ import Phrase from "@/components/Opening/Phrase";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap"
 import { useLayoutEffect, useRef } from "react";
+import Waitlist from "@/components/Waitlist";
 
 export default function Home() {
+
   const containerRef = useRef(null);
+  const waitlistRef = useRef(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -66,7 +69,7 @@ export default function Home() {
   return (
     // <Suspense fallback={null}>
     <div>
-      <Navbar />
+      <Navbar waitlistRef={waitlistRef} />
       <div className={styles.opening}>
         <Morphing />
         <Title />
@@ -75,6 +78,7 @@ export default function Home() {
       <div className={styles.neuron} ref={containerRef}>
         <Neurons />
       </div>
+      <Waitlist waitlistRef={waitlistRef} />
     </div>
     // </Suspense>
   );
