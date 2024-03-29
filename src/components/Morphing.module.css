@@ -2,7 +2,7 @@
     position: sticky;
     top: 0;
     /* height: 100%; */
-    z-index: 1 !important;
+    z-index: 2;
 }
 
 .canvas{

@@ -368,6 +368,7 @@ const Morphing = () => {
 
   const scene1Ref = useRef(null);
   // const scene2Ref = useRef(null);
+  const zoomRef = useRef(1);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -384,7 +385,7 @@ const Morphing = () => {
           onEnter: () => {
             gsap.to(particles.material.uniforms.uProgress, {
               value: 0.6,
-              duration: 8,
+              duration: 4,
               delay: 0,
               ease: "power3.out",
             });
@@ -392,7 +393,7 @@ const Morphing = () => {
           onLeaveBack: () => {
             gsap.to(particles.material.uniforms.uProgress, {
               value: 1,
-              duration: 3,
+              duration: 4,
               delay: 0,
               ease: "power3.out",
             });
@@ -409,29 +410,49 @@ const Morphing = () => {
           start: `${window?.innerHeight * 3} bottom`,
           // markers: true,
           onEnter: () => {
-            gsap.to(constSphereParticles.material.uniforms.uProgress, {
-              value: 0,
-              duration: 8,
-              delay: 0,
-              ease: "power3.out",
+            // console.log(zoomRef.current);
+            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
+            //   value: 0,
+            //   duration: 8,
+            //   delay: 0,
+            //   ease: "power3.out",
+            // });
+            gsap.to(zoomRef, {
+              current: 2,
+              duration: 1,
             });
             gsap.to(containerRef.current, {
               opacity: 0,
-              duration: 2,
+              duration: 1,
             });
+            // gsap.to(containerRef.current, {
+            //   zIndex: 0,
+            //   delay: 1.2,
+            //   duration: 0
+            // })
           },
           onLeaveBack: () => {
-            gsap.to(constSphereParticles.material.uniforms.uProgress, {
-              value: 1,
-              duration: 8,
-              delay: 0,
-              ease: "power3.out",
-            });
+            // console.log(zoomRef.current);
 
+            // gsap.to(containerRef.current, {
+            //   zIndex: 2,
+            //   duration: 0
+            // })
+            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
+            //   value: 1,
+            //   duration: 8,
+            //   delay: 0,
+            //   ease: "power3.out",
+            // });
+            gsap.to(zoomRef, {
+              current: 1,
+              duration: 2,
+              delay: 1,
+            });
             gsap.to(containerRef.current, {
               opacity: 1,
               duration: 2,
-              delay: 0.4,
+              delay: 1,
             });
           },
         },
@@ -446,7 +467,7 @@ const Morphing = () => {
   return (
     <div className={styles.container} ref={containerRef}>
       <Canvas className={styles.canvas} style={{ height: "100vh" }}>
-        <CameraController />
+        <CameraController zoom={zoomRef.current} containerRef={containerRef} />
         {/* <OrbitControls /> */}
         <primitive object={particles.points} />
         <primitive object={constSphereParticles.points} />
@@ -472,11 +493,11 @@ const ParticleAnimator = ({ particles, transitionProgress }) => {
 
 // ... (CameraController and PointLogo components remain the same)
 
-const CameraController = () => {
+const CameraController = ({ containerRef }) => {
   const { camera, gl } = useThree();
-  const cameraRef = useRef();
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const rotationRef = useRef({ x: 0, y: 0 });
+  // const cameraRef = useRef();
+  // const mouseRef = useRef({ x: 0, y: 0 });
+  // const rotationRef = useRef({ x: 0, y: 0 });
 
   // Set the initial camera position and rotation
   const initialCameraPosition = [
@@ -486,45 +507,93 @@ const CameraController = () => {
     -1.093226314496774, -0.1496363633338818, -0.28046697307679486,
   ];
 
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      mouseRef.current.x = (event.clientX / gl.domElement.clientWidth) * 2 - 1;
-      mouseRef.current.y =
-        -(event.clientY / gl.domElement.clientHeight) * 2 + 1;
-    };
-
-    window?.addEventListener("mousemove", handleMouseMove);
-    return () => window?.removeEventListener("mousemove", handleMouseMove);
-  }, [gl.domElement]);
+  const zoomRef = useRef(1)
+  const [zoom, setZoom] = useState(1)
 
   useFrame(() => {
-    const { x, y } = mouseRef.current;
-    const maxRotation = 1.2 * (Math.PI / 180); // 1 degree in radians
-
-    // Update camera rotation based on mouse movement, limited to 1 degree
-    const deltaX = x * 0.001;
-    const deltaY = y * 0.001;
-    rotationRef.current.x += deltaY;
-    rotationRef.current.y += deltaX;
-    rotationRef.current.x = Math.max(
-      -maxRotation,
-      Math.min(maxRotation, rotationRef.current.x)
-    );
-    rotationRef.current.y = Math.max(
-      -maxRotation,
-      Math.min(maxRotation, rotationRef.current.y)
-    );
-    camera.rotation.x = initialCameraRotation[0] + rotationRef.current.x;
-    camera.rotation.y = initialCameraRotation[1] + rotationRef.current.y;
-
-    // Set initial camera position
+    camera.zoom = zoomRef.current;
+    camera.updateProjectionMatrix();
   });
+  
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const scrollDisperse2 = () => {
+      gsap.to(containerRef.current, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: `${window?.innerHeight * 3 - 10} bottom`,
+          // markers: true,
+         onEnter: () => {
+            gsap.to(zoomRef, {
+              current: 3,
+              duration: 0.8,
+              onUpdate: () => {
+                console.log(zoomRef.current);
+                setZoom(zoomRef.current)
+              },
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(zoomRef, {
+              current: 1,
+              duration: 0.8,
+              delay: 1,
+              onUpdate: () => {
+                console.log(zoomRef.current);
+                setZoom(zoomRef.current)
+
+              },
+            });
+          },
+        },
+      });
+    };
+
+    scrollDisperse2();
+  }, []);
+
+  // useEffect(() => {
+  //   const handleMouseMove = (event) => {
+  //     mouseRef.current.x = (event.clientX / gl.domElement.clientWidth) * 2 - 1;
+  //     mouseRef.current.y =
+  //       -(event.clientY / gl.domElement.clientHeight) * 2 + 1;
+  //   };
+
+  //   window?.addEventListener("mousemove", handleMouseMove);
+  //   return () => window?.removeEventListener("mousemove", handleMouseMove);
+  // }, [gl.domElement]);
+
+  // useFrame(() => {
+  //   const { x, y } = mouseRef.current;
+  //   const maxRotation = 1.2 * (Math.PI / 180); // 1 degree in radians
+
+  //   // Update camera rotation based on mouse movement, limited to 1 degree
+  //   const deltaX = x * 0.001;
+  //   const deltaY = y * 0.001;
+  //   rotationRef.current.x += deltaY;
+  //   rotationRef.current.y += deltaX;
+  //   rotationRef.current.x = Math.max(
+  //     -maxRotation,
+  //     Math.min(maxRotation, rotationRef.current.x)
+  //   );
+  //   rotationRef.current.y = Math.max(
+  //     -maxRotation,
+  //     Math.min(maxRotation, rotationRef.current.y)
+  //   );
+  //   camera.rotation.x = initialCameraRotation[0] + rotationRef.current.x;
+  //   camera.rotation.y = initialCameraRotation[1] + rotationRef.current.y;
+
+  //   // Set initial camera position
+  // });
 
   return (
     <PerspectiveCamera
-      ref={cameraRef}
+      // ref={cameraRef}
       position={initialCameraPosition}
       rotation={initialCameraRotation}
+      // zoom={zoom}
       makeDefault
       fov={75}
     />
