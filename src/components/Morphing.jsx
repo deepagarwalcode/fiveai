@@ -499,8 +499,39 @@ const Morphing = () => {
       });
     };
 
+    const scrollDisperse3 = () => {
+      gsap.to(particles.material.uniforms.uProgress, {
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: `${window.innerHeight * 6.8} bottom`,
+          // end: "top+=1500 top",
+          // scrub: true,
+          // markers: true,
+          // toggleActions: "restart none none reverse",
+          onEnter: () => {
+            gsap.to(particles.material.uniforms.uProgress, {
+              value: 1,
+              duration: 4,
+              delay: 0,
+              ease: "power3.out",
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(particles.material.uniforms.uProgress, {
+              value: 0.6,
+              duration: 4,
+              delay: 0,
+              ease: "power3.out",
+            });
+          },
+        },
+        // value: 0,
+      });
+    };
+
     scrollDisperse1();
     scrollDisperse2();
+    scrollDisperse3();
   }, []);
 
   return (

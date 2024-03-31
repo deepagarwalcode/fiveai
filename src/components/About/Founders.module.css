@@ -1,0 +1,54 @@
+.founders{
+    height: 100vh;
+    width: 100%;
+    color: white;
+    /* display: flex;
+    align-items: center;
+    justify-content: space-between; */
+    padding: 12vh 8vw;
+
+    /* padding-bottom: 0; */
+    gap: 4vw;
+    position: absolute;
+    z-index: 2;
+    top: 500vh;
+    left: 0;
+
+}
+
+.founder_header{
+    font-family: Clash Display;
+    font-size: 8vh;
+    font-weight: 400;
+    margin-bottom: 4vh;
+}
+
+.list{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1vw;
+}
+
+.section{
+    flex: 1;
+}
+
+.f_image{
+    height: 50vh;
+    width: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.f_name{
+    font-family: Clash Display;
+    margin: 1.2vh 0;
+    font-size: 3.2vh;
+}
+
+.f_desc{
+    /* text-align: justify; */
+    text-transform: uppercase;
+    font-size: 2vh;
+}

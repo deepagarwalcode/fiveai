@@ -11,6 +11,8 @@ import gsap from "gsap";
 import { useLayoutEffect, useRef } from "react";
 import Waitlist from "@/components/Waitlist";
 import Results from "@/components/About/Results";
+import Founders from "@/components/About/Founders";
+import Ending from "@/components/Ending";
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -59,7 +61,7 @@ export default function Home() {
                 duration: 1,
               });
               gsap.to(containerRef.current, {
-                zIndex: -1,
+                // zIndex: -1,
                 display: "none",
                 delay: 1,
               });
@@ -74,7 +76,7 @@ export default function Home() {
                 duration: 1,
               });
               gsap.to(containerRef.current, {
-                zIndex: -1,
+                // zIndex: -1,
                 display: "none",
                 delay: 1,
               });
@@ -86,9 +88,17 @@ export default function Home() {
       scrollDisperse2();
     }
   }, [containerRef]);
+
+  const showWaitlist = () => {
+    gsap.to(waitlistRef.current, {
+      x: 0,
+      duration: 0.6,
+      ease: "power3.out",
+    });
+  };
   return (
-    <div style={{backgroundColor: "#101010", height: "100%"}}>
-      <Navbar waitlistRef={waitlistRef} />
+    <div style={{ backgroundColor: "#101010", height: "100%" }}>
+      <Navbar showWaitlist={showWaitlist} />
       <div className={styles.opening}>
         <Morphing />
         <Title />
@@ -97,11 +107,16 @@ export default function Home() {
       <div className={styles.neuron} ref={containerRef}>
         <Neurons />
       </div>
-      {/* <div className={styles.margin}></div>
+      <div className={styles.margin}></div>
       <div className={styles.about}>
-      <Results />
-
-      </div> */}
+        <Results showWaitlist={showWaitlist} />
+      </div>
+      <div className={styles.founders}>
+        <Founders />
+      </div>
+      <div className={styles.final}>
+        <Ending showWaitlist={showWaitlist} />
+      </div>
       <Waitlist waitlistRef={waitlistRef} />
     </div>
   );

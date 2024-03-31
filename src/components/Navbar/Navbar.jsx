@@ -4,16 +4,10 @@ import React, { useEffect, useRef } from 'react'
 import styles from "./Navbar.module.css"
 import gsap from "gsap";
 
-const Navbar = ({waitlistRef}) => {
+const Navbar = ({showWaitlist}) => {
   const navRef = useRef(null);
 
-  const showWaitlist = () => {
-    gsap.to(waitlistRef.current, {
-      x: 0,
-      duration: 0.6,
-      ease: "power3.out"
-    })
-  }
+
 
   useEffect(() => {
     if (navRef) {

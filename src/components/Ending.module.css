@@ -1,0 +1,35 @@
+.ending{
+    position: absolute;
+    top: 600vh;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2 !important;
+}
+
+/* .line {
+    height: 18vh;
+    overflow: hidden !important;
+    position: relative !important;
+  } */
+
+.line > div{
+    font-family: "Clash Display";
+    font-size: 12vh;
+    font-weight: 400;
+    color: white;
+    transform-origin: left bottom;
+}
+
+.jw{
+    color: #ff7f50;
+    cursor: pointer;
+    font-family: Clash Display;
+    text-decoration: underline;
+    
+}
+

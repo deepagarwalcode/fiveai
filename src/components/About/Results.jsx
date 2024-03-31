@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Results.module.css";
 
-const Results = () => {
+const Results = ({showWaitlist}) => {
   const points = [
     {
       title: "Academic Excellence",
@@ -35,7 +35,7 @@ const Results = () => {
       <div className={styles.r_left}>
         <div>Empowering Students</div>
         <div>for Lifelong Success</div>
-        <div className={styles.cta}>Join Waitlist Now</div>
+        <div className={styles.cta} onClick={showWaitlist}>Join Waitlist Now</div>
       </div>
       <div className={styles.r_right}>
         {points.map((point, index) => (
