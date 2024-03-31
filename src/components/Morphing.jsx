@@ -29,10 +29,6 @@ import logoPositionJson from "../lib/mid_poly.json";
 const Morphing = () => {
   let particles = {};
 
-  // const logoGeometry = useGLTF("/models/mid_poly.glb");
-
-  // console.log(logoGeometry);
-  // console.log(logoPositionJson.meshes[0].vertices.length);
 
   const factor = 2;
 
@@ -41,8 +37,6 @@ const Morphing = () => {
   ];
 
   particles.maxCount = logoPositionJson.meshes[0].vertices.length / 3 / factor;
-  // particles.maxCount = logoGeometry.scene.children[0].geometry.attributes.position.count / factor;
-
   particles.positions = [];
 
   const randomsArray = new Float32Array(particles.maxCount);
@@ -326,37 +320,37 @@ const Morphing = () => {
   const containerRef = useRef(null);
 
   const morphShape = () => {
-    if (particles.material.uniforms.uProgress.value === 0) {
+    // if (particles.material.uniforms.uProgress.value === 0) {
       gsap.to(particles.material.uniforms.uProgress, {
         value: 1,
         duration: 5,
         delay: 1,
         ease: "power3.out",
       });
-    } else {
-      gsap.to(particles.material.uniforms.uProgress, {
-        value: 0,
-        duration: 5,
-        delay: 0,
-        ease: "power3.out",
-      });
-    }
+    // } else {
+    //   gsap.to(particles.material.uniforms.uProgress, {
+    //     value: 0,
+    //     duration: 5,
+    //     delay: 0,
+    //     ease: "power3.out",
+    //   });
+    // }
 
-    if (constSphereParticles.material.uniforms.uProgress.value === 0) {
+    // if (constSphereParticles.material.uniforms.uProgress.value === 0) {
       gsap.to(constSphereParticles.material.uniforms.uProgress, {
         value: 1,
         duration: 5,
         delay: 1,
         ease: "power3.out",
       });
-    } else {
-      gsap.to(constSphereParticles.material.uniforms.uProgress, {
-        value: 1,
-        duration: 5,
-        delay: 1,
-        ease: "power3.out",
-      });
-    }
+    // } else {
+    //   gsap.to(constSphereParticles.material.uniforms.uProgress, {
+    //     value: 1,
+    //     duration: 5,
+    //     delay: 1,
+    //     ease: "power3.out",
+    //   });
+    // }
   };
 
   useEffect(() => {
@@ -408,6 +402,7 @@ const Morphing = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: `${window?.innerHeight * 3} bottom`,
+          end: `${window?.innerHeight * 4} bottom`,
           // markers: true,
           onEnter: () => {
             // console.log(zoomRef.current);
@@ -417,19 +412,64 @@ const Morphing = () => {
             //   delay: 0,
             //   ease: "power3.out",
             // });
-            gsap.to(zoomRef, {
-              current: 2,
-              duration: 1,
-            });
             gsap.to(containerRef.current, {
               opacity: 0,
               duration: 1,
             });
+            gsap.to(containerRef.current, {
+              display: "none",
+              delay: 1
+            })
             // gsap.to(containerRef.current, {
             //   zIndex: 0,
             //   delay: 1.2,
             //   duration: 0
             // })
+          },
+          onEnterBack: () => {
+            // console.log(zoomRef.current);
+            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
+            //   value: 0,
+            //   duration: 8,
+            //   delay: 0,
+            //   ease: "power3.out",
+            // });
+            gsap.to(containerRef.current, {
+              opacity: 0,
+              duration: 1,
+            });
+            gsap.to(containerRef.current, {
+              display: "none",
+              delay: 1
+            })
+            // gsap.to(containerRef.current, {
+            //   zIndex: 0,
+            //   delay: 1.2,
+            //   duration: 0
+            // })
+          },
+          onLeave: () => {
+            // console.log(zoomRef.current);
+
+            // gsap.to(containerRef.current, {
+            //   zIndex: 2,
+            //   duration: 0
+            // })
+            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
+            //   value: 1,
+            //   duration: 8,
+            //   delay: 0,
+            //   ease: "power3.out",
+            // });
+            gsap.to(containerRef.current, {
+              display: "inline",
+              delay: 0
+            })
+            gsap.to(containerRef.current, {
+              opacity: 1,
+              duration: 2,
+              delay: 1,
+            });
           },
           onLeaveBack: () => {
             // console.log(zoomRef.current);
@@ -444,11 +484,10 @@ const Morphing = () => {
             //   delay: 0,
             //   ease: "power3.out",
             // });
-            gsap.to(zoomRef, {
-              current: 1,
-              duration: 2,
-              delay: 1,
-            });
+            gsap.to(containerRef.current, {
+              display: "inline-block",
+              delay: 0
+            })
             gsap.to(containerRef.current, {
               opacity: 1,
               duration: 2,
@@ -524,15 +563,16 @@ const CameraController = ({ containerRef }) => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: `${window?.innerHeight * 3 - 10} bottom`,
+          end: `${window?.innerHeight * 4.5 - 10} bottom`,
           // markers: true,
          onEnter: () => {
             gsap.to(zoomRef, {
               current: 3,
-              duration: 0.8,
-              onUpdate: () => {
-                console.log(zoomRef.current);
-                setZoom(zoomRef.current)
-              },
+              duration: 1.2,
+              // onUpdate: () => {
+              //   console.log(zoomRef.current);
+              //   setZoom(zoomRef.current)
+              // },
             });
           },
           onLeaveBack: () => {
@@ -540,11 +580,33 @@ const CameraController = ({ containerRef }) => {
               current: 1,
               duration: 0.8,
               delay: 1,
-              onUpdate: () => {
-                console.log(zoomRef.current);
-                setZoom(zoomRef.current)
+              // onUpdate: () => {
+              //   console.log(zoomRef.current);
+              //   setZoom(zoomRef.current)
 
-              },
+              // },
+            });
+          },
+          onEnterBack: () => {
+            gsap.to(zoomRef, {
+              current: 3,
+              duration: 1.2,
+              // onUpdate: () => {
+              //   console.log(zoomRef.current);
+              //   setZoom(zoomRef.current)
+              // },
+            });
+          },
+          onLeave: () => {
+            gsap.to(zoomRef, {
+              current: 1,
+              duration: 0.8,
+              delay: 1,
+              // onUpdate: () => {
+              //   console.log(zoomRef.current);
+              //   setZoom(zoomRef.current)
+
+              // },
             });
           },
         },

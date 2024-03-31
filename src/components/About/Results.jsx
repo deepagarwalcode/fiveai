@@ -1,0 +1,61 @@
+import React from "react";
+import styles from "./Results.module.css";
+
+const Results = () => {
+  const points = [
+    {
+      title: "Academic Excellence",
+      description:
+        "Boost grades and academic performance through our innovative learning approach.",
+    },
+    {
+      title: "Enhanced Retention",
+      description:
+        "Deepen understanding and retain knowledge effectively with our proven methods.",
+    },
+    {
+      title: "Love for Learning",
+      description:
+        "Cultivate a positive attitude towards learning and foster lifelong curiosity.",
+    },
+    {
+      title: "Problem-Solving Prowess",
+      description:
+        "Develop critical thinking and problem-solving skills to tackle any challenge.",
+    },
+    {
+      title: "Future-Ready Skills",
+      description:
+        "Prepare your child for future success with our forward-thinking curriculum.",
+    },
+  ];
+
+  return (
+    <div className={styles.results}>
+      <div className={styles.r_left}>
+        <div>Empowering Students</div>
+        <div>for Lifelong Success</div>
+        <div className={styles.cta}>Join Waitlist Now</div>
+      </div>
+      <div className={styles.r_right}>
+        {points.map((point, index) => (
+          <Point point={point} index={index + 1} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Results;
+
+const Point = ({ point, index }) => {
+  return (
+    <div className={styles.point}>
+        <div className={styles.index}>{index}</div>
+        <div className={styles.info}>
+            <div className={styles.title}>{point.title}</div>
+            <div className={styles.description}>{point.description}</div>
+        </div>
+    </div>
+  );
+};

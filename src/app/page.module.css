@@ -13,6 +13,25 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1;
+  z-index: -1;
+  opacity: 0;
+  display: none;
   /* transform: translateY(-100vh); */
+}
+
+.about{
+  /* height: 150vh; */
+  width: 100%;
+  position: absolute;
+  top: 400vh;
+  left: 0;
+  height: 200vh;
+  /* background-color: #101010; */
+  z-index: 0.5;
+}
+
+.margin{
+  height: 100vh;
+  width: 100%;
+  background-color: #101010;
 }

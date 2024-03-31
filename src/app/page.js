@@ -7,45 +7,65 @@ import Title from "@/components/Opening/Title";
 import Navbar from "@/components/Navbar/Navbar";
 import Phrase from "@/components/Opening/Phrase";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import gsap from "gsap"
+import gsap from "gsap";
 import { useLayoutEffect, useRef } from "react";
 import Waitlist from "@/components/Waitlist";
+import Results from "@/components/About/Results";
 
 export default function Home() {
-
   const containerRef = useRef(null);
   const waitlistRef = useRef(null);
+  const aboutRef = useRef(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     if (containerRef.current) {
-      gsap.to(containerRef.current, {
-        opacity: 0,
-        zIndex: -1,
-      });
-
       const scrollDisperse2 = () => {
         gsap.to(containerRef.current, {
           scrollTrigger: {
             trigger: containerRef.current,
-            // start: `${
-            //   window.innerHeight * 1.2 - window.innerHeight * 0.1
-            // } bottom`,
+
             start: `${window.innerHeight * 1.9} top`,
-            // markers: true,
+            end: `${window.innerHeight * 3.4} top`,
             onEnter: () => {
-              // gsap.to(containerRef.current, {
-              // });
+              gsap.to(containerRef.current, {
+                zIndex: 3,
+                display: "inline-block",
+                delay: 0,
+              });
               gsap.to(containerRef.current, {
                 opacity: 1,
                 duration: 2,
                 delay: 0.4,
               });
+            },
+            onEnterBack: () => {
               gsap.to(containerRef.current, {
                 zIndex: 3,
-                delay: 0
-              })
+                display: "inline-block",
+                delay: 0,
+              });
+              gsap.to(containerRef.current, {
+                opacity: 1,
+                duration: 2,
+                delay: 0.4,
+              });
+            },
+            onLeave: () => {
+              gsap.to(containerRef.current, {
+                opacity: 0,
+
+                duration: 1,
+              });
+              gsap.to(containerRef.current, {
+                zIndex: -1,
+                display: "none",
+                delay: 1,
+              });
+              gsap.to(aboutRef.current, {
+                zIndex: 10,
+              });
             },
             onLeaveBack: () => {
               gsap.to(containerRef.current, {
@@ -55,11 +75,11 @@ export default function Home() {
               });
               gsap.to(containerRef.current, {
                 zIndex: -1,
-                delay: 1
-              })
+                display: "none",
+                delay: 1,
+              });
             },
           },
-          // value: 0,
         });
       };
 
@@ -67,8 +87,7 @@ export default function Home() {
     }
   }, [containerRef]);
   return (
-    // <Suspense fallback={null}>
-    <div>
+    <div style={{backgroundColor: "#101010", height: "100%"}}>
       <Navbar waitlistRef={waitlistRef} />
       <div className={styles.opening}>
         <Morphing />
@@ -78,8 +97,12 @@ export default function Home() {
       <div className={styles.neuron} ref={containerRef}>
         <Neurons />
       </div>
+      {/* <div className={styles.margin}></div>
+      <div className={styles.about}>
+      <Results />
+
+      </div> */}
       <Waitlist waitlistRef={waitlistRef} />
     </div>
-    // </Suspense>
   );
 }
