@@ -16,7 +16,7 @@ const Waitlist = ({waitlistRef}) => {
 
   const hideWaitlist = () => {
     gsap.to(waitlistRef.current, {
-      x: "50vw",
+      x: "100%",
       duration: 0.6,
       ease: "power3.out"
     })

@@ -73,7 +73,7 @@
     font-size: 12vh;
     font-weight: 800;
     line-height: 100%;
-    flex: 1;
+    flex: 1 !important;
 }
 
 .info{
@@ -82,9 +82,50 @@
     flex-direction: column;
     gap: 1.2vh;
     font-size: 2vh;
-    text-align: justify;
+    /* text-align: justify; */
 }
 
 .title{
     font-weight: 700;
 }
+
+@media (max-width:768px) {
+    .results{
+        flex-direction: column;
+        padding: 10vh 8vw;
+        padding-bottom: 0;
+        height: max-content;
+    }
+    .r_left > div{
+        font-size: 3.2vh ;
+    }
+    .cta{
+    /* padding: 1vh 2vh;
+        font-size: 1.6vh !important;
+        margin-top: 1.6vh; */
+        display: none;
+    }
+    .index{
+        font-size: 8vh;
+        flex: 1;
+    }
+
+    .info{
+        font-size: 1.6vh;
+        gap: 0.4vh;
+        width: 100%;
+        flex: 6;
+    }
+    .point{
+        gap: 4vw;
+        transform: translateX(-2vw);
+    }
+
+    .r_right{
+        padding-top: 2vh;
+        gap: 4vh;
+        justify-content: start;
+    }
+
+}
+

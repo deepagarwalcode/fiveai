@@ -4,7 +4,7 @@ const Ending = ({showWaitlist}) => {
   return (
     <div className={styles.ending}>
       <div className={styles.line}>
-        <div>Empower you Child to Excel</div>
+        <div>Empower your Child to Excel</div>
       </div>
       <div className={styles.line}>
         <div>

@@ -85,3 +85,22 @@
     width: max-content;
     font-size: 2vh;
 }
+
+@media(max-width: 768px){
+    .waitlist{
+        width: 100vw;
+        transform: translateX(-100vw);
+    }
+
+    .title{
+        font-size: 6vh;
+    }
+
+    .input{
+        padding: 1.2vh;
+    }
+
+    .submit_button{
+        width: 100%;
+    }
+}

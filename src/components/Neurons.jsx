@@ -347,7 +347,7 @@ const Scene = ({ neuronParticles, bgParticles }) => {
         theatreKey="Camera"
         makeDefault
         position={[0, 0, 0]}
-        fov={75}
+        fov={10}
         near={0.1}
         far={100}
       />

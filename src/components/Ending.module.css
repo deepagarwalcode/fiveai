@@ -33,3 +33,14 @@
     
 }
 
+@media (max-width: 768px) {
+    .ending{
+        top: 720vh;
+        height: 20vh;
+    }
+
+    .line>div{
+        font-size: 3vh;
+        text-align: center;
+    }
+}

@@ -30,7 +30,7 @@ import logoPositionJson from "../lib/logo_optimized.json";
 const Morphing = () => {
   let particles = {};
 
-  const factor = 4;
+  const factor = 3;
 
   const cameraPosition = [
     -0.3277834258804101, 2.3106249609219893, 1.0880734148165658,
@@ -531,7 +531,7 @@ const Morphing = () => {
 
     scrollDisperse1();
     scrollDisperse2();
-    scrollDisperse3();
+    // scrollDisperse3();
   }, []);
 
   return (
