@@ -23,9 +23,9 @@ const Navbar = ({showWaitlist}) => {
     <div className={styles.navbar} ref={navRef}>
         <div className={styles.logo}>Five.ai</div>
         <div className={styles.menu_items}>
-            <div>Our Values</div>
-            <div>Team</div>
-            <div>Vision</div>
+            <div className={styles.menu_item}>Our Values</div>
+            <div className={styles.menu_item}>Team</div>
+            <div className={styles.menu_item}>Vision</div>
             <div className={styles.join_waitlist} onClick={showWaitlist}>Join Waitlist</div>
         </div>
     </div>

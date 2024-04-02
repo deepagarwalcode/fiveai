@@ -56,3 +56,10 @@
   height: 102vh;
   background-color: #101010;
 }
+
+
+@media(max-width:768px){
+  .opening{
+    max-width: 98vw;
+  }
+}

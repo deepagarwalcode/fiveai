@@ -25,3 +25,17 @@
     transform-origin: left bottom;
     transform: translateY(16vh) rotate(3deg);
 }
+
+@media(max-width:768px){
+
+    .title{
+        max-width: 100vw;
+    }
+    .line > div{
+        font-size: 5.2vh;
+    }
+
+    .line{
+        height: 6vh;
+    }
+}

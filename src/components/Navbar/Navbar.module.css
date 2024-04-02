@@ -42,3 +42,27 @@
   align-items: center;
   justify-content: center;
 }
+
+@media(max-width:768px){
+  .navbar{
+    max-width: 98vw;
+  }
+
+  .menu_item{
+    display: none;
+  }
+
+  .join_waitlist {
+    background-color: #ff7f50;
+    padding: 1vh 2vh;
+    border-radius: 10vh;
+    display: flex;
+    font-size: 1.6vh;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo{
+    font-size: 3vh;
+  }
+}
