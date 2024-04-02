@@ -24,13 +24,13 @@ import particleFragment from "../shaders/particles/fragment.glsl?raw";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import logoPositionJson from "../lib/mid_poly.json";
+// import logoPositionJson from "../lib/mid_poly.json";
+import logoPositionJson from "../lib/logo_optimized.json";
 
 const Morphing = () => {
   let particles = {};
 
-
-  const factor = 2;
+  const factor = 4;
 
   const cameraPosition = [
     -0.3277834258804101, 2.3106249609219893, 1.0880734148165658,
@@ -536,7 +536,7 @@ const Morphing = () => {
 
   return (
     <div className={styles.container} ref={containerRef}>
-      <Canvas className={styles.canvas} style={{ height: "100vh" }}>
+      <Canvas className={styles.canvas} style={{ height: "100vh" }} dpr={0.8}>
         <CameraController zoom={zoomRef.current} containerRef={containerRef} />
         {/* <OrbitControls /> */}
         <primitive object={particles.points} />

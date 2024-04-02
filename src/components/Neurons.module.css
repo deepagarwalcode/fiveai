@@ -22,7 +22,7 @@
 
 
 .fixed_scroll_div {
-  height: 150vh;
+  height: 120vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +31,7 @@
   /* background-color: red; */
   color: white;
   /* backdrop-filter: blur(4px); */
-  gap: 2vh;
+  gap: 1vh;
   filter: blur(4px);
   opacity: 0;
 
@@ -60,7 +60,8 @@
 
 .fixed_scroll_p {
   text-align: justify;
-  font-size: 2.4vh;
+  font-size: 3vh;
+  font-weight: 500;
   max-width: 72vw;
   text-align-last: center;
 

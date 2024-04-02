@@ -48,7 +48,7 @@ const Neurons = () => {
   // console.log(neuronJson.meshes[0].vertices);
   // console.log(neuronGeometry);
 
-  const factor = 1;
+  const factor = 2;
 
   const cameraPosition = [
     -0.3277834258804101, 2.3106249609219893, 1.0880734148165658,
@@ -290,6 +290,7 @@ const Neurons = () => {
           className={styles.canvas}
           style={{ height: "100vh", width: "100%" }}
           gl={{ preserveDrawingBuffer: true }}
+          dpr={0.8}
         >
           <ScrollControls
             damping={1}
@@ -563,8 +564,8 @@ const FixedContent = () => {
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div2Ref}>
-        <h1 className={styles.scroll_h1}>Unique Content</h1>
-        <p className={styles.scroll_p}>
+        <h1 className={styles.fixed_scroll_h1}>Unique Content</h1>
+        <p className={styles.fixed_scroll_p}>
           Unlike other platforms, we're not about generic content. We're about
           understanding you - your interests, cultural background, and even your
           future goals. It's education designed exclusively for you, ensuring
@@ -574,8 +575,8 @@ const FixedContent = () => {
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div3Ref}>
-        <h1 className={styles.scroll_h1}>Focus Mapping</h1>
-        <p className={styles.scroll_p}>
+        <h1 className={styles.fixed_scroll_h1}>Focus Mapping</h1>
+        <p className={styles.fixed_scroll_p}>
           Our edtech platform isn't just about learning; it's about maximizing
           your potential in every way. With real-time focus mapping, we track
           your engagement and adapt the content to keep you in the zone. Imagine
@@ -584,8 +585,8 @@ const FixedContent = () => {
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div4Ref}>
-        <h1 className={styles.scroll_h1}>All Round Growth</h1>
-        <p className={styles.scroll_p}>
+        <h1 className={styles.fixed_scroll_h1}>All Round Growth</h1>
+        <p className={styles.fixed_scroll_p}>
           And we go beyond academics. Our platform includes modules for
           personality development and other extra curricular activities, because
           education is not just about what you know; it's about who you are
@@ -595,8 +596,8 @@ const FixedContent = () => {
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div5Ref}>
-        <h1 className={styles.scroll_h1}>24*7 Personal Tutor</h1>
-        <p className={styles.scroll_p}>
+        <h1 className={styles.fixed_scroll_h1}>24*7 Personal Tutor</h1>
+        <p className={styles.fixed_scroll_p}>
           Need help at 2 AM before a big test? No problem. Our AI teacher is
           available 24/7, ready to assist and guide you whenever you need
           support. It's like having a personal tutor on demand, ensuring that
@@ -604,8 +605,8 @@ const FixedContent = () => {
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div6Ref}>
-        <h1 className={styles.scroll_h1}>Metalabs</h1>
-        <p className={styles.scroll_p}>
+        <h1 className={styles.fixed_scroll_h1}>Metalabs</h1>
+        <p className={styles.fixed_scroll_p}>
           Picture a space where you can apply your knowledge, conduct
           experiments, and deepen your understanding in a risk-free setting.
           MetaLab is where theory meets practice, making your learning
