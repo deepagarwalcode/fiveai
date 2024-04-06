@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Phrase from "@/components/Opening/Phrase";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Waitlist from "@/components/Waitlist";
 import Results from "@/components/About/Results";
 import Founders from "@/components/About/Founders";
@@ -31,6 +31,11 @@ export default function Home() {
             start: `${window.innerHeight * 1.9} top`,
             end: `${window.innerHeight * 3.4} top`,
             onEnter: () => {
+              document.body.style.overflow = "hidden"; // Enable main page scrolling after a 1-second delay
+
+              setTimeout(() => {
+                document.body.style.overflow = "auto"; // Enable main page scrolling after a 1-second delay
+              }, 2000);
               gsap.to(containerRef.current, {
                 zIndex: 3,
                 display: "inline-block",
@@ -43,6 +48,11 @@ export default function Home() {
               });
             },
             onEnterBack: () => {
+              document.body.style.overflow = "hidden"; // Enable main page scrolling after a 1-second delay
+
+              setTimeout(() => {
+                document.body.style.overflow = "auto"; // Enable main page scrolling after a 1-second delay
+              }, 2000);
               gsap.to(containerRef.current, {
                 zIndex: 3,
                 display: "inline-block",
@@ -97,7 +107,7 @@ export default function Home() {
     });
   };
   return (
-    <div style={{ backgroundColor: "#101010", height: "100%" }}>
+    <div className={styles.main} style={{ backgroundColor: "#101010", height: "100%" }}>
       <Navbar showWaitlist={showWaitlist} />
       <div className={styles.opening}>
         <Morphing />

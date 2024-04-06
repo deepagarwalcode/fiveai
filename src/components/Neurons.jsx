@@ -280,9 +280,6 @@ const Neurons = () => {
   // Points
   particles.points = new THREE.Points(particles.geometry, particles.material);
 
-
-
-
   return (
     <Suspense fallback={null}>
       <div className={styles.container}>
@@ -351,75 +348,6 @@ const Scene = ({ neuronParticles, bgParticles }) => {
         near={0.1}
         far={100}
       />
-    </>
-  );
-};
-
-const Content = () => {
-  return (
-    <>
-      <div className={styles.scroll_div}></div>
-      <div className={styles.scroll_div}>
-        <h1 className={styles.scroll_h1}>Hyper Personalized</h1>
-        <p className={styles.scroll_p}>
-          Our edtech platform's unique selling proposition (USP) is Hyper
-          personalized learning at its finest. We're not just adapting to your
-          needs; Our AI tailor's every aspect of your learning experience. From
-          choosing your preferred learning style and difficulty level to
-          deciding how you want to be motivated, it's all about your individual
-          journey.
-        </p>
-      </div>
-      <div className={styles.scroll_div}>
-        <h1 className={styles.scroll_h1}>Unique Content</h1>
-        <p className={styles.scroll_p}>
-          Unlike other platforms, we're not about generic content. We're about
-          understanding you - your interests, cultural background, and even your
-          future goals. It's education designed exclusively for you, ensuring
-          you learn in a way that suits you best. Also we dont have a pre
-          recorded library like others our content is generated in runtime only
-          for you.
-        </p>
-      </div>
-      <div className={styles.scroll_div}>
-        <h1 className={styles.scroll_h1}>Focus Mapping</h1>
-        <p className={styles.scroll_p}>
-          Our edtech platform isn't just about learning; it's about maximizing
-          your potential in every way. With real-time focus mapping, we track
-          your engagement and adapt the content to keep you in the zone. Imagine
-          a learning experience that's not only personalized but also
-          dynamically responds to your focus levels.
-        </p>
-      </div>
-      <div className={styles.scroll_div}>
-        <h1 className={styles.scroll_h1}>All Round Growth</h1>
-        <p className={styles.scroll_p}>
-          And we go beyond academics. Our platform includes modules for
-          personality development and other extra curricular activities, because
-          education is not just about what you know; it's about who you are
-          becoming. Whether it's honing your communication skills, building
-          confidence, or discovering your strengths, we're here for your
-          holistic growth.
-        </p>
-      </div>
-      <div className={styles.scroll_div}>
-        <h1 className={styles.scroll_h1}>24*7 Personal Tutor</h1>
-        <p className={styles.scroll_p}>
-          Need help at 2 AM before a big test? No problem. Our AI teacher is
-          available 24/7, ready to assist and guide you whenever you need
-          support. It's like having a personal tutor on demand, ensuring that
-          your learning never stops.
-        </p>
-      </div>
-      <div className={styles.scroll_div}>
-        <h1 className={styles.scroll_h1}>Metalabs</h1>
-        <p className={styles.scroll_p}>
-          Picture a space where you can apply your knowledge, conduct
-          experiments, and deepen your understanding in a risk-free setting.
-          MetaLab is where theory meets practice, making your learning
-          experience not just informative but truly experiential.
-        </p>
-      </div>
     </>
   );
 };
@@ -522,6 +450,36 @@ const FixedContent = () => {
     if (scroll.offset > 0.81 && !executed6) {
       appear(div6Ref);
       setExecuted6(true);
+    }
+  }, [offset]);
+
+  useEffect(() => {
+    // if (enterStatus === "enter") {
+    //   if (offset < 0.01) {
+    //     console.log(offset);
+
+    //     document.body.style.overflow = "hidden";
+    //   }
+    //   if (offset > 0.9) {
+    //     console.log(offset);
+    //     document.body.style.overflow = "auto";
+    //   }
+    // } else if (enterStatus === "enter-back") {
+    //   if (offset > 0.9) {
+    //     console.log(offset);
+
+    //     document.body.style.overflow = "hidden";
+    //   }
+    //   if (offset < 0.01) {
+    //     console.log(offset);
+    //     document.body.style.overflow = "auto";
+    //   }
+    // }
+    if (offset > 0.01 && offset < 0.9) {
+      document.body.style.overflow = "hidden";
+    }else{
+      document.body.style.overflow = "auto";
+
     }
   }, [offset]);
 

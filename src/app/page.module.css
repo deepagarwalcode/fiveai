@@ -1,3 +1,19 @@
+/* Hide the scrollbar */
+.main::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Hide the scrollbar track */
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hide the scrollbar thumb */
+.main::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
 .opening {
   height: 300vh;
   width: 100%;

@@ -9,3 +9,19 @@
   font-family: Montserrat;
   /* height: max-content; */
 }
+
+
+body::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Hide the scrollbar track */
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Hide the scrollbar thumb */
+body::-webkit-scrollbar-thumb {
+  background: transparent;
+}
