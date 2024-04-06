@@ -13,11 +13,14 @@ import Waitlist from "@/components/Waitlist";
 import Results from "@/components/About/Results";
 import Founders from "@/components/About/Founders";
 import Ending from "@/components/Ending";
+import FounderDetails from "@/components/About/FounderDetails";
 
 export default function Home() {
   const containerRef = useRef(null);
   const waitlistRef = useRef(null);
   const aboutRef = useRef(null);
+  const founderRef = useRef(null);
+  const [founder, setFounder] = useState({});
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -106,6 +109,14 @@ export default function Home() {
       ease: "power3.out",
     });
   };
+
+  const showFounder = () => {
+    gsap.to(founderRef.current, {
+      x: 0,
+      duration: 0.6,
+      ease: "power3.out",
+    });
+  };
   return (
     <div className={styles.main} style={{ backgroundColor: "#101010", height: "100%" }}>
       <Navbar showWaitlist={showWaitlist} />
@@ -122,12 +133,14 @@ export default function Home() {
         <Results showWaitlist={showWaitlist} />
       </div>
       <div className={styles.founders}>
-        <Founders />
+        <Founders showFounder={showFounder} setFounder={setFounder} />
       </div>
       <div className={styles.final}>
         <Ending showWaitlist={showWaitlist} />
       </div>
       <Waitlist waitlistRef={waitlistRef} />
+      <FounderDetails founderRef={founderRef} founder={founder} />
+
     </div>
   );
 }

@@ -32,6 +32,8 @@
 
 .section{
     flex: 1;
+    cursor: pointer;
+
 }
 
 .f_image{
@@ -39,18 +41,39 @@
     width: 100%;
     object-fit: cover;
     object-position: top center;
+    border-radius: 1.6vh;
 }
 
 .f_name{
     font-family: Clash Display;
-    margin: 1.2vh 0;
-    font-size: 3.2vh;
+    /* margin: 1.2vh 0; */
+    margin-top: 1.2vh;
+    font-size: 3.6vh;
+}
+
+.f_designation{
+    text-transform: uppercase;
+    color: rgb(156, 156, 156);
+    font-weight: 600;
+    font-size: 2vh;
 }
 
 .f_desc{
     /* text-align: justify; */
     text-transform: uppercase;
-    font-size: 2vh;
+    display: flex;
+    align-items: center;
+    gap: 0.4vw;
+    font-weight: 600;
+    font-size: 2.2vh;
+    transition: all 0.2s;
+    margin-top: 1.6vh;
+
+}
+
+.section:hover .f_desc{
+    gap: 0.8vw;
+    text-decoration: underline;
 }
 
 @media(max-width:768px){

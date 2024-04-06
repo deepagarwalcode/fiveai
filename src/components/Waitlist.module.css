@@ -89,7 +89,7 @@
 @media(max-width: 768px){
     .waitlist{
         width: 100vw;
-        transform: translateX(-100vw);
+        transform: translateX(100vw);
     }
 
     .title{
