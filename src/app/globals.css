@@ -16,12 +16,10 @@ body::-webkit-scrollbar {
   background: transparent;
 }
 
-/* Hide the scrollbar track */
 body::-webkit-scrollbar-track {
   background: transparent;
 }
 
-/* Hide the scrollbar thumb */
 body::-webkit-scrollbar-thumb {
   background: transparent;
 }

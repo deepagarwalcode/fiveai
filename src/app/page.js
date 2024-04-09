@@ -21,6 +21,7 @@ export default function Home() {
   const aboutRef = useRef(null);
   const founderRef = useRef(null);
   const [founder, setFounder] = useState({});
+  const pageRef = useRef(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -34,11 +35,14 @@ export default function Home() {
             start: `${window.innerHeight * 1.9} top`,
             end: `${window.innerHeight * 3.4} top`,
             onEnter: () => {
-              document.body.style.overflow = "hidden"; // Enable main page scrolling after a 1-second delay
+              document.body.style.overflow = "hidden"; 
+              // gsap.to(pageRef.current, {
+              //   overflow: "hidden",
+              // });
 
-              setTimeout(() => {
-                document.body.style.overflow = "auto"; // Enable main page scrolling after a 1-second delay
-              }, 2000);
+              // setTimeout(() => {
+              //   document.body.style.overflow = "auto"; 
+              // }, 2000);
               gsap.to(containerRef.current, {
                 zIndex: 3,
                 display: "inline-block",
@@ -51,11 +55,13 @@ export default function Home() {
               });
             },
             onEnterBack: () => {
-              document.body.style.overflow = "hidden"; // Enable main page scrolling after a 1-second delay
-
-              setTimeout(() => {
-                document.body.style.overflow = "auto"; // Enable main page scrolling after a 1-second delay
-              }, 2000);
+              document.body.style.overflow = "hidden";
+              // gsap.to(pageRef.current, {
+              //   overflow: "hidden", 
+              // });
+              // setTimeout(() => {
+              //   document.body.style.overflow = "auto";
+              // }, 2000);
               gsap.to(containerRef.current, {
                 zIndex: 3,
                 display: "inline-block",
@@ -118,7 +124,11 @@ export default function Home() {
     });
   };
   return (
-    <div className={styles.main} style={{ backgroundColor: "#101010", height: "100%" }}>
+    <div
+      className={styles.main}
+      style={{ backgroundColor: "#101010", height: "100%" }}
+      ref={pageRef}
+    >
       <Navbar showWaitlist={showWaitlist} />
       <div className={styles.opening}>
         <Morphing />
@@ -126,7 +136,7 @@ export default function Home() {
         <Phrase />
       </div>
       <div className={styles.neuron} ref={containerRef}>
-        <Neurons />
+        <Neurons pageRef={pageRef} />
       </div>
       <div className={styles.margin}></div>
       <div className={styles.about}>
@@ -140,7 +150,6 @@ export default function Home() {
       </div>
       <Waitlist waitlistRef={waitlistRef} />
       <FounderDetails founderRef={founderRef} founder={founder} />
-
     </div>
   );
 }

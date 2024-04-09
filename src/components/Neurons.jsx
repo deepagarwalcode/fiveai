@@ -36,7 +36,7 @@ import flyThroughState from "../lib/fly-through.json";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import neuronJson from "../lib/system.json";
 
-const Neurons = () => {
+const Neurons = ({ pageRef }) => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
     "Scene"
   );
@@ -310,7 +310,7 @@ const Neurons = () => {
             <Scroll html style={{ width: "100%", height: "100vh" }}>
               {/* DOM contents in here will scroll along */}
               {/* <h1>html in here (optional)</h1> */}
-              <FixedContent />
+              <FixedContent pageRef={pageRef} />
             </Scroll>
           </ScrollControls>
         </Canvas>
@@ -352,7 +352,7 @@ const Scene = ({ neuronParticles, bgParticles }) => {
   );
 };
 
-const FixedContent = () => {
+const FixedContent = ({ pageRef }) => {
   const contentRef = useRef(null);
   const div1Ref = useRef(null);
   const div2Ref = useRef(null);
@@ -476,10 +476,15 @@ const FixedContent = () => {
     //   }
     // }
     if (offset > 0.01 && offset < 0.9) {
+      // gsap.to(pageRef.current, {
+      //   overflow: "hidden",
+      // });
       document.body.style.overflow = "hidden";
-    }else{
+    } else {
       document.body.style.overflow = "auto";
-
+      // gsap.to(pageRef.current, {
+      //   overflow: "auto",
+      // });
     }
   }, [offset]);
 
