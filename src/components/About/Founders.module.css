@@ -88,8 +88,14 @@
         gap: 3.2vh;
     }
 
+    .section{
+        width: 100%;
+    }
+
     .f_image{
         height: 40vh;
+        width: 100%;
+        object-fit: cover;
     }
 
     .f_name{
