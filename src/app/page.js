@@ -23,6 +23,8 @@ export default function Home() {
   const founderRef = useRef(null);
   const [founder, setFounder] = useState({});
   const pageRef = useRef(null);
+  const [above, setAbove] = useState(true);
+  const [below, setBelow] = useState(false);
   function disableScroll() {
     document.body.classList.add("no-scroll");
     document.body.style.overscrollBehavior = "none";
@@ -33,9 +35,7 @@ export default function Home() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-
   useLayoutEffect(() => {
-
     if (containerRef.current) {
       const scrollDisperse2 = () => {
         gsap.to(containerRef.current, {
@@ -45,7 +45,7 @@ export default function Home() {
             start: `${window.innerHeight * 1.9} top`,
             end: `${window.innerHeight * 3.4} top`,
             onEnter: () => {
-              // document.body.style.overflow = "hidden"; 
+              // document.body.style.overflow = "hidden";
               disableScroll();
               // disableBodyScroll(containerRef.current)
 
@@ -130,24 +130,30 @@ export default function Home() {
       ref={pageRef}
     >
       <Navbar showWaitlist={showWaitlist} />
-      <div className={styles.opening}>
-        <Morphing />
-        <Title />
-        <Phrase />
-      </div>
+      <Morphing />
+      {above && (
+        <div className={styles.opening}>
+          <Title />
+          <Phrase />
+        </div>
+      )}
       <div className={styles.neuron} ref={containerRef}>
-        <Neurons pageRef={pageRef} />
+        <Neurons pageRef={pageRef} setAbove={setAbove} setBelow={setBelow} />
       </div>
       <div className={styles.margin}></div>
-      <div className={styles.about}>
-        <Results showWaitlist={showWaitlist} />
-      </div>
-      <div className={styles.founders}>
-        <Founders showFounder={showFounder} setFounder={setFounder} />
-      </div>
-      <div className={styles.final}>
-        <Ending showWaitlist={showWaitlist} />
-      </div>
+      {below && (
+        <>
+          <div className={styles.about}>
+            <Results showWaitlist={showWaitlist} />
+          </div>
+          <div className={styles.founders}>
+            <Founders showFounder={showFounder} setFounder={setFounder} />
+          </div>
+          <div className={styles.final}>
+            <Ending showWaitlist={showWaitlist} />
+          </div>
+        </>
+      )}
       <Waitlist waitlistRef={waitlistRef} />
       <FounderDetails founderRef={founderRef} founder={founder} />
     </div>

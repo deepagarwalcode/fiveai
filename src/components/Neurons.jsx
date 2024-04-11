@@ -37,7 +37,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import neuronJson from "../lib/system.json";
 import { enableBodyScroll } from "body-scroll-lock";
 
-const Neurons = ({ pageRef }) => {
+const Neurons = ({ pageRef, setAbove, setBelow }) => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
     "Scene"
   );
@@ -291,7 +291,7 @@ const Neurons = ({ pageRef }) => {
           dpr={0.8}
         >
           <ScrollControls
-            damping={1}
+            damping={0.8}
             maxSpeed={1}
             pages={10}
             style={{
@@ -311,7 +311,7 @@ const Neurons = ({ pageRef }) => {
             <Scroll html style={{ width: "100%", height: "100vh" }}>
               {/* DOM contents in here will scroll along */}
               {/* <h1>html in here (optional)</h1> */}
-              <FixedContent pageRef={pageRef} />
+              <FixedContent pageRef={pageRef} setAbove={setAbove} setBelow={setBelow} />
             </Scroll>
           </ScrollControls>
         </Canvas>
@@ -353,7 +353,7 @@ const Scene = ({ neuronParticles, bgParticles }) => {
   );
 };
 
-const FixedContent = ({ pageRef }) => {
+const FixedContent = ({ pageRef, setAbove, setBelow }) => {
   const contentRef = useRef(null);
   const div1Ref = useRef(null);
   const div2Ref = useRef(null);
@@ -455,6 +455,14 @@ const FixedContent = ({ pageRef }) => {
   }, [offset]);
 
   useEffect(() => {
+    if(offset < 0.01){
+      setAbove(true);
+      setBelow(false);
+    }
+    if(offset > 0.9){
+      setBelow(true);
+      setAbove(false);
+    }
     if (offset > 0.01 && offset < 0.9) {
 
       document.body.style.overflow = "hidden";
