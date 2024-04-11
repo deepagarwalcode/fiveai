@@ -35,12 +35,13 @@ const Founders = ({ setFounder, showFounder }) => {
       <h1 className={styles.founder_header}>Meet Our Founders</h1>
 
       <div className={styles.list}>
-        {founders.map((founder) => {
+        {founders.map((founder, index) => {
           return (
             <Founder
               founder={founder}
               setFounder={setFounder}
               showFounder={showFounder}
+              key={index}
             />
           );
         })}

@@ -46,7 +46,7 @@
     .founder_details{
         width: 100vw;
         flex-direction: column;
-        transform: translateX(100vw);
+        transform: translateX(-100vw);
         gap: 4vh;
         overflow-y: scroll;
         padding: 4vh;

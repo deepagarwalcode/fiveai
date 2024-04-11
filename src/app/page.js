@@ -14,6 +14,7 @@ import Results from "@/components/About/Results";
 import Founders from "@/components/About/Founders";
 import Ending from "@/components/Ending";
 import FounderDetails from "@/components/About/FounderDetails";
+import { disableBodyScroll } from "body-scroll-lock";
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -22,6 +23,15 @@ export default function Home() {
   const founderRef = useRef(null);
   const [founder, setFounder] = useState({});
   const pageRef = useRef(null);
+  function disableScroll() {
+    document.body.classList.add("no-scroll");
+    document.body.style.overscrollBehavior = "none";
+    document.ontouchmove = function (e) {
+      e.preventDefault();
+    };
+  }
+
+
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -35,14 +45,10 @@ export default function Home() {
             start: `${window.innerHeight * 1.9} top`,
             end: `${window.innerHeight * 3.4} top`,
             onEnter: () => {
-              document.body.style.overflow = "hidden"; 
-              // gsap.to(pageRef.current, {
-              //   overflow: "hidden",
-              // });
+              // document.body.style.overflow = "hidden"; 
+              // disableScroll();
+              disableBodyScroll(pageRef.current)
 
-              // setTimeout(() => {
-              //   document.body.style.overflow = "auto"; 
-              // }, 2000);
               gsap.to(containerRef.current, {
                 zIndex: 3,
                 display: "inline-block",
@@ -55,13 +61,10 @@ export default function Home() {
               });
             },
             onEnterBack: () => {
-              document.body.style.overflow = "hidden";
-              // gsap.to(pageRef.current, {
-              //   overflow: "hidden", 
-              // });
-              // setTimeout(() => {
-              //   document.body.style.overflow = "auto";
-              // }, 2000);
+              // document.body.style.overflow = "hidden";
+              // disableScroll();
+              disableBodyScroll(pageRef.current)
+
               gsap.to(containerRef.current, {
                 zIndex: 3,
                 display: "inline-block",

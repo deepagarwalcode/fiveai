@@ -321,12 +321,12 @@ const Morphing = () => {
 
   const morphShape = () => {
     // if (particles.material.uniforms.uProgress.value === 0) {
-      gsap.to(particles.material.uniforms.uProgress, {
-        value: 1,
-        duration: 5,
-        delay: 1,
-        ease: "power3.out",
-      });
+    gsap.to(particles.material.uniforms.uProgress, {
+      value: 1,
+      duration: 5,
+      delay: 1,
+      ease: "power3.out",
+    });
     // } else {
     //   gsap.to(particles.material.uniforms.uProgress, {
     //     value: 0,
@@ -337,12 +337,12 @@ const Morphing = () => {
     // }
 
     // if (constSphereParticles.material.uniforms.uProgress.value === 0) {
-      gsap.to(constSphereParticles.material.uniforms.uProgress, {
-        value: 1,
-        duration: 5,
-        delay: 1,
-        ease: "power3.out",
-      });
+    gsap.to(constSphereParticles.material.uniforms.uProgress, {
+      value: 1,
+      duration: 5,
+      delay: 1,
+      ease: "power3.out",
+    });
     // } else {
     //   gsap.to(constSphereParticles.material.uniforms.uProgress, {
     //     value: 1,
@@ -405,66 +405,30 @@ const Morphing = () => {
           end: `${window?.innerHeight * 4} bottom`,
           // markers: true,
           onEnter: () => {
-            // console.log(zoomRef.current);
-            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
-            //   value: 0,
-            //   duration: 8,
-            //   delay: 0,
-            //   ease: "power3.out",
-            // });
             gsap.to(containerRef.current, {
               opacity: 0,
               duration: 1,
             });
             gsap.to(containerRef.current, {
               display: "none",
-              delay: 1
-            })
-            // gsap.to(containerRef.current, {
-            //   zIndex: 0,
-            //   delay: 1.2,
-            //   duration: 0
-            // })
+              delay: 1,
+            });
           },
           onEnterBack: () => {
-            // console.log(zoomRef.current);
-            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
-            //   value: 0,
-            //   duration: 8,
-            //   delay: 0,
-            //   ease: "power3.out",
-            // });
             gsap.to(containerRef.current, {
               opacity: 0,
               duration: 1,
             });
             gsap.to(containerRef.current, {
               display: "none",
-              delay: 1
-            })
-            // gsap.to(containerRef.current, {
-            //   zIndex: 0,
-            //   delay: 1.2,
-            //   duration: 0
-            // })
+              delay: 1,
+            });
           },
           onLeave: () => {
-            // console.log(zoomRef.current);
-
-            // gsap.to(containerRef.current, {
-            //   zIndex: 2,
-            //   duration: 0
-            // })
-            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
-            //   value: 1,
-            //   duration: 8,
-            //   delay: 0,
-            //   ease: "power3.out",
-            // });
             gsap.to(containerRef.current, {
               display: "inline",
-              delay: 0
-            })
+              delay: 0,
+            });
             gsap.to(containerRef.current, {
               opacity: 1,
               duration: 2,
@@ -472,30 +436,17 @@ const Morphing = () => {
             });
           },
           onLeaveBack: () => {
-            // console.log(zoomRef.current);
-
-            // gsap.to(containerRef.current, {
-            //   zIndex: 2,
-            //   duration: 0
-            // })
-            // gsap.to(constSphereParticles.material.uniforms.uProgress, {
-            //   value: 1,
-            //   duration: 8,
-            //   delay: 0,
-            //   ease: "power3.out",
-            // });
             gsap.to(containerRef.current, {
               display: "inline-block",
-              delay: 0
-            })
+              delay: 0,
+            });
             gsap.to(containerRef.current, {
               opacity: 1,
               duration: 2,
-              delay: 1,
+              delay: 0,
             });
           },
         },
-        // value: 0,
       });
     };
 
@@ -504,10 +455,6 @@ const Morphing = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: `${window.innerHeight * 6.8} bottom`,
-          // end: "top+=1500 top",
-          // scrub: true,
-          // markers: true,
-          // toggleActions: "restart none none reverse",
           onEnter: () => {
             gsap.to(particles.material.uniforms.uProgress, {
               value: 1,
@@ -525,7 +472,6 @@ const Morphing = () => {
             });
           },
         },
-        // value: 0,
       });
     };
 
@@ -577,14 +523,13 @@ const CameraController = ({ containerRef }) => {
     -1.093226314496774, -0.1496363633338818, -0.28046697307679486,
   ];
 
-  const zoomRef = useRef(1)
-  const [zoom, setZoom] = useState(1)
+  const zoomRef = useRef(1);
+  const [zoom, setZoom] = useState(1);
 
   useFrame(() => {
     camera.zoom = zoomRef.current;
     camera.updateProjectionMatrix();
   });
-  
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -596,7 +541,7 @@ const CameraController = ({ containerRef }) => {
           start: `${window?.innerHeight * 3 - 10} bottom`,
           end: `${window?.innerHeight * 4.5 - 10} bottom`,
           // markers: true,
-         onEnter: () => {
+          onEnter: () => {
             gsap.to(zoomRef, {
               current: 3,
               duration: 1.2,

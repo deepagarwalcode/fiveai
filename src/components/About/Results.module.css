@@ -3,7 +3,7 @@
     width: 100%;
     color: white;
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-between;
     padding: 18vh 8vw;
     /* padding-bottom: 0; */
@@ -31,7 +31,7 @@
     /* background-color: #fff; */
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: space-between;
     height: 100%;
     /* background-color: pink; */
@@ -124,7 +124,7 @@
     .r_right{
         padding-top: 2vh;
         gap: 4vh;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
 }

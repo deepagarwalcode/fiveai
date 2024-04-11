@@ -23,3 +23,10 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background: transparent;
 }
+
+.no-scroll {
+  /* position: fixed; */
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}

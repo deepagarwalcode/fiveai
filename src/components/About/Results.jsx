@@ -39,7 +39,7 @@ const Results = ({showWaitlist}) => {
       </div>
       <div className={styles.r_right}>
         {points.map((point, index) => (
-          <Point point={point} index={index + 1} />
+          <Point point={point} index={index + 1} key={index} />
         ))}
       </div>
     </div>

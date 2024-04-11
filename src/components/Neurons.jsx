@@ -35,6 +35,7 @@ import {
 import flyThroughState from "../lib/fly-through.json";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import neuronJson from "../lib/system.json";
+import { enableBodyScroll } from "body-scroll-lock";
 
 const Neurons = ({ pageRef }) => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
@@ -454,37 +455,26 @@ const FixedContent = ({ pageRef }) => {
   }, [offset]);
 
   useEffect(() => {
-    // if (enterStatus === "enter") {
-    //   if (offset < 0.01) {
-    //     console.log(offset);
-
-    //     document.body.style.overflow = "hidden";
-    //   }
-    //   if (offset > 0.9) {
-    //     console.log(offset);
-    //     document.body.style.overflow = "auto";
-    //   }
-    // } else if (enterStatus === "enter-back") {
-    //   if (offset > 0.9) {
-    //     console.log(offset);
-
-    //     document.body.style.overflow = "hidden";
-    //   }
-    //   if (offset < 0.01) {
-    //     console.log(offset);
-    //     document.body.style.overflow = "auto";
-    //   }
-    // }
     if (offset > 0.01 && offset < 0.9) {
-      // gsap.to(pageRef.current, {
-      //   overflow: "hidden",
-      // });
-      document.body.style.overflow = "hidden";
+
+      // document.body.style.overflow = "hidden";
+      // function disableScroll() {
+      //   document.body.classList.add("no-scroll");
+      //   document.body.style.overscrollBehavior = "none";
+      //   document.ontouchmove = function (e) {
+      //     e.preventDefault();
+      //   };
+      // }
+      // disableScroll()
     } else {
-      document.body.style.overflow = "auto";
-      // gsap.to(pageRef.current, {
-      //   overflow: "auto",
-      // });
+      // document.body.style.overflow = "auto";
+      // function enableScroll() {
+      //   document.body.classList.remove("no-scroll");
+      //   document.body.style.overscrollBehavior = "auto";
+      //   document.ontouchmove = null;
+      // }
+      // enableScroll();
+      enableBodyScroll(pageRef.current)
     }
   }, [offset]);
 
