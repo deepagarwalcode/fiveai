@@ -23,13 +23,13 @@ export default function Home() {
   const founderRef = useRef(null);
   const [founder, setFounder] = useState({});
   const pageRef = useRef(null);
-  function disableScroll() {
-    document.body.classList.add("no-scroll");
-    document.body.style.overscrollBehavior = "none";
-    document.ontouchmove = function (e) {
-      e.preventDefault();
-    };
-  }
+  // function disableScroll() {
+  //   document.body.classList.add("no-scroll");
+  //   document.body.style.overscrollBehavior = "none";
+  //   document.ontouchmove = function (e) {
+  //     e.preventDefault();
+  //   };
+  // }
 
 
 
