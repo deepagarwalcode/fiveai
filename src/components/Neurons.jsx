@@ -457,24 +457,24 @@ const FixedContent = ({ pageRef }) => {
   useEffect(() => {
     if (offset > 0.01 && offset < 0.9) {
 
-      // document.body.style.overflow = "hidden";
-      // function disableScroll() {
-      //   document.body.classList.add("no-scroll");
-      //   document.body.style.overscrollBehavior = "none";
-      //   document.ontouchmove = function (e) {
-      //     e.preventDefault();
-      //   };
-      // }
-      // disableScroll()
+      document.body.style.overflow = "hidden";
+      function disableScroll() {
+        document.body.classList.add("no-scroll");
+        document.body.style.overscrollBehavior = "none";
+        document.ontouchmove = function (e) {
+          e.preventDefault();
+        };
+      }
+      disableScroll()
     } else {
-      // document.body.style.overflow = "auto";
-      // function enableScroll() {
-      //   document.body.classList.remove("no-scroll");
-      //   document.body.style.overscrollBehavior = "auto";
-      //   document.ontouchmove = null;
-      // }
-      // enableScroll();
-      enableBodyScroll(pageRef.current)
+      document.body.style.overflow = "auto";
+      function enableScroll() {
+        document.body.classList.remove("no-scroll");
+        document.body.style.overscrollBehavior = "auto";
+        document.ontouchmove = null;
+      }
+      enableScroll();
+      // enableBodyScroll(pageRef.current)
     }
   }, [offset]);
 

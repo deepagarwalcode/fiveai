@@ -23,18 +23,18 @@ export default function Home() {
   const founderRef = useRef(null);
   const [founder, setFounder] = useState({});
   const pageRef = useRef(null);
-  // function disableScroll() {
-  //   document.body.classList.add("no-scroll");
-  //   document.body.style.overscrollBehavior = "none";
-  //   document.ontouchmove = function (e) {
-  //     e.preventDefault();
-  //   };
-  // }
+  function disableScroll() {
+    document.body.classList.add("no-scroll");
+    document.body.style.overscrollBehavior = "none";
+    document.ontouchmove = function (e) {
+      e.preventDefault();
+    };
+  }
 
+  gsap.registerPlugin(ScrollTrigger);
 
 
   useLayoutEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
 
     if (containerRef.current) {
       const scrollDisperse2 = () => {
@@ -46,8 +46,8 @@ export default function Home() {
             end: `${window.innerHeight * 3.4} top`,
             onEnter: () => {
               // document.body.style.overflow = "hidden"; 
-              // disableScroll();
-              disableBodyScroll(pageRef.current)
+              disableScroll();
+              // disableBodyScroll(containerRef.current)
 
               gsap.to(containerRef.current, {
                 zIndex: 3,
@@ -62,8 +62,8 @@ export default function Home() {
             },
             onEnterBack: () => {
               // document.body.style.overflow = "hidden";
-              // disableScroll();
-              disableBodyScroll(pageRef.current)
+              disableScroll();
+              // disableBodyScroll(containerRef.current)
 
               gsap.to(containerRef.current, {
                 zIndex: 3,
@@ -86,9 +86,6 @@ export default function Home() {
                 // zIndex: -1,
                 display: "none",
                 delay: 1,
-              });
-              gsap.to(aboutRef.current, {
-                zIndex: 10,
               });
             },
             onLeaveBack: () => {
