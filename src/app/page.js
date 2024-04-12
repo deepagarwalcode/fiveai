@@ -28,6 +28,8 @@ export default function Home() {
   function disableScroll() {
     document.body.classList.add("no-scroll");
     document.body.style.overscrollBehavior = "none";
+    document.body.style.overflow = "hidden";
+
     document.ontouchmove = function (e) {
       e.preventDefault();
     };
@@ -130,30 +132,28 @@ export default function Home() {
       ref={pageRef}
     >
       <Navbar showWaitlist={showWaitlist} />
-      <Morphing />
-      {above && (
-        <div className={styles.opening}>
-          <Title />
-          <Phrase />
-        </div>
-      )}
+      <Morphing />(
+      <div className={styles.opening}>
+        <Title />
+        <Phrase />
+      </div>
+      )
       <div className={styles.neuron} ref={containerRef}>
         <Neurons pageRef={pageRef} setAbove={setAbove} setBelow={setBelow} />
       </div>
-      <div className={styles.margin}></div>
-      {below && (
-        <>
-          <div className={styles.about}>
-            <Results showWaitlist={showWaitlist} />
-          </div>
-          <div className={styles.founders}>
-            <Founders showFounder={showFounder} setFounder={setFounder} />
-          </div>
-          <div className={styles.final}>
-            <Ending showWaitlist={showWaitlist} />
-          </div>
-        </>
-      )}
+      <div className={styles.margin}></div>(
+      <>
+        <div className={styles.about}>
+          <Results showWaitlist={showWaitlist} />
+        </div>
+        <div className={styles.founders}>
+          <Founders showFounder={showFounder} setFounder={setFounder} />
+        </div>
+        <div className={styles.final}>
+          <Ending showWaitlist={showWaitlist} />
+        </div>
+      </>
+      )
       <Waitlist waitlistRef={waitlistRef} />
       <FounderDetails founderRef={founderRef} founder={founder} />
     </div>
