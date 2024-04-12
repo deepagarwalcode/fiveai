@@ -35,6 +35,32 @@ export default function Home() {
     };
   }
 
+  const neuronEnter = () => {
+    gsap.to(containerRef.current, {
+      zIndex: 3,
+      display: "inline-block",
+      delay: 0,
+    });
+    gsap.to(containerRef.current, {
+      opacity: 1,
+      duration: 2,
+      delay: 0.4,
+    });
+  };
+
+  const neuronLeave = () => {
+    gsap.to(containerRef.current, {
+      opacity: 0,
+
+      duration: 1,
+    });
+    gsap.to(containerRef.current, {
+      // zIndex: -1,
+      display: "none",
+      delay: 1,
+    });
+  }
+
   gsap.registerPlugin(ScrollTrigger);
 
   useLayoutEffect(() => {
@@ -50,57 +76,19 @@ export default function Home() {
               // document.body.style.overflow = "hidden";
               disableScroll();
               // disableBodyScroll(containerRef.current)
-
-              gsap.to(containerRef.current, {
-                zIndex: 3,
-                display: "inline-block",
-                delay: 0,
-              });
-              gsap.to(containerRef.current, {
-                opacity: 1,
-                duration: 2,
-                delay: 0.4,
-              });
+              neuronEnter()
             },
             onEnterBack: () => {
               // document.body.style.overflow = "hidden";
               disableScroll();
               // disableBodyScroll(containerRef.current)
-
-              gsap.to(containerRef.current, {
-                zIndex: 3,
-                display: "inline-block",
-                delay: 0,
-              });
-              gsap.to(containerRef.current, {
-                opacity: 1,
-                duration: 2,
-                delay: 0.4,
-              });
+              neuronEnter()
             },
             onLeave: () => {
-              gsap.to(containerRef.current, {
-                opacity: 0,
 
-                duration: 1,
-              });
-              gsap.to(containerRef.current, {
-                // zIndex: -1,
-                display: "none",
-                delay: 1,
-              });
             },
             onLeaveBack: () => {
-              gsap.to(containerRef.current, {
-                opacity: 0,
-
-                duration: 1,
-              });
-              gsap.to(containerRef.current, {
-                // zIndex: -1,
-                display: "none",
-                delay: 1,
-              });
+              neuronLeave();
             },
           },
         });
@@ -139,7 +127,7 @@ export default function Home() {
       </div>
       )
       <div className={styles.neuron} ref={containerRef}>
-        <Neurons pageRef={pageRef} setAbove={setAbove} setBelow={setBelow} />
+        <Neurons pageRef={pageRef} setAbove={setAbove} setBelow={setBelow} neuronLeave={neuronLeave} />
       </div>
       <div className={styles.margin}></div>(
       <>

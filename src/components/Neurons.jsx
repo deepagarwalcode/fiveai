@@ -37,7 +37,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import neuronJson from "../lib/system.json";
 import { enableBodyScroll } from "body-scroll-lock";
 
-const Neurons = ({ pageRef, setAbove, setBelow }) => {
+const Neurons = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
     "Scene"
   );
@@ -311,7 +311,12 @@ const Neurons = ({ pageRef, setAbove, setBelow }) => {
             <Scroll html style={{ width: "100%", height: "100vh" }}>
               {/* DOM contents in here will scroll along */}
               {/* <h1>html in here (optional)</h1> */}
-              <FixedContent pageRef={pageRef} setAbove={setAbove} setBelow={setBelow} />
+              <FixedContent
+                pageRef={pageRef}
+                setAbove={setAbove}
+                setBelow={setBelow}
+                neuronLeave={neuronLeave}
+              />
             </Scroll>
           </ScrollControls>
         </Canvas>
@@ -353,7 +358,7 @@ const Scene = ({ neuronParticles, bgParticles }) => {
   );
 };
 
-const FixedContent = ({ pageRef, setAbove, setBelow }) => {
+const FixedContent = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
   const contentRef = useRef(null);
   const div1Ref = useRef(null);
   const div2Ref = useRef(null);
@@ -454,18 +459,34 @@ const FixedContent = ({ pageRef, setAbove, setBelow }) => {
     }
   }, [offset]);
 
+  function enableScroll() {
+    document.body.style.overflow = "auto";
+    document.body.classList.remove("no-scroll");
+    document.body.style.overscrollBehavior = "auto";
+    document.ontouchmove = null;
+  }
+
+  const [entered, setEntered] = useState(true);
+
   useEffect(() => {
-    if(offset < 0.01){
-      setAbove(true);
-      setBelow(false);
+    if (offset < 0.01) {
+      // setAbove(true);
+      // setBelow(false);
+      setEntered(true);
     }
-    if(offset > 0.9){
-      setBelow(true);
-      setAbove(false);
+    if (offset > 0.9) {
+      // setBelow(true);
+      // setAbove(false);
+      if (entered) {
+        setEntered(false);
+        neuronLeave();
+        enableScroll();
+      }
     }
     if (offset > 0.01 && offset < 0.9) {
-
       document.body.style.overflow = "hidden";
+      setEntered(true);
+
       function disableScroll() {
         document.body.classList.add("no-scroll");
         document.body.style.overscrollBehavior = "none";
@@ -473,14 +494,8 @@ const FixedContent = ({ pageRef, setAbove, setBelow }) => {
           e.preventDefault();
         };
       }
-      disableScroll()
+      disableScroll();
     } else {
-      document.body.style.overflow = "auto";
-      function enableScroll() {
-        document.body.classList.remove("no-scroll");
-        document.body.style.overscrollBehavior = "auto";
-        document.ontouchmove = null;
-      }
       enableScroll();
       // enableBodyScroll(pageRef.current)
     }
