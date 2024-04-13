@@ -13,6 +13,7 @@ const Waitlist = ({waitlistRef}) => {
   const parentMobile = useRef(null);
   const studentName = useRef(null);
   const studentAge = useRef(null);
+  const address = useRef(null);
 
   const hideWaitlist = () => {
     gsap.to(waitlistRef.current, {
@@ -30,6 +31,7 @@ const Waitlist = ({waitlistRef}) => {
     data.parentPhoneNo = parentMobile.current.value;
     data.studentName = studentName.current.value;
     data.studentAge = studentAge.current.value;
+    data.address = address.current.value;
 
     // Do something with the input values, e.g., send them to a server
     // console.log("Parent Name:", parentNameValue);
@@ -101,6 +103,15 @@ const Waitlist = ({waitlistRef}) => {
               type="text"
               placeholder="Enter Student's Age"
               ref={studentAge}
+            />
+          </div>
+          <div className={styles.input_container}>
+            <p className={styles.label}>Address</p>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Enter Address"
+              ref={address}
             />
           </div>
           <button onClick={handleSubmit} className={styles.submit_button}>
