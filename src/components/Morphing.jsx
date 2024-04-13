@@ -401,7 +401,7 @@ const Morphing = () => {
       gsap.to(particles.material.uniforms.uProgress, {
         scrollTrigger: {
           trigger: containerRef.current,
-          start: `${window?.innerHeight * 3} bottom`,
+          start: `${window?.innerHeight * 2.9} bottom`,
           end: `${window?.innerHeight * 4-10} bottom`,
           // markers: true,
           onEnter: () => {
