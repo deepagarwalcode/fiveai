@@ -4,9 +4,16 @@ import React, { useEffect, useRef } from "react";
 import styles from "./Navbar.module.css";
 import gsap from "gsap";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Navbar = ({ showWaitlist, neuronLeave }) => {
   const navRef = useRef(null);
+
+  const router = useRouter();
+
+  const handleReload = () => {
+    router.push("/");
+  };
 
   useEffect(() => {
     if (navRef) {
@@ -22,7 +29,7 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
   const hideNeuron = () => {};
   return (
     <div className={styles.navbar} ref={navRef}>
-      <div className={styles.logo}>Five.ai</div>
+      <div className={styles.logo} onClick={handleReload} style={{cursor: "pointer"}}>5ive.ai</div>
       <div className={styles.menu_items}>
         {/* <Link href={"#founders"} onClick={neuronLeave} style={{color: "white", textDecoration: "none"}}>
           <div className={styles.menu_item}>Team</div>
