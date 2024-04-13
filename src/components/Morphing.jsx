@@ -402,42 +402,42 @@ const Morphing = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: `${window?.innerHeight * 3} bottom`,
-          end: `${window?.innerHeight * 4} bottom`,
+          end: `${window?.innerHeight * 4-10} bottom`,
           // markers: true,
           onEnter: () => {
             gsap.to(containerRef.current, {
               opacity: 0,
               duration: 1,
             });
-            gsap.to(containerRef.current, {
-              display: "none",
-              delay: 1,
-            });
+            // gsap.to(containerRef.current, {
+            //   display: "none",
+            //   delay: 1,
+            // });
           },
           onEnterBack: () => {
             gsap.to(containerRef.current, {
               opacity: 0,
               duration: 1,
             });
-            gsap.to(containerRef.current, {
-              display: "none",
-              delay: 1,
-            });
+            // gsap.to(containerRef.current, {
+            //   display: "none",
+            //   delay: 1,
+            // });
           },
           onLeave: () => {
             gsap.to(containerRef.current, {
-              display: "inline",
+              // display: "inline",
               delay: 0,
             });
             gsap.to(containerRef.current, {
               opacity: 1,
-              duration: 2,
-              delay: 1,
+              duration: 1,
+              delay: 0,
             });
           },
           onLeaveBack: () => {
             gsap.to(containerRef.current, {
-              display: "inline-block",
+              // display: "inline-block",
               delay: 0,
             });
             gsap.to(containerRef.current, {
@@ -539,7 +539,7 @@ const CameraController = ({ containerRef }) => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: `${window?.innerHeight * 3 - 10} bottom`,
-          end: `${window?.innerHeight * 4.5 - 10} bottom`,
+          end: `${window?.innerHeight * 4 - 10} bottom`,
           // markers: true,
           onEnter: () => {
             gsap.to(zoomRef, {

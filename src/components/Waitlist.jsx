@@ -42,9 +42,10 @@ const Waitlist = ({waitlistRef}) => {
         "https://auth-system-admin.vercel.app/api/wishlist",
         data
       );
-      toast.success("Submitted Successfully!");
+      toast.success("Submitted Successfully! Please check your email for further instructions.");
+      hideWaitlist();
     } catch (e) {
-      toast.error("Error!!!");
+      toast.error("Error! Please try again later.");
       console.error(e);
     }
   };
