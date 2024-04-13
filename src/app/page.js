@@ -79,7 +79,7 @@ export default function Home() {
             trigger: containerRef.current,
 
             start: `${window.innerHeight * 1.9} top`,
-            end: `${window.innerHeight * 3.4} top`,
+            end: `${window.innerHeight * 3.2} top`,
             onEnter: () => {
               // document.body.style.overflow = "hidden";
               disableScroll();

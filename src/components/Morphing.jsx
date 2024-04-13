@@ -402,7 +402,7 @@ const Morphing = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: `${window?.innerHeight * 2.9} bottom`,
-          end: `${window?.innerHeight * 4-10} bottom`,
+          end: `${window?.innerHeight * 3.2-10} bottom`,
           // markers: true,
           onEnter: () => {
             gsap.to(containerRef.current, {
