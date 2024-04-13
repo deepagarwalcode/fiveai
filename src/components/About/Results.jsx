@@ -31,7 +31,7 @@ const Results = ({showWaitlist}) => {
   ];
 
   return (
-    <div className={styles.results}>
+    <div className={styles.results} id="results">
       <div className={styles.r_left}>
         <div>Empowering Students</div>
         <div>for Lifelong Success</div>

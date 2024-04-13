@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Phrase from "@/components/Opening/Phrase";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from "gsap";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Waitlist from "@/components/Waitlist";
 import Results from "@/components/About/Results";
 import Founders from "@/components/About/Founders";
@@ -25,6 +25,12 @@ export default function Home() {
   const pageRef = useRef(null);
   const [above, setAbove] = useState(true);
   const [below, setBelow] = useState(false);
+
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    };
+  }, []);
   function disableScroll() {
     document.body.classList.add("no-scroll");
     document.body.style.overscrollBehavior = "none";
@@ -34,6 +40,8 @@ export default function Home() {
       e.preventDefault();
     };
   }
+
+
 
   const neuronEnter = () => {
     gsap.to(containerRef.current, {
@@ -119,7 +127,7 @@ export default function Home() {
       style={{ backgroundColor: "#101010", height: "100%" }}
       ref={pageRef}
     >
-      <Navbar showWaitlist={showWaitlist} />
+      <Navbar showWaitlist={showWaitlist} neuronLeave={neuronLeave} />
       <Morphing />(
       <div className={styles.opening}>
         <Title />

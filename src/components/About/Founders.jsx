@@ -31,7 +31,7 @@ const Founders = ({ setFounder, showFounder }) => {
     },
   ];
   return (
-    <div className={styles.founders}>
+    <div className={styles.founders} id="founders">
       <h1 className={styles.founder_header}>Meet Our Founders</h1>
 
       <div className={styles.list}>
