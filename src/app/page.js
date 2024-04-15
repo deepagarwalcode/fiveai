@@ -55,6 +55,11 @@ export default function Home() {
       // visibility: "visible",
       // pointerEvents: "auto",
       delay: 0,
+    });
+    gsap.to(containerRef.current, {
+      opacity: 1,
+      duration: 1,
+      delay: 0.4,
       onComplete: () => {
         // Simulate a mouse click on the neuron container
         const neuronContainer = containerRef.current;
@@ -68,11 +73,6 @@ export default function Home() {
           );
         }
       },
-    });
-    gsap.to(containerRef.current, {
-      opacity: 1,
-      duration: 1,
-      delay: 0.4,
     });
   };
 
