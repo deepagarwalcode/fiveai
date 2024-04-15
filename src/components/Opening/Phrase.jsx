@@ -1,9 +1,9 @@
 
 import styles from "./Phrase.module.css";
 
-const Phrase = () => {
+const Phrase = ({phraseRef}) => {
   return (
-    <div className={styles.phrase}>
+    <div className={styles.phrase} ref={phraseRef}>
       <div className={styles.line}>
         <div>Innovating K-12 Education</div>
       </div>

@@ -401,7 +401,7 @@ const Morphing = () => {
       gsap.to(particles.material.uniforms.uProgress, {
         scrollTrigger: {
           trigger: containerRef.current,
-          start: `${window?.innerHeight * 2.9} bottom`,
+          start: `${window?.innerHeight * 2.7} bottom`,
           end: `${window?.innerHeight * 3.2-10} bottom`,
           // markers: true,
           onEnter: () => {
@@ -531,6 +531,23 @@ const CameraController = ({ containerRef }) => {
     camera.updateProjectionMatrix();
   });
 
+  function disableScroll() {
+    document.body.classList.add("no-scroll");
+    document.body.style.overscrollBehavior = "none";
+    document.body.style.overflow = "hidden";
+
+    document.ontouchmove = function (e) {
+      e.preventDefault();
+    };
+  }
+
+  function enableScroll() {
+    document.body.style.overflow = "auto";
+    document.body.classList.remove("no-scroll");
+    document.body.style.overscrollBehavior = "auto";
+    document.ontouchmove = null;
+  }
+
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -538,10 +555,11 @@ const CameraController = ({ containerRef }) => {
       gsap.to(containerRef.current, {
         scrollTrigger: {
           trigger: containerRef.current,
-          start: `${window?.innerHeight * 2.9} bottom`,
+          start: `${window?.innerHeight * 2.7} bottom`,
           end: `${window?.innerHeight * 4 - 10} bottom`,
           // markers: true,
           onEnter: () => {
+            // disableScroll()
             gsap.to(zoomRef, {
               current: 3,
               duration: 1.2,
@@ -562,6 +580,7 @@ const CameraController = ({ containerRef }) => {
 
               // },
             });
+            
           },
           onEnterBack: () => {
             gsap.to(zoomRef, {

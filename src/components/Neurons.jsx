@@ -37,7 +37,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import neuronJson from "../lib/system.json";
 import { enableBodyScroll } from "body-scroll-lock";
 
-const Neurons = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
+const Neurons = ({ neuronLeave, aboutRef, phraseRef }) => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
     "Scene"
   );
@@ -312,10 +312,9 @@ const Neurons = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
               {/* DOM contents in here will scroll along */}
               {/* <h1>html in here (optional)</h1> */}
               <FixedContent
-                pageRef={pageRef}
-                setAbove={setAbove}
-                setBelow={setBelow}
                 neuronLeave={neuronLeave}
+                aboutRef={aboutRef}
+                phraseRef={phraseRef}
               />
             </Scroll>
           </ScrollControls>
@@ -358,7 +357,7 @@ const Scene = ({ neuronParticles, bgParticles }) => {
   );
 };
 
-const FixedContent = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
+const FixedContent = ({  neuronLeave, aboutRef, phraseRef }) => {
   const contentRef = useRef(null);
   const div1Ref = useRef(null);
   const div2Ref = useRef(null);
@@ -466,13 +465,26 @@ const FixedContent = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
     document.ontouchmove = null;
   }
 
-  const [entered, setEntered] = useState(true);
+  const handleClick = (scrollRef) => {
+    scrollRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+
+  const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     if (offset < 0.01) {
       // setAbove(true);
+      if (entered) {
+        setEntered(false);
+        neuronLeave();
+        enableScroll();
+        handleClick(phraseRef);
+      }
       // setBelow(false);
-      setEntered(true);
+      // setEntered(true);
     }
     if (offset > 0.95) {
       // setBelow(true);
@@ -481,6 +493,7 @@ const FixedContent = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
         setEntered(false);
         neuronLeave();
         enableScroll();
+        handleClick(aboutRef);
       }
     }
     if (offset > 0.01 && offset < 0.95) {

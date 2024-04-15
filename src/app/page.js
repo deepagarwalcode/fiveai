@@ -20,11 +20,14 @@ export default function Home() {
   const containerRef = useRef(null);
   const waitlistRef = useRef(null);
   const aboutRef = useRef(null);
+  const openingRef = useRef(null);
   const founderRef = useRef(null);
+  const phraseRef = useRef(null);
   const [founder, setFounder] = useState({});
   const pageRef = useRef(null);
   const [above, setAbove] = useState(true);
   const [below, setBelow] = useState(false);
+  const [overflowHide, setOverflowHide] = useState(false);
 
   useEffect(() => {
     window.onbeforeunload = function () {
@@ -40,8 +43,6 @@ export default function Home() {
       e.preventDefault();
     };
   }
-
-
 
   const neuronEnter = () => {
     gsap.to(containerRef.current, {
@@ -67,7 +68,7 @@ export default function Home() {
       display: "none",
       delay: 1,
     });
-  }
+  };
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -78,25 +79,24 @@ export default function Home() {
           scrollTrigger: {
             trigger: containerRef.current,
 
-            start: `${window.innerHeight * 1.9} top`,
-            end: `${window.innerHeight * 3.2} top`,
+            start: `${window.innerHeight * 1.7} top`,
+            end: `${window.innerHeight * 2.7} top`,
+            // markers: true,
             onEnter: () => {
               // document.body.style.overflow = "hidden";
               disableScroll();
               // disableBodyScroll(containerRef.current)
-              neuronEnter()
+              neuronEnter();
             },
             onEnterBack: () => {
               // document.body.style.overflow = "hidden";
               disableScroll();
               // disableBodyScroll(containerRef.current)
-              neuronEnter()
+              neuronEnter();
             },
-            onLeave: () => {
-
-            },
+            onLeave: () => {},
             onLeaveBack: () => {
-              neuronLeave();
+              // neuronLeave();
             },
           },
         });
@@ -122,34 +122,31 @@ export default function Home() {
     });
   };
   return (
-    <div
-      className={styles.main}
-      style={{ backgroundColor: "#101010", height: "100%" }}
-      ref={pageRef}
-    >
+    <div className={styles.main}>
+      {/* <button style={{position: "fixed", top: "30vh", left: "0", zIndex: 5}} onClick={() => handleClick(openingRef)}>Click</button> */}
       <Navbar showWaitlist={showWaitlist} neuronLeave={neuronLeave} />
-      <Morphing />(
-      <div className={styles.opening}>
+      <Morphing />
+      <div className={styles.opening} ref={openingRef}>
         <Title />
-        <Phrase />
+        <Phrase phraseRef={phraseRef} />
       </div>
-      )
       <div className={styles.neuron} ref={containerRef}>
-        <Neurons pageRef={pageRef} setAbove={setAbove} setBelow={setBelow} neuronLeave={neuronLeave} />
+        <Neurons
+          neuronLeave={neuronLeave}
+          aboutRef={aboutRef}
+          phraseRef={phraseRef}
+        />
       </div>
-      <div className={styles.margin}></div>(
-      <>
-        <div className={styles.about}>
-          <Results showWaitlist={showWaitlist} />
-        </div>
-        <div className={styles.founders}>
-          <Founders showFounder={showFounder} setFounder={setFounder} />
-        </div>
-        <div className={styles.final}>
-          <Ending showWaitlist={showWaitlist} />
-        </div>
-      </>
-      )
+      {/* <div className={styles.margin}></div> */}
+      <div className={styles.about} ref={aboutRef}>
+        <Results showWaitlist={showWaitlist} />
+      </div>
+      <div className={styles.founders}>
+        <Founders showFounder={showFounder} setFounder={setFounder} />
+      </div>
+      <div className={styles.final}>
+        <Ending showWaitlist={showWaitlist} />
+      </div>
       <Waitlist waitlistRef={waitlistRef} />
       <FounderDetails founderRef={founderRef} founder={founder} />
     </div>
