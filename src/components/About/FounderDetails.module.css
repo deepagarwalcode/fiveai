@@ -57,7 +57,7 @@
     /* text-align: justify; */
 }
 
-@media(max-width: 768px){
+@media(max-width: 1100px){
     .founder_details{
         width: 100vw;
         flex-direction: column;

@@ -15,6 +15,7 @@ import Founders from "@/components/About/Founders";
 import Ending from "@/components/Ending";
 import FounderDetails from "@/components/About/FounderDetails";
 import { disableBodyScroll } from "body-scroll-lock";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -28,6 +29,7 @@ export default function Home() {
   const [above, setAbove] = useState(true);
   const [below, setBelow] = useState(false);
   const [overflowHide, setOverflowHide] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     window.onbeforeunload = function () {
@@ -49,6 +51,19 @@ export default function Home() {
       zIndex: 3,
       display: "inline-block",
       delay: 0,
+      onComplete: () => {
+        // Simulate a mouse click on the neuron container
+        const neuronContainer = containerRef.current;
+        if (neuronContainer) {
+          neuronContainer.dispatchEvent(
+            new MouseEvent("click", {
+              view: window,
+              bubbles: true,
+              cancelable: true,
+            })
+          );
+        }
+      },
     });
     gsap.to(containerRef.current, {
       opacity: 1,
@@ -122,7 +137,10 @@ export default function Home() {
     });
   };
   return (
-    <div className={styles.main}>
+    <div
+      className={styles.main}
+      style={{ height: "100%", backgroundColor: "#101010" }}
+    >
       {/* <button style={{position: "fixed", top: "30vh", left: "0", zIndex: 5}} onClick={() => handleClick(openingRef)}>Click</button> */}
       <Navbar showWaitlist={showWaitlist} neuronLeave={neuronLeave} />
       <Morphing />

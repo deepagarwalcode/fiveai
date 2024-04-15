@@ -76,7 +76,7 @@
     text-decoration: underline;
 }
 
-@media(max-width:768px){
+@media(max-width:1100px){
     .founders{
         top: 425vh;
     }
@@ -96,6 +96,7 @@
         height: 40vh;
         width: 100%;
         object-fit: cover;
+        object-position: center;
     }
 
     .f_name{

@@ -45,7 +45,7 @@
   font-weight: 400;
 }
 
-@media(max-width:768px){
+@media(max-width:1100px){
   .navbar{
     max-width: 98vw;
   }

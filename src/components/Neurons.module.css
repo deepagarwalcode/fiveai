@@ -93,7 +93,7 @@
   text-align-last: center;
 }
 
-@media(max-width:768px) {
+@media(max-width:1100px) {
   .fixed_scroll_h1{
     font-size: 4.8vh;
   }
