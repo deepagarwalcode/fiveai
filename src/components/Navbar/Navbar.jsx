@@ -11,8 +11,19 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
 
   const router = useRouter();
 
+  function enableScroll() {
+    document.body.style.overflow = "auto";
+    document.body.classList.remove("no-scroll");
+    document.body.style.overscrollBehavior = "auto";
+    document.ontouchmove = null;
+  }
+
+
   const handleReload = () => {
-    router.push("/");
+    enableScroll();
+
+    router.push("/")
+
   };
 
   useEffect(() => {
@@ -41,7 +52,7 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
         </Link> */}
         {/* <div className={styles.menu_item}>Team</div> */}
         <div className={styles.join_waitlist} onClick={showWaitlist}>
-          Join Waitlist
+          Get Early Access
         </div>
       </div>
     </div>

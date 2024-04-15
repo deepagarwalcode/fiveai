@@ -35,7 +35,7 @@ const Results = ({showWaitlist}) => {
       <div className={styles.r_left}>
         <div>Empowering Students</div>
         <div>for Lifelong Success</div>
-        <div className={styles.cta} onClick={showWaitlist}>Join Waitlist Now</div>
+        <div className={styles.cta} onClick={showWaitlist}>Get Early Access Now</div>
       </div>
       <div className={styles.r_right}>
         {points.map((point, index) => (

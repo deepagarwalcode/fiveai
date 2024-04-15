@@ -41,6 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Clash Display;
+  font-weight: 400;
 }
 
 @media(max-width:768px){

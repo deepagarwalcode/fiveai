@@ -13,7 +13,22 @@
     z-index: 5 !important;
     gap: 2vw;
     transform: translateX(-64vw);
+    overflow-y: scroll;
+
 }
+
+.founder_details::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+  
+  .founder_details::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .founder_details::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
 
 .founder_details > img{
     flex: 1;
@@ -48,7 +63,6 @@
         flex-direction: column;
         transform: translateX(-100vw);
         gap: 4vh;
-        overflow-y: scroll;
         padding: 4vh;
     }
 

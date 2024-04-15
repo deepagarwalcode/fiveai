@@ -39,6 +39,11 @@ const Waitlist = ({waitlistRef}) => {
     // console.log("Parent Mobile:", parentMobileValue);
     // console.log("Student Name:", studentNameValue);
     // console.log("Student Age:", studentAgeValue);
+    if(!parentName?.current?.value || !parentEmail?.current?.value || !studentName?.current?.value || !studentAge?.current?.value || !address?.current?.value || !parentMobile?.current?.value){
+      toast.error("Please fill all fields.")
+      return;
+    }
+
     try {
       await axios.post(
         "https://auth-system-admin.vercel.app/api/wishlist",
@@ -47,7 +52,7 @@ const Waitlist = ({waitlistRef}) => {
       toast.success("Submitted Successfully! Please check your email for further instructions.");
       hideWaitlist();
     } catch (e) {
-      toast.error("Error! Please try again later.");
+      toast.error("Error! Please Enter Valid Credentials.");
       console.error(e);
     }
   };
@@ -57,7 +62,7 @@ const Waitlist = ({waitlistRef}) => {
       <div className={styles.waitlist} ref={waitlistRef}>
         <div className={styles.form}>
           <div className={styles.header}>
-            <p className={styles.title}>Join Waitlist</p>
+            <p className={styles.title}>Get Early Access</p>
             <IoClose color="white" style={{cursor: "pointer"}} size={32} onClick={hideWaitlist} />
           </div>
           <div className={styles.input_container}>

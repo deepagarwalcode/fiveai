@@ -474,7 +474,7 @@ const FixedContent = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
       // setBelow(false);
       setEntered(true);
     }
-    if (offset > 0.9) {
+    if (offset > 0.95) {
       // setBelow(true);
       // setAbove(false);
       if (entered) {
@@ -483,7 +483,7 @@ const FixedContent = ({ pageRef, setAbove, setBelow, neuronLeave }) => {
         enableScroll();
       }
     }
-    if (offset > 0.01 && offset < 0.9) {
+    if (offset > 0.01 && offset < 0.95) {
       document.body.style.overflow = "hidden";
       setEntered(true);
 

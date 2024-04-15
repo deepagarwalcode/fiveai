@@ -51,7 +51,7 @@ export default function Home() {
     });
     gsap.to(containerRef.current, {
       opacity: 1,
-      duration: 2,
+      duration: 1,
       delay: 0.4,
     });
   };
