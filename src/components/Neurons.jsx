@@ -37,7 +37,15 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 // import neuronJson from "../lib/system.json";
 import { enableBodyScroll } from "body-scroll-lock";
 
-const Neurons = ({ neuronLeave, aboutRef, phraseRef, flyThroughState, neuronJson }) => {
+const Neurons = ({
+  neuronLeave,
+  aboutRef,
+  phraseRef,
+  flyThroughState,
+  neuronJson,
+  showBottom,
+  showTop,
+}) => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
     "Scene"
   );
@@ -315,6 +323,8 @@ const Neurons = ({ neuronLeave, aboutRef, phraseRef, flyThroughState, neuronJson
                 neuronLeave={neuronLeave}
                 aboutRef={aboutRef}
                 phraseRef={phraseRef}
+                showBottom={showBottom}
+                showTop={showTop}
               />
             </Scroll>
           </ScrollControls>
@@ -357,7 +367,13 @@ const Scene = ({ neuronParticles, bgParticles }) => {
   );
 };
 
-const FixedContent = ({  neuronLeave, aboutRef, phraseRef }) => {
+const FixedContent = ({
+  neuronLeave,
+  aboutRef,
+  phraseRef,
+  showBottom,
+  showTop,
+}) => {
   const contentRef = useRef(null);
   const div1Ref = useRef(null);
   const div2Ref = useRef(null);
@@ -467,8 +483,8 @@ const FixedContent = ({  neuronLeave, aboutRef, phraseRef }) => {
 
   const handleClick = (scrollRef) => {
     scrollRef.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
+      behavior: "smooth",
+      block: "start",
     });
   };
 
@@ -479,6 +495,7 @@ const FixedContent = ({  neuronLeave, aboutRef, phraseRef }) => {
       // setAbove(true);
       if (entered) {
         setEntered(false);
+        showTop();
         neuronLeave();
         enableScroll();
         handleClick(phraseRef);
@@ -491,6 +508,8 @@ const FixedContent = ({  neuronLeave, aboutRef, phraseRef }) => {
       // setAbove(false);
       if (entered) {
         setEntered(false);
+        showBottom();
+
         neuronLeave();
         enableScroll();
         handleClick(aboutRef);
@@ -499,6 +518,7 @@ const FixedContent = ({  neuronLeave, aboutRef, phraseRef }) => {
     if (offset > 0.01 && offset < 0.95) {
       document.body.style.overflow = "hidden";
       setEntered(true);
+      showBottom();
 
       function disableScroll() {
         document.body.classList.add("no-scroll");

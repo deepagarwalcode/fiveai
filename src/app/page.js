@@ -26,6 +26,7 @@ export default function Home() {
   const openingRef = useRef(null);
   const founderRef = useRef(null);
   const phraseRef = useRef(null);
+  const bottomRef = useRef(null);
   const [founder, setFounder] = useState({});
   const pageRef = useRef(null);
   const [above, setAbove] = useState(true);
@@ -43,9 +44,19 @@ export default function Home() {
     document.body.style.overscrollBehavior = "none";
     document.body.style.overflow = "hidden";
 
-    document.ontouchmove = function (e) {
-      e.preventDefault();
-    };
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS) {
+      // iOS-specific scroll disabling
+      document.ontouchmove = (e) => {
+        e.preventDefault();
+      };
+    } else {
+      // Other devices scroll disabling
+      document.ontouchmove = (e) => {
+        e.preventDefault();
+      };
+    }
   }
 
   const neuronEnter = () => {
@@ -60,19 +71,19 @@ export default function Home() {
       opacity: 1,
       duration: 1,
       delay: 0.4,
-      onComplete: () => {
-        // Simulate a mouse click on the neuron container
-        const neuronContainer = containerRef.current;
-        if (neuronContainer) {
-          neuronContainer.dispatchEvent(
-            new MouseEvent("click", {
-              view: window,
-              bubbles: true,
-              cancelable: true,
-            })
-          );
-        }
-      },
+      // onComplete: () => {
+      //   // Simulate a mouse click on the neuron container
+      //   const neuronContainer = containerRef.current;
+      //   if (neuronContainer) {
+      //     neuronContainer.dispatchEvent(
+      //       new MouseEvent("click", {
+      //         view: containerRef.current,
+      //         bubbles: true,
+      //         cancelable: true,
+      //       })
+      //     );
+      //   }
+      // },
     });
   };
 
@@ -140,6 +151,28 @@ export default function Home() {
       ease: "power3.out",
     });
   };
+
+  const showBottom = () => {
+    gsap.to(bottomRef.current, {
+      display: "block",
+    })
+
+    gsap.to(openingRef.current, {
+      opacity: 0,
+    })
+
+  }
+
+  const showTop = () => {
+    gsap.to(bottomRef.current, {
+      display: "none",
+    })
+
+    gsap.to(openingRef.current, {
+      opacity: 1,
+    })
+  }
+
   return (
     <div
       className={styles.main}
@@ -159,9 +192,13 @@ export default function Home() {
           phraseRef={phraseRef}
           flyThroughState={flyThroughState}
           neuronJson={neuronJson}
+          showBottom={showBottom}
+          showTop={showTop}
         />
       </div>
       {/* <div className={styles.margin}></div> */}
+      <div className={styles.bottom} ref={bottomRef}>
+
       <div className={styles.about} ref={aboutRef}>
         <Results showWaitlist={showWaitlist} />
       </div>
@@ -171,6 +208,8 @@ export default function Home() {
       <div className={styles.final}>
         <Ending showWaitlist={showWaitlist} />
       </div>
+      </div>
+
       <Waitlist waitlistRef={waitlistRef} />
       <FounderDetails founderRef={founderRef} founder={founder} />
     </div>

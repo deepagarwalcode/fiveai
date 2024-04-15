@@ -78,6 +78,10 @@
   background-color: #101010;
 }
 
+.bottom{
+  display: none;
+}
+
 
 @media(max-width:1100px){
   .opening{
