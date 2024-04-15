@@ -16,6 +16,8 @@ import Ending from "@/components/Ending";
 import FounderDetails from "@/components/About/FounderDetails";
 import { disableBodyScroll } from "body-scroll-lock";
 import { useRouter } from "next/navigation";
+import flyThroughState from "../lib/fly-through.json";
+import neuronJson from "../lib/system.json";
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -50,6 +52,8 @@ export default function Home() {
     gsap.to(containerRef.current, {
       zIndex: 3,
       display: "inline-block",
+      // visibility: "visible",
+      // pointerEvents: "auto",
       delay: 0,
       onComplete: () => {
         // Simulate a mouse click on the neuron container
@@ -153,6 +157,8 @@ export default function Home() {
           neuronLeave={neuronLeave}
           aboutRef={aboutRef}
           phraseRef={phraseRef}
+          flyThroughState={flyThroughState}
+          neuronJson={neuronJson}
         />
       </div>
       {/* <div className={styles.margin}></div> */}

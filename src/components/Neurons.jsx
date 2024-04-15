@@ -32,12 +32,12 @@ import {
   PerspectiveCamera,
   useCurrentSheet,
 } from "@theatre/r3f";
-import flyThroughState from "../lib/fly-through.json";
+// import flyThroughState from "../lib/fly-through.json";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import neuronJson from "../lib/system.json";
+// import neuronJson from "../lib/system.json";
 import { enableBodyScroll } from "body-scroll-lock";
 
-const Neurons = ({ neuronLeave, aboutRef, phraseRef }) => {
+const Neurons = ({ neuronLeave, aboutRef, phraseRef, flyThroughState, neuronJson }) => {
   const sheet = getProject("Fly Through", { state: flyThroughState }).sheet(
     "Scene"
   );
