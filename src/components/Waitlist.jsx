@@ -62,7 +62,7 @@ const Waitlist = ({waitlistRef}) => {
       <div className={styles.waitlist} ref={waitlistRef}>
         <div className={styles.form}>
           <div className={styles.header}>
-            <p className={styles.title}>Get Early Access</p>
+            <p className={styles.title}>Join Waitlist</p>
             <IoClose color="white" style={{cursor: "pointer"}} size={32} onClick={hideWaitlist} />
           </div>
           <div className={styles.input_container}>

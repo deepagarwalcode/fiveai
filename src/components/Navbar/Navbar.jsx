@@ -20,9 +20,10 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
 
 
   const handleReload = () => {
-    enableScroll();
+    window.location.reload();
+    // enableScroll();
 
-    router.push("/")
+    // router.push("/")
 
   };
 
@@ -52,7 +53,7 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
         </Link> */}
         {/* <div className={styles.menu_item}>Team</div> */}
         <div className={styles.join_waitlist} onClick={showWaitlist}>
-          Get Early Access
+          Join Waitlist
         </div>
       </div>
     </div>

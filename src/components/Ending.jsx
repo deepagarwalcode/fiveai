@@ -8,7 +8,7 @@ const Ending = ({showWaitlist}) => {
       </div>
       <div className={styles.line}>
         <div>
-          <span className={styles.jw} onClick={showWaitlist}>Get Early Access</span> to book Demo
+          <span className={styles.jw} onClick={showWaitlist}>Join Waitlist</span> to book Demo
         </div>
       </div>
     </div>

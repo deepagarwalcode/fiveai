@@ -16,7 +16,8 @@
 
 .logo {
   font-family: Clash Display;
-  font-size: 2rem;
+  font-size: 6vh;
+  font-weight: 500;
 }
 
 .menu_items {
