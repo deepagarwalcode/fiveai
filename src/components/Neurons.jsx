@@ -497,8 +497,8 @@ const FixedContent = ({
         setEntered(false);
         showTop();
         neuronLeave();
-        enableScroll();
         handleClick(phraseRef);
+        enableScroll();
       }
       // setBelow(false);
       // setEntered(true);
@@ -511,8 +511,8 @@ const FixedContent = ({
         showBottom();
 
         neuronLeave();
-        enableScroll();
         handleClick(aboutRef);
+        enableScroll();
       }
     }
     if (offset > 0.01 && offset < 0.95) {
@@ -560,66 +560,68 @@ const FixedContent = ({
 
       <div className={styles.fixed_scroll_div} ref={div1Ref}>
         {/* <div className={styles.h1_div}> */}
-        <h1 className={styles.fixed_scroll_h1}>Hyper Personalized</h1>
+        <h1 className={styles.fixed_scroll_h1}>Hyper-Personalization</h1>
         {/* </div> */}
-        <div></div>
+        {/* <div></div> */}
         <p className={styles.fixed_scroll_p}>
-          Our edtech platform's unique selling proposition (USP) is Hyper
-          personalized learning at its finest. We're not just adapting to your
-          needs; Our AI tailor's every aspect of your learning experience. From
-          choosing your preferred learning style and difficulty level to
-          deciding how you want to be motivated, it's all about your individual
-          journey.
+          Hyper-personalized learning experiences tailored to each student's
+          needs, preferences, and aptitudes. Real-Time Adaptation with Focus
+          Mapping to adapt teaching methods dynamically. If a student shows
+          signs of disengagement, the system switch teaching styles and gamified
+          learning in case the student needs a break.
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div2Ref}>
-        <h1 className={styles.fixed_scroll_h1}>Unique Content</h1>
+        <h1 className={styles.fixed_scroll_h1}>
+          Continuous Assessment and Adaptation
+        </h1>
         <p className={styles.fixed_scroll_p}>
-          Unlike other platforms, we're not about generic content. We're about
-          understanding you - your interests, cultural background, and even your
-          future goals. It's education designed exclusively for you, ensuring
-          you learn in a way that suits you best. Also we dont have a pre
-          recorded library like others our content is generated in runtime only
-          for you.
+          Adaptive AI technology ensures that learning experiences are flexible
+          and responsive to students' progress and performance. Real-time
+          feedback obtained through focus mapping and other sensory data to
+          refine and optimize learning paths continuously. The AI system adjusts
+          content delivery based on the student's mood and focus, ensuring that
+          the educational process is as effective as possible.
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div3Ref}>
-        <h1 className={styles.fixed_scroll_h1}>Focus Mapping</h1>
+        <h1 className={styles.fixed_scroll_h1}>
+          Emotional and Mental Wellness
+        </h1>
         <p className={styles.fixed_scroll_p}>
-          Our edtech platform isn't just about learning; it's about maximizing
-          your potential in every way. With real-time focus mapping, we track
-          your engagement and adapt the content to keep you in the zone. Imagine
-          a learning experience that's not only personalized but also
-          dynamically responds to your focus levels.
+          The AI system monitors students’ facial expressions and physiological
+          responses to assess emotional states and stress levels. It takes a
+          holistic approach to learning, considering factors beyond academic
+          achievement. It encompasses the development of critical thinking
+          skills, problem-solving abilities, communication skills, and emotional
+          intelligence, fostering well-rounded growth and personal development.
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div4Ref}>
-        <h1 className={styles.fixed_scroll_h1}>All Round Growth</h1>
+        <h1 className={styles.fixed_scroll_h1}>Supportive Environment</h1>
         <p className={styles.fixed_scroll_p}>
-          And we go beyond academics. Our platform includes modules for
-          personality development and other extra curricular activities, because
-          education is not just about what you know; it's about who you are
-          becoming. Whether it's honing your communication skills, building
-          confidence, or discovering your strengths, we're here for your
-          holistic growth.
+          The AI system provides a supportive learning environment where
+          students feel valued, supported, and empowered to take ownership of
+          his learning. The Ai system provides access to resources, guidance
+          from tutors, feedback on progress, interactive and immersive hands on
+          experience, and a sense of community and belonging, fostering a
+          positive and conducive atmosphere for learning and growth.
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div5Ref}>
-        <h1 className={styles.fixed_scroll_h1}>24*7 Personal Tutor</h1>
+        <h1 className={styles.fixed_scroll_h1}>MetaLab Simulations</h1>
         <p className={styles.fixed_scroll_p}>
-          Need help at 2 AM before a big test? No problem. Our AI teacher is
-          available 24/7, ready to assist and guide you whenever you need
-          support. It's like having a personal tutor on demand, ensuring that
-          your learning never stops.
+          Features the MetaLab, a virtual reality laboratory where students can
+          conduct experiments and procedures that mimic real-life labs.
         </p>
       </div>
       <div className={styles.fixed_scroll_div} ref={div6Ref}>
-        <h1 className={styles.fixed_scroll_h1}>Metalabs</h1>
+        <h1 className={styles.fixed_scroll_h1}>Explorative AI Learning</h1>
         <p className={styles.fixed_scroll_p}>
-          Picture a space where you can apply your knowledge, conduct
-          experiments, and deepen your understanding in a risk-free setting.
-          MetaLab is where theory meets practice, making your learning
-          experience not just informative but truly experiential.
+          Encourages students to use AI to explore and develop new concepts and
+          projects. This hands-on experience with cutting-edge technology not
+          only makes them technologically adept but also pioneers in applying AI
+          creatively across various fields.
         </p>
       </div>
     </div>
