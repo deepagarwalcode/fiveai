@@ -483,7 +483,7 @@ const FixedContent = ({
 
   const handleClick = (scrollRef) => {
     scrollRef.current.scrollIntoView({
-      behavior: "smooth",
+      // behavior: "smooth",
       block: "start",
     });
   };
@@ -491,30 +491,36 @@ const FixedContent = ({
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
-    if (offset < 0.01) {
-      // setAbove(true);
-      if (entered) {
-        setEntered(false);
-        showTop();
-        neuronLeave();
-        handleClick(phraseRef);
-        enableScroll();
-      }
-      // setBelow(false);
-      // setEntered(true);
-    }
-    if (offset > 0.95) {
-      // setBelow(true);
-      // setAbove(false);
-      if (entered) {
-        setEntered(false);
-        showBottom();
+    const scroller = async() => {
+      if (offset < 0.01) {
 
-        neuronLeave();
-        handleClick(aboutRef);
-        enableScroll();
+        // setAbove(true);
+        if (entered) {
+          setEntered(false);
+          showTop();
+          handleClick(phraseRef);
+          await neuronLeave();
+          enableScroll();
+        }
+        // setBelow(false);
+        // setEntered(true);
+      }
+      if (offset > 0.95) {
+        // setBelow(true);
+        // setAbove(false);
+        if (entered) {
+          setEntered(false);
+          showBottom();
+  
+          handleClick(aboutRef);
+          await neuronLeave();
+          enableScroll();
+        }
       }
     }
+
+    scroller()
+
     if (offset > 0.01 && offset < 0.95) {
       document.body.style.overflow = "hidden";
       setEntered(true);
