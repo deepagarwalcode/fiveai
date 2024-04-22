@@ -3,6 +3,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import toast, { Toaster } from "react-hot-toast";
+import { Analytics } from "@vercel/analytics/react"
 // import extension from "@theatre/r3f/dist/extension";
 // import studio from "@theatre/studio";
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className} >
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
