@@ -8,13 +8,13 @@ const Founders = ({ setFounder, showFounder }) => {
     {
       img: "/founders/rajeev_gupta.png",
       name: "Rajeev Gupta",
-      designation: "Co-founder & CEO",
+      designation: "Co-founder",
       bio: "Rajeev is seasoned Data Scientist and AI Engineer, holding a Master's degree in Computer Applications from JNU, New Delhi. His fervor for data and machine learning fuels his expertise in these fields. With over three decades of extensive experience in Software Engineering, Delivery, Project & Programme Management, he has led successful initiatives in various capacities. Rajeev has hands-on experience in Data Science and AI projects, demonstrating proficiency across diverse industries and applications. Rajeev has worked in UK, Singapore and India.",
     },
     {
       img: "/founders/abhinandan_kumar.png",
       name: "Abhinandan Kumar",
-      designation: "Co-Founder, CMO & COO",
+      designation: "Co-Founder",
       bio: "Abhinandan Kumar, an adept human resources strategist and co-founder of Zapnosys AI Pvt Ltd, is recognized for his decade-long expertise across pivotal industries including Power, Airport, and Defense. An MBA graduate from the Indian Institute of Planning and Management. With a provenance in aeronautical engineering and a career that spans continents, Abhinandan’s visionary leadership is propelling the educational tech sphere to new zeniths.",
     },
     {
