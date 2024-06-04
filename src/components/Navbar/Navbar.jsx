@@ -18,13 +18,11 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
     document.ontouchmove = null;
   }
 
-
   const handleReload = () => {
     window.location.reload();
     // enableScroll();
 
     // router.push("/")
-
   };
 
   useEffect(() => {
@@ -41,7 +39,13 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
   const hideNeuron = () => {};
   return (
     <div className={styles.navbar} ref={navRef}>
-      <div className={styles.logo} onClick={handleReload} style={{cursor: "pointer"}}>5ive.ai</div>
+      <div
+        className={styles.logo}
+        onClick={handleReload}
+        style={{ cursor: "pointer" }}
+      >
+        5ive.ai
+      </div>
       <div className={styles.menu_items}>
         {/* <Link href={"#founders"} onClick={neuronLeave} style={{color: "white", textDecoration: "none"}}>
           <div className={styles.menu_item}>Team</div>
@@ -52,8 +56,18 @@ const Navbar = ({ showWaitlist, neuronLeave }) => {
           </div>
         </Link> */}
         {/* <div className={styles.menu_item}>Team</div> */}
-        <div className={styles.join_waitlist} onClick={showWaitlist}>
+        {/* <div className={styles.join_waitlist} onClick={showWaitlist}>
           Join Waitlist
+        </div> */}
+        {/* <div className={styles.join_waitlist_1}>
+          <div className={styles.join_waitlist_2}>
+            <div className={styles.join_waitlist_3}>
+              <div className={styles.join_waitlist_4}>Join Waitlist</div>
+            </div>
+          </div>
+        </div> */}
+        <div className={styles.button_outer} onClick={showWaitlist}>
+          <div className={styles.button_inner}></div>
         </div>
       </div>
     </div>
