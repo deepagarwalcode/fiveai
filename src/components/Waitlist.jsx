@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Waitlist.module.css";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -16,6 +16,7 @@ const Waitlist = ({ waitlistRef }) => {
   const address = useRef(null);
   const state = useRef(null);
   const city = useRef(null);
+  const [loading, setLoading] = useState(false);
 
   const hideWaitlist = () => {
     gsap.to(waitlistRef.current, {
@@ -55,6 +56,7 @@ const Waitlist = ({ waitlistRef }) => {
       toast.error("Please fill all fields.");
       return;
     }
+    setLoading(true);
 
     try {
       await axios.post(
@@ -65,9 +67,13 @@ const Waitlist = ({ waitlistRef }) => {
         "Submitted Successfully! Please check your email for further instructions."
       );
       hideWaitlist();
+      setLoading(false);
     } catch (e) {
       toast.error("Error! Please Enter Valid Credentials.");
       console.error(e);
+      setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -163,8 +169,16 @@ const Waitlist = ({ waitlistRef }) => {
               ref={address}
             />
           </div>
-          <button onClick={handleSubmit} className={styles.submit_button}>
-            Submit
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className={styles.submit_button}
+            style={{
+              backgroundColor: loading && "gray",
+              cursor: loading && "not-allowed",
+            }}
+          >
+            {loading ? "Saving Your Data" : "Submit"}
           </button>
         </div>
       </div>
