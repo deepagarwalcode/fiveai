@@ -113,9 +113,13 @@
         flex: 1;
     }
 
+    .title{
+        font-size: 2.4vh;
+    }
+
     .info{
-        font-size: 1.6vh;
-        gap: 0.4vh;
+        font-size: 2vh;
+        gap: 1vh;
         width: 100%;
         flex: 6;
     }
