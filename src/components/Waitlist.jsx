@@ -160,7 +160,7 @@ const Waitlist = ({ waitlistRef }) => {
               />
             </div>
           </div>
-          <div className={styles.input_container}>
+          {/* <div className={styles.input_container}>
             <p className={styles.label}>Address</p>
             <input
               className={styles.input}
@@ -168,7 +168,7 @@ const Waitlist = ({ waitlistRef }) => {
               placeholder="Enter Address"
               ref={address}
             />
-          </div>
+          </div> */}
           <button
             onClick={handleSubmit}
             disabled={loading}
