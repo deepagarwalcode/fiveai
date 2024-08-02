@@ -33,7 +33,7 @@ const Waitlist = ({ waitlistRef }) => {
     data.parentPhoneNo = parentMobile.current.value;
     data.studentName = studentName.current.value;
     data.studentAge = studentAge.current.value;
-    data.address = address.current.value;
+    data.address = "";
     data.state = state.current.value;
     data.city = city.current.value;
 
@@ -48,7 +48,6 @@ const Waitlist = ({ waitlistRef }) => {
       !parentEmail?.current?.value ||
       !studentName?.current?.value ||
       !studentAge?.current?.value ||
-      !address?.current?.value ||
       !state?.current?.value ||
       !city?.current?.value ||
       !parentMobile?.current?.value
