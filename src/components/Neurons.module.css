@@ -11,15 +11,13 @@
   /* height: 50vh; */
 }
 
-.content{
+.content {
   height: 1000vh;
   /* background-color: #ffffff6e; */
   position: relative;
   top: 0;
   left: 0;
 }
-
-
 
 .fixed_scroll_div {
   height: 120vh;
@@ -30,14 +28,14 @@
   width: 100%;
   /* background-color: red; */
   color: white;
+  
   /* backdrop-filter: blur(4px); */
-  gap: 1vh;
-  filter: blur(4px);
-  opacity: 0;
-
+  gap: 2vh;
+  /* filter: blur(4px); */
+  opacity: 1;
 }
 
-.h1_div{
+.h1_div {
   height: 14vh;
   overflow: hidden !important;
   position: relative !important;
@@ -52,19 +50,60 @@
   /* transform: translateY(13vh); */
 }
 
-.p_div{
+.p_div {
   height: 3vh;
   overflow: hidden !important;
   position: relative !important;
 }
 
 .fixed_scroll_p {
-  text-align: justify;
-  font-size: 3vh;
-  font-weight: 500;
-  max-width: 72vw;
+  text-align: center;
+  font-size: 2.4vh;
+  font-weight: 400;
+  max-width: 80vw;
+  flex-wrap: wrap;
   text-align-last: center;
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
+}
 
+.fixed_scroll_card {
+  flex: 1;
+  box-sizing: border-box;
+  position: relative;
+  padding: 3vh 2.4vh;
+  backdrop-filter: blur(4px) !important;
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 8px;
+  min-width: 24vw;
+  max-width: 24vw;
+}
+
+.fixed_scroll_card > p{
+  /* text-align: justify; */
+  font-size: 2vh;
+  font-weight: 500;
+  color: whitesmoke;
+}
+
+.fixed_scroll_card_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.fixed_scroll_h2 {
+  font-weight: 500 !important;
+  font-size: 3vh !important;
+  text-align: center;
+  margin: 0 auto;
+  font-family: Clash Display;
+  /* text-transform: uppercase; */
+  margin-bottom: 2vh;
+  color: white !important;
 }
 
 .scroll_div {
@@ -93,14 +132,18 @@
   text-align-last: center;
 }
 
-@media(max-width:1100px) {
-  .fixed_scroll_h1{
+@media (max-width: 1100px) {
+  .fixed_scroll_h1 {
     font-size: 4.8vh;
   }
 
-  .fixed_scroll_p{
+  .fixed_scroll_p {
     font-size: 2.8vh;
     max-width: 84vw;
     text-align: center;
+  }
+
+  .fixed_scroll_card{
+    min-width: 80vw;
   }
 }

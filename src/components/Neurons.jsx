@@ -36,6 +36,7 @@ import {
 import ScrollTrigger from "gsap/ScrollTrigger";
 // import neuronJson from "../lib/system.json";
 import { enableBodyScroll } from "body-scroll-lock";
+import { neuronsData } from "@/lib/data";
 
 const Neurons = ({
   neuronLeave,
@@ -423,56 +424,56 @@ const FixedContent = ({
     }
   });
 
-  useEffect(() => {
-    if (scroll.offset < 0.12 && executed1) {
-      disAppear(div1Ref);
-      setExecuted1(false);
-    }
-    if (scroll.offset > 0.12 && !executed1) {
-      appear(div1Ref);
-      setExecuted1(true);
-    }
-    if (scroll.offset < 0.25 && executed2) {
-      disAppear(div2Ref);
-      setExecuted2(false);
-    }
-    if (scroll.offset > 0.25 && !executed2) {
-      appear(div2Ref);
-      setExecuted2(true);
-    }
-    if (scroll.offset < 0.39 && executed3) {
-      disAppear(div3Ref);
-      setExecuted3(false);
-    }
-    if (scroll.offset > 0.39 && !executed3) {
-      appear(div3Ref);
-      setExecuted3(true);
-    }
-    if (scroll.offset < 0.52 && executed4) {
-      disAppear(div4Ref);
-      setExecuted4(false);
-    }
-    if (scroll.offset > 0.52 && !executed4) {
-      appear(div4Ref);
-      setExecuted4(true);
-    }
-    if (scroll.offset < 0.675 && executed5) {
-      disAppear(div5Ref);
-      setExecuted5(false);
-    }
-    if (scroll.offset > 0.675 && !executed5) {
-      appear(div5Ref);
-      setExecuted5(true);
-    }
-    if (scroll.offset < 0.81 && executed6) {
-      disAppear(div6Ref);
-      setExecuted6(false);
-    }
-    if (scroll.offset > 0.81 && !executed6) {
-      appear(div6Ref);
-      setExecuted6(true);
-    }
-  }, [offset]);
+  // useEffect(() => {
+  //   if (scroll.offset < 0.12 && executed1) {
+  //     disAppear(div1Ref);
+  //     setExecuted1(false);
+  //   }
+  //   if (scroll.offset > 0.12 && !executed1) {
+  //     appear(div1Ref);
+  //     setExecuted1(true);
+  //   }
+  //   if (scroll.offset < 0.25 && executed2) {
+  //     disAppear(div2Ref);
+  //     setExecuted2(false);
+  //   }
+  //   if (scroll.offset > 0.25 && !executed2) {
+  //     appear(div2Ref);
+  //     setExecuted2(true);
+  //   }
+  //   if (scroll.offset < 0.39 && executed3) {
+  //     disAppear(div3Ref);
+  //     setExecuted3(false);
+  //   }
+  //   if (scroll.offset > 0.39 && !executed3) {
+  //     appear(div3Ref);
+  //     setExecuted3(true);
+  //   }
+  //   if (scroll.offset < 0.52 && executed4) {
+  //     disAppear(div4Ref);
+  //     setExecuted4(false);
+  //   }
+  //   if (scroll.offset > 0.52 && !executed4) {
+  //     appear(div4Ref);
+  //     setExecuted4(true);
+  //   }
+  //   if (scroll.offset < 0.675 && executed5) {
+  //     disAppear(div5Ref);
+  //     setExecuted5(false);
+  //   }
+  //   if (scroll.offset > 0.675 && !executed5) {
+  //     appear(div5Ref);
+  //     setExecuted5(true);
+  //   }
+  //   if (scroll.offset < 0.81 && executed6) {
+  //     disAppear(div6Ref);
+  //     setExecuted6(false);
+  //   }
+  //   if (scroll.offset > 0.81 && !executed6) {
+  //     appear(div6Ref);
+  //     setExecuted6(true);
+  //   }
+  // }, [offset]);
 
   function enableScroll() {
     document.body.style.overflow = "auto";
@@ -491,9 +492,8 @@ const FixedContent = ({
   const [entered, setEntered] = useState(false);
 
   useEffect(() => {
-    const scroller = async() => {
+    const scroller = async () => {
       if (offset < 0.01) {
-
         // setAbove(true);
         if (entered) {
           setEntered(false);
@@ -511,15 +511,15 @@ const FixedContent = ({
         if (entered) {
           setEntered(false);
           showBottom();
-  
+
           handleClick(aboutRef);
           await neuronLeave();
           enableScroll();
         }
       }
-    }
+    };
 
-    scroller()
+    scroller();
 
     if (offset > 0.01 && offset < 0.95) {
       document.body.style.overflow = "hidden";
@@ -565,19 +565,17 @@ const FixedContent = ({
       <div className={styles.scroll_div}></div>
 
       <div className={styles.fixed_scroll_div} ref={div1Ref}>
-        {/* <div className={styles.h1_div}> */}
-        <h1 className={styles.fixed_scroll_h1}>Hyper-Personalization</h1>
-        {/* </div> */}
-        {/* <div></div> */}
-        <p className={styles.fixed_scroll_p}>
-          Hyper-personalized learning experiences tailored to each student's
-          needs, preferences, and aptitudes. Real-Time Adaptation with Focus
-          Mapping to adapt teaching methods dynamically. If a student shows
-          signs of disengagement, the system switch teaching styles and gamified
-          learning in case the student needs a break.
-        </p>
+        <h1 className={styles.fixed_scroll_h1}>{neuronsData[0].title}</h1>
+        <div className={styles.fixed_scroll_p}>
+          {neuronsData[0]?.features.map((feature, index) => (
+            <div className={styles.fixed_scroll_card} key={index}>
+              <p className={styles.fixed_scroll_h2}>{feature.name}</p>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className={styles.fixed_scroll_div} ref={div2Ref}>
+      {/* <div className={styles.fixed_scroll_div} ref={div2Ref}>
         <h1 className={styles.fixed_scroll_h1}>
           Continuous Assessment and Adaptation
         </h1>
@@ -589,46 +587,61 @@ const FixedContent = ({
           content delivery based on the student's mood and focus, ensuring that
           the educational process is as effective as possible.
         </p>
+      </div> */}
+      <div className={styles.fixed_scroll_div} ref={div2Ref}>
+        <h1 className={styles.fixed_scroll_h1}>{neuronsData[1].title}</h1>
+        <div className={styles.fixed_scroll_p}>
+          {neuronsData[1]?.features.map((feature, index) => (
+            <div className={styles.fixed_scroll_card} key={index}>
+              <p className={styles.fixed_scroll_h2}>{feature.name}</p>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.fixed_scroll_div} ref={div3Ref}>
-        <h1 className={styles.fixed_scroll_h1}>
-          Emotional and Mental Wellness
-        </h1>
-        <p className={styles.fixed_scroll_p}>
-          The AI system monitors students’ facial expressions and physiological
-          responses to assess emotional states and stress levels. It takes a
-          holistic approach to learning, considering factors beyond academic
-          achievement. It encompasses the development of critical thinking
-          skills, problem-solving abilities, communication skills, and emotional
-          intelligence, fostering well-rounded growth and personal development.
-        </p>
+      <h1 className={styles.fixed_scroll_h1}>{neuronsData[2].title}</h1>
+        <div className={styles.fixed_scroll_p}>
+          {neuronsData[2]?.features.map((feature, index) => (
+            <div className={styles.fixed_scroll_card} key={index}>
+              <p className={styles.fixed_scroll_h2}>{feature.name}</p>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.fixed_scroll_div} ref={div4Ref}>
-        <h1 className={styles.fixed_scroll_h1}>Supportive Environment</h1>
-        <p className={styles.fixed_scroll_p}>
-          The AI system provides a supportive learning environment where
-          students feel valued, supported, and empowered to take ownership of
-          his learning. The Ai system provides access to resources, guidance
-          from tutors, feedback on progress, interactive and immersive hands on
-          experience, and a sense of community and belonging, fostering a
-          positive and conducive atmosphere for learning and growth.
-        </p>
+      <h1 className={styles.fixed_scroll_h1}>{neuronsData[3].title}</h1>
+        <div className={styles.fixed_scroll_p}>
+          {neuronsData[3]?.features.map((feature, index) => (
+            <div className={styles.fixed_scroll_card} key={index}>
+              <p className={styles.fixed_scroll_h2}>{feature.name}</p>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.fixed_scroll_div} ref={div5Ref}>
-        <h1 className={styles.fixed_scroll_h1}>MetaLab Simulations</h1>
-        <p className={styles.fixed_scroll_p}>
-          Features the MetaLab, a virtual reality laboratory where students can
-          conduct experiments and procedures that mimic real-life labs.
-        </p>
+      <h1 className={styles.fixed_scroll_h1}>{neuronsData[4].title}</h1>
+        <div className={styles.fixed_scroll_p}>
+          {neuronsData[4]?.features.map((feature, index) => (
+            <div className={styles.fixed_scroll_card} key={index}>
+              <p className={styles.fixed_scroll_h2}>{feature.name}</p>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div className={styles.fixed_scroll_div} ref={div6Ref}>
-        <h1 className={styles.fixed_scroll_h1}>Explorative AI Learning</h1>
-        <p className={styles.fixed_scroll_p}>
-          Encourages students to use AI to explore and develop new concepts and
-          projects. This hands-on experience with cutting-edge technology not
-          only makes them technologically adept but also pioneers in applying AI
-          creatively across various fields.
-        </p>
+      <h1 className={styles.fixed_scroll_h1}>{neuronsData[5].title}</h1>
+        <div className={styles.fixed_scroll_p}>
+          {neuronsData[5]?.features.map((feature, index) => (
+            <div className={styles.fixed_scroll_card} key={index}>
+              <p className={styles.fixed_scroll_h2}>{feature.name}</p>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

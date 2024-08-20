@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Results.module.css";
+import { whyUsData } from "@/lib/data";
 
 const Results = ({showWaitlist}) => {
   const points = [
@@ -41,7 +42,7 @@ const Results = ({showWaitlist}) => {
         </div>
       </div>
       <div className={styles.r_right}>
-        {points.map((point, index) => (
+        {whyUsData.map((point, index) => (
           <Point point={point} index={index + 1} key={index} />
         ))}
       </div>
