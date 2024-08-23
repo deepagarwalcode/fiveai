@@ -1,111 +1,109 @@
-.founders{
-    height: 100vh;
-    width: 100%;
-    color: white;
-    /* display: flex;
+.founders {
+  height: 100vh;
+  width: 100%;
+  color: white;
+  /* display: flex;
     align-items: center;
     justify-content: space-between; */
-    padding: 12vh 8vw;
+  padding: 12vh 8vw;
 
-    /* padding-bottom: 0; */
-    gap: 4vw;
-    position: absolute;
-    z-index: 2;
-    top: 460vh;
-    left: 0;
-
+  /* padding-bottom: 0; */
+  gap: 4vw;
+  position: absolute;
+  z-index: 2;
+  top: 460vh;
+  left: 0;
 }
 
-.founder_header{
-    font-family: Clash Display;
-    font-size: 8vh;
-    font-weight: 400;
-    margin-bottom: 4vh;
+.founder_header {
+  font-family: Clash Display;
+  font-size: 8vh;
+  font-weight: 400;
+  margin-bottom: 4vh;
 }
 
-.list{
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1vw;
+.list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1vw;
 }
 
-.section{
-    flex: 1;
-    cursor: pointer;
-
+.section {
+  flex: 1;
+  cursor: pointer;
 }
 
-.f_image{
-    height: 50vh;
+.f_image {
+  height: 50vh;
+  width: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 1.6vh;
+}
+
+.f_name {
+  font-family: Clash Display;
+  /* margin: 1.2vh 0; */
+  margin-top: 1.2vh;
+  font-size: 3.6vh;
+}
+
+.f_designation {
+  text-transform: uppercase;
+  color: rgb(156, 156, 156);
+  font-weight: 600;
+  font-size: 2vh;
+}
+
+.f_desc {
+  /* text-align: justify; */
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4vw;
+  font-weight: 600;
+  font-size: 2.2vh;
+  transition: all 0.2s;
+  margin-top: 1.6vh;
+}
+
+.section:hover .f_desc {
+  gap: 0.8vw;
+  text-decoration: underline;
+}
+
+@media (max-width: 1100px) {
+  .founders {
+    top: 480vh;
+    /* background: pink; */
+    height: max-content;
+  }
+  .founder_header {
+    font-size: 3.2vh;
+  }
+  .list {
+    flex-direction: column;
+    gap: 3.2vh;
+  }
+
+  .section {
+    width: 100%;
+  }
+
+  .f_image {
+    height: 40vh;
     width: 100%;
     object-fit: cover;
-    object-position: top center;
-    border-radius: 1.6vh;
-}
+    object-position: center;
+  }
 
-.f_name{
-    font-family: Clash Display;
-    /* margin: 1.2vh 0; */
-    margin-top: 1.2vh;
-    font-size: 3.6vh;
-}
-
-.f_designation{
-    text-transform: uppercase;
-    color: rgb(156, 156, 156);
-    font-weight: 600;
-    font-size: 2vh;
-}
-
-.f_desc{
-    /* text-align: justify; */
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.4vw;
-    font-weight: 600;
-    font-size: 2.2vh;
-    transition: all 0.2s;
-    margin-top: 1.6vh;
-
-}
-
-.section:hover .f_desc{
-    gap: 0.8vw;
-    text-decoration: underline;
-}
-
-@media(max-width:1100px){
-    .founders{
-        top: 480vh;
-    }
-    .founder_header{
-        font-size: 3.2vh;
-    }
-    .list{
-        flex-direction:column;
-        gap: 3.2vh;
-    }
-
-    .section{
-        width: 100%;
-    }
-
-    .f_image{
-        height: 40vh;
-        width: 100%;
-        object-fit: cover;
-        object-position: center;
-    }
-
-    .f_name{
-        font-size: 2.8vh;
+  .f_name {
+    font-size: 2.8vh;
     margin: 0.8vh 0;
+  }
 
-    }
-
-    .f_desc{
-        font-size: 1.6vh;
-    }
+  .f_desc {
+    font-size: 1.6vh;
+  }
 }
