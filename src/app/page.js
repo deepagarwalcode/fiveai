@@ -18,6 +18,7 @@ import { disableBodyScroll } from "body-scroll-lock";
 import { useRouter } from "next/navigation";
 import flyThroughState from "../lib/fly-through.json";
 import neuronJson from "../lib/system.json";
+import About from "@/components/About/About";
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -201,6 +202,7 @@ export default function Home() {
 
       <div className={styles.about} ref={aboutRef}>
         <Results showWaitlist={showWaitlist} />
+        <About />
       </div>
       <div className={styles.founders}>
         <Founders showFounder={showFounder} setFounder={setFounder} />

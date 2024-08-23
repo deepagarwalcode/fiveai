@@ -37,9 +37,9 @@ const Results = ({showWaitlist}) => {
         <div>Why Five.ai?</div>
         {/* <div>for Lifelong Success</div> */}
         {/* <div className={styles.cta} onClick={showWaitlist}>Join Waitlist Now</div> */}
-        <div className={styles.button_outer} onClick={showWaitlist}>
+        {/* <div className={styles.button_outer} onClick={showWaitlist}>
           <div className={styles.button_inner}></div>
-        </div>
+        </div> */}
       </div>
       <div className={styles.r_right}>
         {whyUsData.map((point, index) => (
