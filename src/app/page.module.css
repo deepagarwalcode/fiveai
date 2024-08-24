@@ -43,7 +43,6 @@
 .about{
   /* height: 150vh; */
   width: 100%;
-
   height: 100vh;
   background-color: #101010;
 }
@@ -93,7 +92,7 @@
   }
 
   .final{
-    height: 170vh;
+    height: 550vh;
     /* width: 105%; */
     background-color: #101010;
   }

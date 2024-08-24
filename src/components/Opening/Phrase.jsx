@@ -5,7 +5,7 @@ const Phrase = ({phraseRef}) => {
   return (
     <div className={styles.phrase} ref={phraseRef}>
       <div className={styles.line}>
-        <div>Innovating K-12 Education</div>
+        <div>Innovating Education</div>
       </div>
       <div className={styles.line}>
         <div>Like Never Before</div>

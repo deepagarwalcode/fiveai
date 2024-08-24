@@ -19,6 +19,8 @@ import { useRouter } from "next/navigation";
 import flyThroughState from "../lib/fly-through.json";
 import neuronJson from "../lib/system.json";
 import About from "@/components/About/About";
+import Statistics from "@/components/Statistics/Statistics";
+import BackedBy from "@/components/About/BackedBy";
 
 export default function Home() {
   const containerRef = useRef(null);
@@ -45,7 +47,8 @@ export default function Home() {
     document.body.style.overscrollBehavior = "none";
     document.body.style.overflow = "hidden";
 
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
     if (isIOS) {
       // iOS-specific scroll disabling
@@ -156,23 +159,22 @@ export default function Home() {
   const showBottom = () => {
     gsap.to(bottomRef.current, {
       display: "block",
-    })
+    });
 
     gsap.to(openingRef.current, {
       opacity: 0,
-    })
-
-  }
+    });
+  };
 
   const showTop = () => {
     gsap.to(bottomRef.current, {
       display: "none",
-    })
+    });
 
     gsap.to(openingRef.current, {
       opacity: 1,
-    })
-  }
+    });
+  };
 
   return (
     <div
@@ -199,17 +201,18 @@ export default function Home() {
       </div>
       {/* <div className={styles.margin}></div> */}
       <div className={styles.bottom} ref={bottomRef}>
-
-      <div className={styles.about} ref={aboutRef}>
-        <Results showWaitlist={showWaitlist} />
-        <About />
-      </div>
-      <div className={styles.founders}>
-        <Founders showFounder={showFounder} setFounder={setFounder} />
-      </div>
-      <div className={styles.final}>
-        <Ending showWaitlist={showWaitlist} />
-      </div>
+        <div className={styles.about} ref={aboutRef}>
+          <Results showWaitlist={showWaitlist} />
+          <About />
+        </div>
+        <Statistics />
+        <BackedBy />
+        <div className={styles.founders}>
+          <Founders showFounder={showFounder} setFounder={setFounder} />
+        </div>
+        <div className={styles.final}>
+          <Ending showWaitlist={showWaitlist} />
+        </div>
       </div>
 
       <Waitlist waitlistRef={waitlistRef} />

@@ -1,0 +1,75 @@
+.bb_container {
+  position: absolute;
+  z-index: 2;
+  top: 680vh;
+  left: 0;
+  height: 60vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.backed_by {
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 18vh 8vw;
+  /* padding-bottom: 0; */
+  gap: 8vw;
+}
+
+.bb_left > div {
+  font-family: "Clash Display";
+  font-size: 8vh;
+  min-width: max-content;
+}
+
+.bb_right {
+  width: 100%;
+  flex: 1;
+  padding-top: 0.8vh;
+  /* background-color: #fff; */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 3.2vh;
+  font-weight: 500;
+  /* background-color: pink; */
+  gap: 3vh;
+}
+
+.image {
+  flex: 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 1100px) {
+  .bb_container {
+    top: 790vh;
+    height: 70vh;
+    /* background-color: pink; */
+  }
+
+  .backed_by {
+    flex-direction: column;
+    padding: 10vh 8vw;
+    padding-bottom: 0;
+    height: max-content;
+  }
+  .bb_left > div {
+    font-size: 3.2vh;
+  }
+
+  .bb_right {
+    font-size: 2.4vh;
+    flex-direction: column;
+  }
+
+  .image {
+    object-fit: cover;
+    width: 100%;
+  }
+}

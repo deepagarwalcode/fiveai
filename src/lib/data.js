@@ -164,3 +164,46 @@ export const whyUsData = [
       "Forward-thinking curriculum equips your child with the skills needed for tomorrow's careers.",
   },
 ];
+
+export const statsData = [
+  {
+    title: "Foundational Skills Crisis",
+    description:
+      "About 25% of students aged 14-18 in India cannot read a Std II level text fluently in their regional language.",
+  },
+  {
+    title: "Math Struggles",
+    description:
+      "More than half of these students struggle with basic division problems (3-digit by 1-digit), with only 43.3% solving them correctly, a skill expected by Std III/IV.",
+  },
+  {
+    title: "English Proficiency",
+    description:
+      "Only a little over half (57.3%) of students in this age group can read sentences in English, and among those, almost three quarters (73.5%) can understand their meanings.",
+  },
+  {
+    title: "Stress from Studying Alone",
+    description:
+      "69% of first-year college students feel severe homesickness, leading to significant stress and impacting their academic performance.",
+  },
+  {
+    title: "Mental Health Concerns",
+    description:
+      "67% of students who rate their mental health as fair experience chronic stress during college, significantly affecting their well-being and academic success.",
+  },
+  {
+    title: "Exam Anxiety",
+    description:
+      "31% of students identify exams and midterms as their most significant sources of stress, causing anxiety and reduced performance.",
+  },
+  {
+    title: "Mental Health Issues",
+    description:
+      "60% of college students meet the criteria for at least one mental health problem, significantly affecting their well-being and academic success.",
+  },
+  {
+    title: "Emotional Distress",
+    description:
+      "44% of high school students reported feeling sad or hopeless almost every day for two or more weeks in a row, to the point where they stopped doing usual activities.",
+  },
+];
